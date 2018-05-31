@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StackNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation';
 import {Router as AdminRouter} from 'admin/components/Router';
 import {Router as DriverRouter} from 'driver/components/Router';
 import {Router as CompanyRouter} from 'company/components/Router';
@@ -8,32 +8,32 @@ import {Router as GuestRouter} from 'guest/components/Router';
 import NavigatorService from 'components/NavigatorService';
 
 export default class Navigator extends Component {
+
   shouldComponentUpdate(nextProps) {
-    return (
-      this.props.isAuthenticated !== nextProps.isAuthenticated ||
-      this.props.userType !== nextProps.userType
-    );
-    // return false;
+    return this.props.user.id !== nextProps.user.id;
   }
+
+  static defaultProps = {
+    user: {},
+  };
 
   resolveScreenForUser = userType => {
     switch (userType) {
-      case 'driver':
+      case 10:
         return 'Driver';
-      case 'admin':
-        return 'Admin';
-      case 'company':
+      case 20:
         return 'Company';
+      case 100:
+        return 'Admin';
       default:
         return 'Customer';
     }
   };
 
   render() {
-    let {isAuthenticated, userType, logout} = this.props;
+    let {user, logout} = this.props;
 
-    const screen = this.resolveScreenForUser(userType);
-    const AppNavigator = StackNavigator(
+    const AppNavigator = createStackNavigator(
       {
         Guest: {screen: GuestRouter},
         Admin: {screen: AdminRouter},
@@ -43,7 +43,9 @@ export default class Navigator extends Component {
       },
       {
         headerMode: 'none',
-        initialRouteName: isAuthenticated ? screen : 'Customer',
+        initialRouteName: user.id
+          ? this.resolveScreenForUser(user.type)
+          : 'Customer',
       },
     );
 
@@ -52,7 +54,7 @@ export default class Navigator extends Component {
         ref={navigatorRef => {
           NavigatorService.setContainer(navigatorRef);
         }}
-        screenProps={{isAuthenticated, logout}}
+        screenProps={{user, logout}}
       />
     );
   }

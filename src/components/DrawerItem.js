@@ -1,55 +1,43 @@
 /**
  * @flow
  */
-import React from 'react';
-import Touchable from 'react-native-platform-touchable';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import IconFactory from 'components/IconFactory';
+import {DrawerItem as PaperDrawerItem} from 'react-native-paper';
 import colors from 'assets/theme/colors';
-import {StyleSheet, Text, View} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const DrawerItem = ({title, onItemPress, active, icon, routeName}) => {
-  return (
-    <Touchable
-      onPress={() => onItemPress(routeName)}
-      background={Touchable.Ripple(colors.primary, false)}>
-      <View style={styles.container}>
-        <Ionicons
-          name={icon}
-          color={active ? colors.primary : colors.fadedBlack}
-          size={20}
-        />
-        <Text style={[styles.itemTitle, active && styles.activeTitle]}>
-          {title}
-        </Text>
-      </View>
-    </Touchable>
-  );
-};
+export default class DrawerItem extends Component {
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    onItemPress: PropTypes.func.isRequired,
+    active: PropTypes.bool,
+    iconProps: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string,
+      size: PropTypes.number,
+    }).isRequired,
+    routeName: PropTypes.string.isRequired,
+  };
 
-DrawerItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  onItemPress: PropTypes.func.isRequired,
-  active: PropTypes.bool,
-  icon: PropTypes.string.isRequired,
-  routeName: PropTypes.string.isRequired,
-};
+  shouldComponentUpdate(nextProps) {
+    return nextProps.active !== this.props.active;
+  }
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  itemTitle: {
-    fontSize: 18,
-    color: colors.fadedBlack,
-    paddingHorizontal: 10,
-    textAlign: 'left',
-  },
-  activeTitle: {
-    color: colors.primary,
-  },
-});
-
-export default DrawerItem;
+  render() {
+    const {onItemPress, routeName, iconProps, ...rest} = this.props;
+    return (
+      <PaperDrawerItem
+        {...rest}
+        onPress={() => onItemPress(routeName)}
+        icon={
+          <IconFactory
+            {...iconProps}
+            color={this.props.active ? colors.secondary : colors.fadedBlack}
+          />
+        }
+        color={this.props.active ? colors.secondary : colors.fadedBlack}
+      />
+    );
+  }
+}

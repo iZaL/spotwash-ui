@@ -1,5 +1,5 @@
 import React from 'react';
-import {DrawerNavigator, StackNavigator} from 'react-navigation';
+import {createDrawerNavigator, createStackNavigator} from 'react-navigation';
 import Login from 'guest/Login';
 import Register from 'guest/Register';
 import Forgot from 'guest/Forgot';
@@ -11,8 +11,26 @@ import DrawerIcon from 'components/DrawerIcon';
 import BackButton from 'components/BackButton';
 import BidsListScene from 'customer/bids/BidsListScene';
 import BidsDetailScene from 'customer/bids/BidsDetailScene';
+import colors from "assets/theme/colors";
 
-const AuthStack = StackNavigator(
+const getDrawerIcon = navigation => {
+  return {
+    headerLeft: (
+      <DrawerIcon onPress={() => navigation.openDrawer()} />
+    ),
+  };
+};
+
+
+const navStyle = {
+  headerTintColor: colors.primary,
+  headerStyle: {
+    // borderBottomWidth: 0,
+  },
+};
+
+
+const AuthStack = createStackNavigator(
   {
     LoginScreen: {
       screen: Login,
@@ -29,13 +47,11 @@ const AuthStack = StackNavigator(
   },
 );
 
-const HomeStack = StackNavigator({
+const HomeStack = createStackNavigator({
   Home: {
     screen: Home,
     navigationOptions: ({navigation}) => ({
-      headerLeft: (
-        <DrawerIcon onPress={() => navigation.navigate('DrawerToggle')} />
-      ),
+      ...getDrawerIcon(navigation),
     }),
   },
   CreateOrder: {screen: CreateOrder},
@@ -47,15 +63,18 @@ const HomeStack = StackNavigator({
       headerLeft: <BackButton onPress={() => navigation.goBack(null)} />,
     }),
   },
+},{
+  navigationOptions: ({navigation}) => ({
+    gesturesEnabled: false,
+    ...navStyle,
+  }),
 });
 
-const SettingsStack = StackNavigator({
+const SettingsStack = createStackNavigator({
   Settings: {
     screen: Settings,
     navigationOptions: ({navigation}) => ({
-      headerLeft: (
-        <DrawerIcon onPress={() => navigation.navigate('DrawerToggle')} />
-      ),
+      ...getDrawerIcon(navigation),
     }),
   },
 });
@@ -67,8 +86,7 @@ const DrawerRoutes = {
   SettingsStack: {screen: SettingsStack},
 };
 
-export const Router = DrawerNavigator(DrawerRoutes, {
-  gesturesEnabled: false,
+export const Router = createDrawerNavigator(DrawerRoutes, {
   contentComponent: props => <Drawer {...props} />,
   drawerWidth: 275,
 });

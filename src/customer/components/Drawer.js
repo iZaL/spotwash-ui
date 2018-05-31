@@ -2,13 +2,13 @@
  * @flow
  */
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
-import colors from 'assets/theme/colors';
 import I18n from 'utils/locale';
 import DrawerItem from 'components/DrawerItem';
-import Separator from 'components/Separator';
+import {DrawerSection} from "react-native-paper";
+import DrawerHeader from "components/DrawerHeader";
 
 export default class Drawer extends Component {
+
   onItemPress = (routeName: string) => {
     this.setState({
       activeRoute: routeName,
@@ -21,57 +21,50 @@ export default class Drawer extends Component {
   };
 
   render() {
-    let {isAuthenticated, logout} = this.props.screenProps;
+    let {logout,user} = this.props.screenProps;
+    let {activeRoute} = this.state;
 
     return (
-      <View style={styles.container}>
+      <DrawerSection>
+        <DrawerHeader user={user} />
+
         <DrawerItem
-          title={I18n.t('home')}
+          label={I18n.t('home')}
           routeName="HomeStack"
           onItemPress={this.onItemPress}
-          icon="ios-paper-plane"
-          active={this.state.activeRoute === 'HomeStack'}
+          iconProps={{
+            name: 'home-outline',
+            type: 'MaterialCommunityIcons',
+          }}
+          active={activeRoute === 'HomeStack'}
         />
 
-        <Separator />
-
-        <DrawerItem
-          title={I18n.t('settings')}
-          routeName="SettingsStack"
-          onItemPress={this.onItemPress}
-          icon="ios-paper-plane"
-          active={this.state.activeRoute === 'SettingsStack'}
-        />
-
-        <Separator />
-
-        {isAuthenticated ? (
+        {user.id ? (
           <DrawerItem
-            title={I18n.t('logout')}
+            label={I18n.t('logout')}
             routeName="Logout"
             onItemPress={logout}
-            icon="ios-paper-plane"
+            iconProps={{
+              name: 'logout',
+              type: 'MaterialCommunityIcons',
+            }}
             active={this.state.activeRoute === 'Logout'}
           />
         ) : (
           <DrawerItem
-            title={I18n.t('login')}
+            label={I18n.t('login')}
             routeName="Login"
             onItemPress={this.onItemPress}
-            icon="ios-paper-plane"
+            iconProps={{
+              name: 'login',
+              type: 'MaterialCommunityIcons',
+            }}
             active={this.state.activeRoute === 'Login'}
           />
         )}
-      </View>
+
+      </DrawerSection>
+
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.fadedWhite,
-    paddingHorizontal: 10,
-    paddingTop: 30,
-  },
-});

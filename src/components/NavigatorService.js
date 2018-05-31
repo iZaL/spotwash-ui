@@ -32,6 +32,14 @@ function navigate(routeName: string, params?: NavigationParams) {
   );
 }
 
+function back() {
+  _container.dispatch(NavigationActions.back());
+}
+
+function popToTop() {
+  _container.dispatch(NavigationActions.popToTop());
+}
+
 function navigateDeep(
   actions: {routeName: string, params?: NavigationParams}[],
 ) {
@@ -57,14 +65,12 @@ function getCurrentRoute(): NavigationRoute | null {
   return _container.state.nav.routes[_container.state.nav.index] || null;
 }
 
-function back(isNull = false) {
-  _container.dispatch(NavigationActions.back(isNull));
-}
-
 export default {
   setContainer,
   navigateDeep,
   navigate,
   reset,
   getCurrentRoute,
+  back,
+  popToTop,
 };

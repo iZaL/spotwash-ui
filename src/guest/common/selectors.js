@@ -1,27 +1,33 @@
 import {createSelector} from 'reselect';
-import {denormalize} from 'normalizr';
-import {Schema} from 'utils/schema';
 
 const schemas = state => state.entities;
 const isAuthenticated = state => state.user.isAuthenticated;
-const getCurrentUserID = state => state.user.id;
+const usersEntity = state => state.entities.users;
+const getAuthUserID = state => state.user.id;
 
-const getCurrentUser = createSelector(
-  [schemas, getCurrentUserID],
-  (entities, user) => {
-    return  denormalize(user, Schema.users, entities)
+const getAuthUser = createSelector(
+  schemas,
+  usersEntity,
+  getAuthUserID,
+  (entities, users, userID) => {
+    return userID ? users[userID] : {};
   },
 );
 
-const getUserCompany = createSelector(
-  [schemas, getCurrentUser],
+/**
+ * for driver, shipper
+ */
+const getAuthUserProfile = createSelector(
+  schemas,
+  getAuthUser,
   (entities, user) => {
-    return  denormalize(1, Schema.companies, entities)
+    let {id, schema} = user.profile;
+    return entities[schema][id];
   },
 );
 
 export const SELECTORS = {
   isAuthenticated,
-  getCurrentUser,
-  getUserCompany
+  getAuthUser,
+  getAuthUserProfile,
 };
