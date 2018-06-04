@@ -12,6 +12,7 @@ import {ACTIONS as USER_ACTIONS} from 'guest/common/actions';
 import {CODE_PUSH_ENABLED} from 'utils/env';
 import {SELECTORS as USER_SELECTOR} from 'guest/common/selectors';
 import NavigatorService from 'components/NavigatorService';
+import SplashScreen from "./SplashScreen";
 
 class App extends Component {
 
@@ -46,11 +47,14 @@ class App extends Component {
     this.props.dispatch(ACTIONS.setPushToken(token));
   };
 
+  loadApp = () => {
+    this.props.dispatch(ACTIONS.setInstalled(true));
+  };
+
 
   onReceivePushNotifications = (notification: object) => {
     let {foreground, data} = notification;
     let navigation = NavigatorService;
-
     if (!foreground) {
       let {type} = data;
       switch (type) {
@@ -65,27 +69,6 @@ class App extends Component {
           break;
       }
     }
-    //
-    // if (
-    //   notification.data.type &&
-    //   notification.data.type === 'message.created'
-    // ) {
-    //   if (AppState.currentState === 'background') {
-    //     navigateToScene('ChatListScene', {});
-    //     navigateToScene('ChatThreadScene', {
-    //       thread_id: notification.data.thread_id,
-    //       title: '',
-    //     });
-    //   }
-    // }
-
-    // if(notification.)
-
-    // let navigation = NavigatorService;
-    // navigation.navigate('UpcomingOrders');
-    // navigation.navigate('OrderDetail', {
-    //   orderID: 13,
-    // });
   };
 
 
@@ -95,8 +78,17 @@ class App extends Component {
     if (!app.booted) return null;
 
     if (!app.installed) {
+      if (app.has_set_language) {
+        return (
+          <SplashScreen
+            onEndReached={this.loadApp}
+            onLanguageSelect={this.onLanguageSelect}
+          />
+        );
+      }
       return <LanguageSelectScene onItemPress={this.onLanguageSelect} />;
     }
+
 
     return (
       <View style={{flex: 1}}>

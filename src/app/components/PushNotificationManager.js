@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {AppState} from 'react-native';
 import PushNotification from 'react-native-push-notification';
+import {PushNotificationIOS} from 'react-native';
 
 export default class PushNotificationManager extends Component {
   static propTypes = {
     setPushToken: PropTypes.func.isRequired,
+    onReceiveNotifications: PropTypes.func.isRequired,
   };
+
+  shouldComponentUpdate() {
+    return false;
+  }
 
   constructor(props) {
     super(props);
@@ -15,7 +20,11 @@ export default class PushNotificationManager extends Component {
       onRegister: token => {
         this.props.setPushToken(token);
       },
-      onNotification: function(notification) {},
+
+      onNotification: notification => {
+        this.props.onReceiveNotifications(notification);
+        notification.finish(PushNotificationIOS.FetchResult.NoData);
+      },
 
       permissions: {
         alert: true,

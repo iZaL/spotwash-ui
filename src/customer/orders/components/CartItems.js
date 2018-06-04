@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import colors from 'assets/theme/colors';
-import Separator from 'components/Separator';
+import Divider from 'components/Divider';
 
 export default class CartItems extends Component {
   shouldComponentUpdate(nextProps) {
@@ -28,7 +28,7 @@ export default class CartItems extends Component {
                 <Text style={styles.serviceTitle}>{service.name}</Text>
                 <Text style={styles.servicePrice}>{service.price} </Text>
               </View>
-              <Separator style={{flex: 1, marginVertical: 5}} />
+              <Divider style={{flex: 1, marginVertical: 5}} />
             </View>
           ))}
         </View>

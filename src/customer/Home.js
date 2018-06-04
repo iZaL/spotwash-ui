@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Dimensions, Image, ScrollView} from 'react-native';
 import images from 'assets/theme/images';
 import HomeActionButtons from 'customer/components/HomeActionButtons';
-import Separator from 'components/Separator';
+import Divider from 'components/Divider';
 import colors from 'assets/theme/colors';
 import StandingOrdersList from 'customer/orders/components/StandingOrdersList';
 import {connect} from 'react-redux';
@@ -44,7 +44,7 @@ class Home extends Component {
           onFindNearByCompaniesPress={this.onFindNearByCompaniesPress}
         />
 
-        <Separator
+        <Divider
           style={{backgroundColor: colors.mediumGrey, marginHorizontal: 10}}
         />
 

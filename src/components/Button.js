@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableHighlight} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
-import colors from 'theme/colors';
+import {Button as PaperButton} from 'react-native-paper';
 
 export default class Button extends Component {
-
-  // shouldComponentUpdate(nextProps) {
-  //   return nextProps.disabled !== this.props.disabled;
-  // }
+  shouldComponentUpdate(nextProps) {
+    return (
+      nextProps.disabled !== this.props.disabled ||
+      nextProps.title !== this.props.title
+    );
+  }
 
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -20,46 +22,19 @@ export default class Button extends Component {
   };
 
   render() {
-    const {
-      style,
-      background,
-      title,
-      titleStyle,
-      disabled,
-      underlayColor,
-      ...rest
-    } = this.props;
-
+    const {title, titleStyle, disabled, onPress, style, ...rest} = this.props;
     return (
-      <TouchableHighlight
-        {...rest}
+      <PaperButton
         disabled={disabled}
-        underlayColor={underlayColor}
-        style={[
-          styles.button,
-          disabled && {opacity: 0.4},
-          background !== 'primary' && {backgroundColor: colors[background]},
-          style,
-        ]}>
-        <Text style={[styles.buttonText, titleStyle]}>{title}</Text>
-      </TouchableHighlight>
+        onPress={onPress}
+        style={[styles.container, style]}
+        {...rest}>
+        <Text style={[titleStyle]}>{title}</Text>
+      </PaperButton>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.primary,
-    borderRadius: 30,
-    padding: 10,
-    height: 40,
-    width: 200,
-    alignSelf: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 15,
-    fontWeight: '500',
-  },
+  container: {},
 });

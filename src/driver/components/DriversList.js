@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import Touchable from 'react-native-platform-touchable';
-import Separator from 'components/Separator';
+import Divider from 'components/Divider';
 import I18n from 'utils/locale';
 import colors from 'assets/theme/colors';
 

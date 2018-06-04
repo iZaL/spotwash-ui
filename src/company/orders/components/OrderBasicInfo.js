@@ -10,7 +10,7 @@ import CompanyName from 'company/components/CompanyName';
 import CompanyImage from "company/components/CompanyImage";
 import I18n from 'utils/locale';
 import SectionTitle from "components/SectionTitle";
-import Separator from "../../../components/Separator";
+import Divider from "../../../components/Divider";
 
 const OrderBasicInfo = ({item, onPress, style}) => {
   return (
@@ -23,14 +23,14 @@ const OrderBasicInfo = ({item, onPress, style}) => {
           <Text style={styles.value}>{item.id}</Text>
         </View>
 
-        <Separator style={{marginVertical:5}}/>
+        <Divider style={{marginVertical:5}}/>
 
         <View style={styles.content}>
           <Text style={styles.label}>{I18n.t('requested_date')}</Text>
           <Text style={styles.value}>{item.requested_date}</Text>
         </View>
 
-        <Separator style={{marginVertical:5}}/>
+        <Divider style={{marginVertical:5}}/>
 
         <View style={styles.content}>
           <Text style={styles.label}>{I18n.t('address')}</Text>

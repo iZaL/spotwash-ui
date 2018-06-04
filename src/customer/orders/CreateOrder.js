@@ -9,7 +9,7 @@ import I18n from 'utils/locale';
 import DatePicker from 'customer/orders/components/DatePicker';
 import TimePicker from 'customer/orders/components/TimePicker';
 import AddressPicker from 'customer/orders/components/AddressPicker';
-import Separator from 'components/Separator';
+import Divider from 'components/Divider';
 import CategoriesChildrenList from 'customer/orders/components/CategoriesChildrenList';
 import {ScrollView} from 'react-native';
 import {connect} from 'react-redux';
@@ -122,7 +122,7 @@ class CreateOrder extends PureComponent {
           activeItemID={selectedCategoryID}
         />
 
-        <Separator style={{marginVertical: 10}} />
+        <Divider style={{marginVertical: 10}} />
 
         {selectedCategoryID && (
           <CategoriesChildrenList
@@ -145,7 +145,7 @@ class CreateOrder extends PureComponent {
           activeItem={selectedDate}
         />
 
-        <Separator style={{marginVertical: 10}} />
+        <Divider style={{marginVertical: 10}} />
 
         <TimePicker
           items={timings}
@@ -153,7 +153,7 @@ class CreateOrder extends PureComponent {
           activeItemID={selectedTimeID}
         />
 
-        <Separator style={{marginVertical: 10}} />
+        <Divider style={{marginVertical: 10}} />
 
         <AddressPicker
           addresses={user ? (user.addresses ? user.addresses : []) : []}
@@ -162,7 +162,7 @@ class CreateOrder extends PureComponent {
           activeItemID={selectedAddressID}
         />
 
-        <Separator style={{marginVertical: 10}} />
+        <Divider style={{marginVertical: 10}} />
 
         <Button
           title={I18n.t('create_order')}

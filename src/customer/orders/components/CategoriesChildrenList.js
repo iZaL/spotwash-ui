@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, Text, View} from 'react-native';
 import colors from 'assets/theme/colors';
-import Separator from 'components/Separator';
+import Divider from 'components/Divider';
 import PackagesList from 'customer/orders/components/PackagesList';
 
 export default class CategoriesChildrenList extends Component {
@@ -28,7 +28,7 @@ export default class CategoriesChildrenList extends Component {
               />
             </View>
 
-            <Separator
+            <Divider
               style={{backgroundColor: colors.mediumGrey, marginVertical: 10}}
             />
           </View>
