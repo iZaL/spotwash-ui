@@ -179,7 +179,7 @@ function mapStateToProps(state) {
   return {
     categories: SELECTORS.getParentCategories(state),
     timings: SELECTORS.getTimings(state) || [],
-    user: USER_SELECTORS.getCurrentUser(state),
+    user: USER_SELECTORS.getAuthUser(state),
     isAuthenticated: USER_SELECTORS.isAuthenticated(state),
     cart: state.customer.cart,
   };

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React,{Component} from 'react';
 import {
   Animated,
   Dimensions,
@@ -9,9 +9,10 @@ import {
   TouchableHighlight,
   StatusBar,
 } from 'react-native';
-import colors from 'theme/colors';
 
-export default class Notification extends React.Component {
+import colors from 'assets/theme/colors';
+
+export default class Notification extends Component {
   static propTypes = {
     message: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     messageType: PropTypes.string,

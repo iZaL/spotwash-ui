@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.10",
-    "moment": "^2.22.1",
+    "moment": "^2.22.2",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.1",
     "react": "16.4.0",
@@ -21,14 +21,13 @@
     "react-native-i18n": "^2.0.12",
     "react-native-image-crop-picker": "^0.20.3",
     "react-native-maps": "git+ssh://git@github.com:react-community/react-native-maps.git",
-    "react-native-modal": "^6.0.0",
+    "react-native-modal": "^6.1.0",
     "react-native-modal-datetime-picker": "^5.1.0",
-    "react-native-paper": "^1.9.1",
+    "react-native-paper": "^1.10.3",
     "react-native-platform-touchable": "^1.1.1",
     "react-native-push-notification": "^3.0.2",
     "react-native-swiper": "^1.5.13",
     "react-native-vector-icons": "^4.6.0",
-    "react-navigation": "^2.0.4",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
@@ -36,7 +35,8 @@
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "socket.io-client": "^2.1.1",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "react-navigation": "^1.5.12"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -46,7 +46,7 @@
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react-native": "4.0.0",
     "flow-bin": "^0.73.0",
-    "jest": "23.0.1",
+    "jest": "23.1.0",
     "react-test-renderer": "16.4.0"
   },
   "jest": {

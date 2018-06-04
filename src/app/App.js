@@ -5,14 +5,15 @@ import CodePush from 'react-native-code-push';
 import PushNotificationManager from 'app/components/PushNotificationManager';
 import Notification from 'app/components/Notification';
 import Navigator from 'components/Navigator';
-import {View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {connect} from 'react-redux';
 import {ACTIONS} from 'app/common/actions';
 import {ACTIONS as USER_ACTIONS} from 'guest/common/actions';
 import {CODE_PUSH_ENABLED} from 'utils/env';
 import {SELECTORS as USER_SELECTOR} from 'guest/common/selectors';
 import NavigatorService from 'components/NavigatorService';
-import SplashScreen from "./SplashScreen";
+import colors from 'assets/theme/colors';
+import SplashScreen from 'app/SplashScreen';
 
 class App extends Component {
 
@@ -36,7 +37,7 @@ class App extends Component {
   };
 
   dismissNotification = () => {
-    this.props.dispatch(ACTIONS.dismissNotification());
+    // this.props.dispatch(ACTIONS.dismissNotification());
   };
 
   logout = () => {
@@ -92,6 +93,7 @@ class App extends Component {
 
     return (
       <View style={{flex: 1}}>
+        <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
 
         <Notification
           {...notifications}

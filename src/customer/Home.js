@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, Image, ScrollView} from 'react-native';
+import {Button, Dimensions, Image, ScrollView} from 'react-native';
 import images from 'assets/theme/images';
 import HomeActionButtons from 'customer/components/HomeActionButtons';
 import Divider from 'components/Divider';
@@ -8,11 +8,24 @@ import StandingOrdersList from 'customer/orders/components/StandingOrdersList';
 import {connect} from 'react-redux';
 import {ACTIONS as ORDER_ACTIONS} from 'customer/actions/orders';
 import {SELECTORS as ORDER_SELECTORS} from 'customer/selectors/orders';
+import DrawerIcon from "../components/DrawerIcon";
 
 class Home extends Component {
   componentDidMount() {
-    this.props.dispatch(ORDER_ACTIONS.fetchStandingOrders());
+    // this.props.dispatch(ORDER_ACTIONS.fetchStandingOrders());
   }
+
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+
+    return {
+      headerLeft: (
+        <DrawerIcon onPress={()=>navigation.openDrawer()} />
+      ),
+    };
+  };
+
+
 
   onCreateOrderPress = () => {
     this.props.navigation.navigate('CreateOrder');

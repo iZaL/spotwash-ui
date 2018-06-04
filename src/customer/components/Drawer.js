@@ -26,6 +26,7 @@ export default class Drawer extends Component {
 
     return (
       <DrawerSection>
+
         <DrawerHeader user={user} />
 
         <DrawerItem
@@ -48,7 +49,7 @@ export default class Drawer extends Component {
               name: 'logout',
               type: 'MaterialCommunityIcons',
             }}
-            active={this.state.activeRoute === 'Logout'}
+            active={activeRoute === 'Logout'}
           />
         ) : (
           <DrawerItem
@@ -59,7 +60,7 @@ export default class Drawer extends Component {
               name: 'login',
               type: 'MaterialCommunityIcons',
             }}
-            active={this.state.activeRoute === 'Login'}
+            active={activeRoute === 'Login'}
           />
         )}
 
