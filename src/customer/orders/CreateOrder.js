@@ -21,6 +21,7 @@ import Dialog from 'components/Dialog';
 import IconFactory from 'components/IconFactory';
 import FreeWash from 'customer/components/FreeWash';
 import Modal from 'react-native-modal';
+import CategoriesChildrenList from "./components/CategoriesChildrenList";
 
 type State = {
   showCartSuccessModal: boolean,
@@ -103,31 +104,52 @@ class CreateOrder extends PureComponent {
     });
   };
 
+  // onCategoriesListItemPress = (item: object) => {
+  //   this.props.dispatch(
+  //     CART_ACTIONS.setCartItems({
+  //       activeCategoryID:item.id,
+  //       activePackageIDs:[]
+  //     }),
+  //   );
+  // };
+  //
+
   onCategoriesListItemPress = (item: object) => {
     if (this.props.cart.activeCategoryID !== item.id) {
       this.props.actions.setCartItems({
         activeCategoryID: item.id,
-        activePackageID: undefined,
-        activeServicesIDs: [],
+        activePackageIDs: undefined,
       });
     }
   };
 
-  onPackagesListItemPress = (item: object) => {
-    let params = {
-      activePackageID: item.id,
-      total: parseFloat(item.price),
-    };
+  onPackagesListItemPress = (item: object, packages: Array) => {
+    let activePackages = this.props.cart.activePackageIDs;
+    let filteredPackages = activePackages.filter(
+      id => packages.indexOf(id) === -1,
+    );
+    let newPackages = filteredPackages.concat(item.id);
 
-    if (this.props.cart.activePackageID !== item.id) {
-      params = {
-        ...params,
-        activeServicesIDs: [],
-      };
-    }
-
-    this.props.actions.setCartItems(params);
+    this.props.actions.setCartItems({
+      'activePackageIDs' : newPackages
+    });
   };
+  //
+  // onPackagesListItemPress = (item: object) => {
+  //   let params = {
+  //     activePackageID: item.id,
+  //     total: parseFloat(item.price),
+  //   };
+  //
+  //   if (this.props.cart.activePackageID !== item.id) {
+  //     params = {
+  //       ...params,
+  //       activeServicesIDs: [],
+  //     };
+  //   }
+  //
+  //   this.props.actions.setCartItems(params);
+  // };
 
   onServicesListItemPress = (item: object) => {
     const {total, activeServicesIDs} = this.props.cart;
@@ -221,51 +243,46 @@ class CreateOrder extends PureComponent {
   render() {
     const {
       activeCategoryID,
-      activePackageID,
-      activeServicesIDs,
+      activePackageIDs,
       total,
     } = this.props.cart;
     const {categories} = this.props;
 
     const {showCartSuccessModal, showFreewashModal} = this.state;
 
-    let activeCategory = activeCategoryID
-      ? categories.find(item => item.id === activeCategoryID)
-      : categories.length
-        ? categories[0]
-        : {
-            id: undefined,
-            packages: [],
-          };
+    // let activeCategory = activeCategoryID
+    //   ? categories.find(item => item.id === activeCategoryID)
+    //   : categories.length
+    //     ? categories[0]
+    //     : {
+    //         id: undefined,
+    //         packages: [],
+    //       };
 
     return (
       <ScrollView
         style={{flex: 1, backgroundColor: 'white'}}
         keyboardShouldPersistTaps={'always'}
         contentInset={{bottom: 50}}>
+
         <CategoriesList
           items={categories}
           onItemPress={this.onCategoriesListItemPress}
           activeItemID={activeCategoryID}
         />
 
-        {activeCategory.packages &&
-          activeCategory.packages.length && (
-            <PackagesList
-              items={activeCategory.packages}
-              onItemPress={this.onPackagesListItemPress}
-              activeItemID={activePackageID}
-            />
-          )}
-
-        {activePackageID && (
-          <ServicesList
+        {activeCategoryID && (
+          <CategoriesChildrenList
             items={
-              activeCategory.packages.find(item => item.id === activePackageID)
-                .services
+              (categories.find(
+                category => category.id === activeCategoryID,
+                ) &&
+                categories.find(category => category.id === activeCategoryID)
+                  .children) ||
+              []
             }
-            onItemPress={this.onServicesListItemPress}
-            activeItemIDs={activeServicesIDs}
+            onItemPress={this.onPackagesListItemPress}
+            activePackageIDs={activePackageIDs}
           />
         )}
 
@@ -281,7 +298,7 @@ class CreateOrder extends PureComponent {
 
         <Button
           onPress={this.onAddToCartPress}
-          disabled={!activePackageID}
+          disabled={!activePackageIDs || !activePackageIDs.length}
           raised
           dark
           style={{

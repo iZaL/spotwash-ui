@@ -1,85 +1,56 @@
-/**
- @flow
- */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, View} from 'react-native';
-import colors from 'assets/theme/colors';
-import Accordion from 'react-native-collapsible/Accordion';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
 import Touchable from 'react-native-platform-touchable';
-
-let SectionHeader = ({item}) => {
-  return (
-    <View style={[styles.sectionContainer]}>
-      <View>
-        <Text style={[styles.headerText]}>{item.name}</Text>
-      </View>
-      <View style={styles.line} />
-    </View>
-  );
-};
+import colors from 'assets/theme/colors';
 
 export default class PackagesList extends Component {
-  renderSectionHeader = items => {
-    return items.map(item => item);
-  };
-
-  renderHeader = (item, index, isActive) => {
-    let {onItemPress, activeItemID} = this.props;
+  shouldComponentUpdate(nextProps) {
     return (
-      <View style={styles.headerContainer}>
-        <Touchable onPress={() => onItemPress(item)} key={item.id}>
-          <FontAwesome
-            name={item.id === activeItemID ? 'check-circle' : 'circle-thin'}
-            color={colors.primary}
-            size={25}
-            style={[{flex: 0.1, paddingTop: 5, paddingRight: 5}, styles.icon]}
-          />
-        </Touchable>
-
-        <SectionHeader item={item} />
-
-        <FontAwesome
-          name={isActive ? 'minus-square-o' : 'plus-square-o'}
-          color={colors.primary}
-          size={25}
-          style={styles.icon}
-        />
-      </View>
+      nextProps.items !== this.props.items ||
+      nextProps.activeItemIDs !== this.props.activeItemIDs
     );
-  };
+  }
 
-  renderContent = item => {
+  renderItem = ({item}) => {
+    const {onItemPress, activeItemIDs, items} = this.props;
+
+    let itemsIds = items.map(item => item.id);
     return (
-      <View>
-        <View style={styles.contentContainer}>
-          <View style={styles.rowContent}>
-            <Text style={[styles.itemName]}>{item.description}</Text>
-            {item.price && <Text style={styles.price}>{item.price} KD</Text>}
-          </View>
+      <Touchable onPress={() => onItemPress(item, itemsIds)} key={item.id}>
+        <View
+          style={[
+            styles.itemContainer,
+            activeItemIDs.indexOf(item.id) > -1 && {
+              backgroundColor: colors.primary,
+            },
+          ]}>
+          {/*<Image source={{uri: item.image}} style={styles.image} />*/}
+          <Text
+            style={[
+              styles.title,
+              activeItemIDs.indexOf(item.id) > -1 && {
+                color: colors.white,
+              },
+            ]}>
+            {item.name}
+          </Text>
         </View>
-      </View>
+      </Touchable>
     );
   };
 
   render() {
-    const {items} = this.props;
-
+    const {items, activeItemIDs} = this.props;
     return (
-      <View style={styles.container}>
-        {/*<Text style={styles.sectionTitle}>{I18n.t('packages')}</Text>*/}
-
-        <View style={styles.listContainer}>
-          <Accordion
-            sections={this.renderSectionHeader(items)}
-            renderHeader={this.renderHeader}
-            renderContent={this.renderContent}
-            underlayColor="transparent"
-            expanded={false}
-          />
-        </View>
-      </View>
+      <FlatList
+        data={items}
+        renderItem={this.renderItem}
+        style={styles.listContainer}
+        keyExtractor={item => item.id}
+        extraData={activeItemIDs}
+        numColumns={2}
+      />
     );
   }
 }
@@ -87,59 +58,35 @@ export default class PackagesList extends Component {
 PackagesList.propTypes = {
   items: PropTypes.array.isRequired,
   onItemPress: PropTypes.func.isRequired,
+  activeItemIDs: PropTypes.array.isRequired,
 };
 
-let styles = StyleSheet.create({
-  listContainer: {
-    marginHorizontal: 10,
-  },
-  container: {
-    paddingVertical: 10,
+const styles = StyleSheet.create({
+  container: {paddingVertical: 10},
+  listContainer: {},
+  itemContainer: {
+    flexDirection: 'row',
     backgroundColor: 'white',
-  },
-  sectionContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  contentContainer: {},
-  rowContent: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  itemName: {
-    color: colors.black,
-    flex: 1,
-    textAlign: 'left',
-  },
-  itemValue: {
-    color: colors.darkGrey,
-  },
-  line: {
-    flex: 1,
-    height: 0.5,
-    backgroundColor: colors.lightGrey,
+    borderRadius: 5,
+    paddingVertical: 5,
     marginHorizontal: 10,
+    marginVertical: 5,
+    width: Dimensions.get('window').width / 2 - 20,
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
-  icon: {},
-  headerText: {
-    textAlign: 'left',
-    fontSize: 25,
-    color: colors.fadedBlack,
-    alignSelf: 'center',
+  image: {
+    width: 25,
+    height: 17,
   },
-  price: {
-    fontSize: 25,
-    fontWeight: 'bold',
+  title: {
+    fontSize: 18,
+    paddingHorizontal: 10,
   },
   sectionTitle: {
+    textAlign: 'left',
     fontSize: 20,
     paddingHorizontal: 10,
+    // color: colors.fadedBlack
   },
 });

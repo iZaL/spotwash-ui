@@ -101,13 +101,6 @@ function addToCart(item: object) {
   };
 }
 
-function setCartItem(key, value) {
-  return {
-    type: ACTION_TYPES.CART_SET_ITEM,
-    key,
-    value,
-  };
-}
 
 function removeCartItem(key) {
   return {
@@ -126,6 +119,14 @@ function setCartItems(params: object) {
   return {
     type: ACTION_TYPES.CART_SET_ITEMS,
     params,
+  };
+}
+
+function setCartItem(key, value) {
+  return {
+    type: ACTION_TYPES.CART_SET_ITEM,
+    key,
+    value,
   };
 }
 
@@ -255,6 +256,7 @@ export const ACTIONS = {
   updateAddress,
   checkout,
   setCartItems,
+  setCartItem,
   subscribeToOrderTracking,
   fetchUpcomingOrders,
   fetchUpcomingOrdersRefresh,

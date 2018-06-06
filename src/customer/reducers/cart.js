@@ -10,8 +10,7 @@ const initialState = {
   selectedTimeID: null,
   selectedAddressID: null,
   activeCategoryID: null,
-  activePackageID: null,
-  activeServicesIDs: [],
+  activePackageIDs: [],
   hasFreeWash: false,
   isFreeWash: false,
 };

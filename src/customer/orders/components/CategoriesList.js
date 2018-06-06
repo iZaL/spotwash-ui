@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, FlatList, View, Text, Image} from 'react-native';
+import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import colors from 'assets/theme/colors';
+import I18n from 'utils/locale';
 
 export default class CategoriesList extends Component {
   shouldComponentUpdate(nextProps) {
@@ -14,24 +15,21 @@ export default class CategoriesList extends Component {
 
   renderItem = ({item}) => {
     const {onItemPress, activeItemID} = this.props;
+
     return (
       <Touchable onPress={() => onItemPress(item)} key={item.id}>
         <View
           style={[
             styles.itemContainer,
-            item.id === activeItemID && {backgroundColor: colors.white},
+            activeItemID === item.id && {
+              backgroundColor: colors.primary,
+            },
           ]}>
-          <Image
-            source={{uri: item.image}}
-            style={styles.image}
-            resizeMode="contain"
-          />
           <Text
             style={[
               styles.title,
-              item.id === activeItemID && {
-                color: colors.primary,
-                fontWeight: 'bold',
+              activeItemID === item.id && {
+                color: colors.white,
               },
             ]}>
             {item.name}
@@ -43,16 +41,18 @@ export default class CategoriesList extends Component {
 
   render() {
     const {items, activeItemID} = this.props;
-
     return (
-      <FlatList
-        data={items}
-        renderItem={this.renderItem}
-        style={styles.listContainer}
-        keyExtractor={(item, index) => `${index}`}
-        horizontal={true}
-        extraData={activeItemID}
-      />
+      <View style={styles.container}>
+        <Text style={styles.sectionTitle}>{I18n.t('select_car_size')}</Text>
+        <FlatList
+          data={items}
+          renderItem={this.renderItem}
+          style={styles.listContainer}
+          keyExtractor={item => item.id}
+          extraData={activeItemID}
+          numColumns={2}
+        />
+      </View>
     );
   }
 }
@@ -60,24 +60,36 @@ export default class CategoriesList extends Component {
 CategoriesList.propTypes = {
   items: PropTypes.array.isRequired,
   onItemPress: PropTypes.func.isRequired,
-  activeItemID: PropTypes.number,
+  activeItemID: PropTypes.oneOfType([PropTypes.number]),
 };
 
 const styles = StyleSheet.create({
-  listContainer: {
-    backgroundColor: '#efefef',
-  },
+  container: {paddingVertical: 10},
+  listContainer: {},
   itemContainer: {
-    padding: 10,
-    marginHorizontal: 5,
-    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingVertical: 5,
+    marginHorizontal: 10,
     marginVertical: 5,
-    backgroundColor: colors.lightGrey,
+    // marginRight: 10,
+    width: Dimensions.get('window').width / 2 - 20,
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   image: {
-    width: 80,
-    height: 60,
-    marginBottom: 10,
+    width: 25,
+    height: 17,
   },
-  title: {},
+  title: {
+    fontSize: 18,
+    paddingHorizontal: 10,
+  },
+  sectionTitle: {
+    textAlign: 'left',
+    fontSize: 20,
+    paddingHorizontal: 10,
+    // color: colors.fadedBlack
+  },
 });
