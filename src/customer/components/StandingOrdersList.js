@@ -67,9 +67,6 @@ export default class StandingOrdersList extends Component {
         style={styles.listContainer}
         keyExtractor={(item, index) => `${index}`}
         contentContainerStyle={styles.contentContainerStyle}
-        ListHeaderComponent={
-          <HomeActionButtons onCreateOrderPress={onCreateOrderPress} />
-        }
       />
     );
   }

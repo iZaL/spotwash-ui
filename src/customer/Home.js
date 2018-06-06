@@ -1,15 +1,19 @@
 import React, {Component} from 'react';
 import {
-  AppState,
+  AppState, Image,
   ImageBackground,
   RefreshControl,
   ScrollView,
+  Dimensions
 } from 'react-native';
 import {SELECTORS} from 'customer/selectors/orders';
 import {connect} from 'react-redux';
 import {ACTIONS as ORDER_ACTIONS} from 'customer/common/actions';
 import StandingOrdersList from 'customer/components/StandingOrdersList';
 import colors from 'assets/theme/colors';
+import HomeActionButtons from "./components/HomeActionButtons";
+import images from 'assets/theme/images';
+import Divider from "../components/Divider";
 
 class Home extends Component {
   static defaultProps = {
@@ -27,7 +31,6 @@ class Home extends Component {
         backgroundColor: colors.secondary,
         borderBottomWidth: 0,
       },
-      // headerLeft: <DrawerIcon onPress={() => navigation.navigate('DrawerToggle')} />,
     };
   };
 
@@ -85,29 +88,27 @@ class Home extends Component {
     let {working_order} = this.props;
 
     return (
-      <ImageBackground
-        source={require('./../assets/images/home-bg.png')}
-        resizeMode="stretch"
-        style={{flex: 1, backgroundColor: '#2D72A8'}}>
-        {/*<HomeActionButtons*/}
-        {/*onCreateOrderPress={this.onCreateOrderPress}*/}
-        {/*onProtectionPress={this.onProtectionPress}*/}
-        {/*/>*/}
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={this.onRefresh} />
+        }
+        refreshing={false}
+        >
 
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={false} onRefresh={this.onRefresh} />
-          }
-          refreshing={false}
-          contentContainerStyle={{paddingTop: 400}}>
-          <StandingOrdersList
-            items={working_order}
-            onItemPress={this.onStandingOrderListItemPress}
-            onItemTrackPress={this.onItemTrackPress}
-            onCreateOrderPress={this.onCreateOrderPress}
-          />
-        </ScrollView>
-      </ImageBackground>
+        <HomeActionButtons
+          onCreateOrderPress={this.onCreateOrderPress}
+          onFindNearByCompaniesPress={this.onFindNearByCompaniesPress}
+        />
+
+        <Divider/>
+
+        <StandingOrdersList
+          items={working_order}
+          onItemPress={this.onStandingOrderListItemPress}
+          onItemTrackPress={this.onItemTrackPress}
+          onCreateOrderPress={this.onCreateOrderPress}
+        />
+      </ScrollView>
     );
   }
 }
