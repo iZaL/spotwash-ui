@@ -9,7 +9,6 @@ import colors from 'assets/theme/colors';
 import {Text} from 'react-native';
 
 const CompanyName = ({name, ...props}) => {
-  // let name = company.name ? company.name : company.user.name;
   return <Text {...props}>{name}</Text>;
 };
 

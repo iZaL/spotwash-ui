@@ -9,7 +9,6 @@ import Button from 'components/Button';
 import Divider from 'components/Divider';
 
 export default class SplashScreen extends Component {
-
   static propTypes = {
     onEndReached: PropTypes.func.isRequired,
     onLanguageSelect: PropTypes.func.isRequired,

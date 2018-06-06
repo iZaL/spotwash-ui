@@ -94,7 +94,7 @@ export default class SplashScene extends React.Component {
               <TouchableHighlight
                 hitSlop={{top: 20, left: 20, right: 20, bottom: 20}}
                 onPress={() => {
-                  this.props.actions.setInstalled(true);
+                  this.props.actions.setBootstrapped(true);
                 }}>
                 <Text style={[styles.text, styles.textUnderline]}>
                   Start Browsing

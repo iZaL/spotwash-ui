@@ -16,7 +16,6 @@ import colors from 'assets/theme/colors';
 import SplashScreen from 'app/SplashScreen';
 
 class App extends Component {
-
   static propTypes = {
     app: PropTypes.object.isRequired,
   };
@@ -37,7 +36,7 @@ class App extends Component {
   };
 
   dismissNotification = () => {
-    // this.props.dispatch(ACTIONS.dismissNotification());
+    this.props.dispatch(ACTIONS.dismissNotification());
   };
 
   logout = () => {
@@ -48,14 +47,10 @@ class App extends Component {
     this.props.dispatch(ACTIONS.setPushToken(token));
   };
 
-  loadApp = () => {
-    this.props.dispatch(ACTIONS.setInstalled(true));
-  };
-
-
   onReceivePushNotifications = (notification: object) => {
     let {foreground, data} = notification;
     let navigation = NavigatorService;
+
     if (!foreground) {
       let {type} = data;
       switch (type) {
@@ -70,8 +65,32 @@ class App extends Component {
           break;
       }
     }
+    //
+    // if (
+    //   notification.data.type &&
+    //   notification.data.type === 'message.created'
+    // ) {
+    //   if (AppState.currentState === 'background') {
+    //     navigateToScene('ChatListScene', {});
+    //     navigateToScene('ChatThreadScene', {
+    //       thread_id: notification.data.thread_id,
+    //       title: '',
+    //     });
+    //   }
+    // }
+
+    // if(notification.)
+
+    // let navigation = NavigatorService;
+    // navigation.navigate('UpcomingOrders');
+    // navigation.navigate('OrderDetail', {
+    //   orderID: 13,
+    // });
   };
 
+  loadApp = () => {
+    this.props.dispatch(ACTIONS.setInstalled(true));
+  };
 
   render() {
     const {app, notifications, user} = this.props;
@@ -90,9 +109,8 @@ class App extends Component {
       return <LanguageSelectScene onItemPress={this.onLanguageSelect} />;
     }
 
-
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: colors.primary}}>
         <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
 
         <Notification
@@ -105,10 +123,7 @@ class App extends Component {
           onReceiveNotifications={this.onReceivePushNotifications}
         />
 
-        <Navigator
-          user={user}
-          logout={this.logout}
-        />
+        <Navigator user={user} logout={this.logout} />
       </View>
     );
   }

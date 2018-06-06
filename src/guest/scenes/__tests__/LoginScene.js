@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import LoginScene from 'guest/scenes/LoginScene';
+import LoginScene from 'LoginScene';
 
 test('renders Notification Component', () => {
   const tree = renderer.create(

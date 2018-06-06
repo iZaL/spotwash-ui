@@ -23,6 +23,7 @@ export default class Button extends Component {
 
   render() {
     const {title, titleStyle, disabled, onPress, style, ...rest} = this.props;
+
     return (
       <PaperButton
         disabled={disabled}

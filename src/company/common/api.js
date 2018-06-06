@@ -1,55 +1,68 @@
 import {request} from 'utils/network';
 
-function fetchStandingOrders(params = '') {
-  const url = `company/orders${params}`;
-  return request({url, requiresAuthentication: true});
+function fetchUpcomingOrders(params = {}) {
+  const path = `company/orders/upcoming`;
+  return request({path, requiresAuthentication: true, params});
+}
+
+function fetchPastOrders(params = {}) {
+  const path = `company/orders/past`;
+  return request({path, requiresAuthentication: true, params});
+}
+
+function fetchWorkingOrders(params = {}) {
+  const path = `company/orders/working`;
+  return request({path, requiresAuthentication: true, params});
 }
 
 function fetchDrivers() {
-  const url = `company/drivers`;
-  return request({url, requiresAuthentication: true});
+  const path = `company/drivers`;
+  return request({path, requiresAuthentication: true});
 }
 
-function fetchBidForOrder(params = '') {
-  const url = `company/orders/${params.order_id}/bid`;
-  return request({url, requiresAuthentication: true});
+function fetchDriver(id) {
+  const path = `company/drivers/${id}/details`;
+  return request({path, requiresAuthentication: true});
 }
 
-function makeBid(params) {
-  const url = `company/orders/${params.order_id}/bids`;
+function fetchOrderDetails(id) {
+  const path = `company/orders/${id}/details`;
+  return request({path, requiresAuthentication: true});
+}
+
+function fetchTimings() {
+  const path = `company/timings`;
+  return request({path});
+}
+
+function assignDriver(id, params) {
+  const path = `company/orders/${id}/drivers/assign`;
   let requestParams = {
-    url,
-    body: params,
+    path,
     method: 'POST',
+    params,
   };
   return request(requestParams);
 }
 
-function cancelBid(params) {
-  const url = `company/orders/${params.order_id}/bids/cancel`;
+function saveDriverAttributes(params) {
+  const path = `company/drivers/update`;
   let requestParams = {
-    url,
+    path,
     method: 'POST',
+    params,
   };
   return request(requestParams);
 }
-
-function assignDriver(params) {
-  const url = `company/orders/${params.order_id}/drivers/assign`;
-  let requestParams = {
-    url,
-    method: 'POST',
-    body:params
-  };
-  return request(requestParams);
-}
-
 
 export const API = {
-  fetchStandingOrders,
-  makeBid,
-  cancelBid,
-  fetchBidForOrder,
+  fetchUpcomingOrders,
+  fetchWorkingOrders,
+  fetchPastOrders,
+  fetchOrderDetails,
+  fetchTimings,
   fetchDrivers,
-  assignDriver
+  fetchDriver,
+  assignDriver,
+  saveDriverAttributes,
 };

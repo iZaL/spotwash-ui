@@ -1,5 +1,5 @@
-import user from 'guest/common/reducer';
-import {ACTION_TYPES} from 'guest/common/actions';
+import user from 'reducer';
+import {ACTION_TYPES} from 'actions';
 
 describe('App Component Store', () => {
   let initialState = {

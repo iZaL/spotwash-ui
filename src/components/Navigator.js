@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import {createSwitchNavigator} from 'react-navigation';
-import {Router as AdminRouter} from 'admin/components/Router';
+import NavigatorService from 'components/NavigatorService';
+import {SwitchNavigator} from 'react-navigation';
+import {Router as AdminRouter} from 'company/components/Router';
 import {Router as DriverRouter} from 'driver/components/Router';
-import {Router as CompanyRouter} from 'company/components/Router';
 import {Router as CustomerRouter} from 'customer/components/Router';
 import {Router as GuestRouter} from 'guest/components/Router';
-import NavigatorService from 'components/NavigatorService';
 
 export default class Navigator extends Component {
-
   shouldComponentUpdate(nextProps) {
     return this.props.user.id !== nextProps.user.id;
   }
@@ -21,8 +19,6 @@ export default class Navigator extends Component {
     switch (userType) {
       case 10:
         return 'Driver';
-      case 20:
-        return 'Company';
       case 100:
         return 'Admin';
       default:
@@ -33,12 +29,11 @@ export default class Navigator extends Component {
   render() {
     let {user, logout} = this.props;
 
-    const AppNavigator = createSwitchNavigator(
+    const AppNavigator = SwitchNavigator(
       {
         Guest: {screen: GuestRouter},
         Admin: {screen: AdminRouter},
         Driver: {screen: DriverRouter},
-        Company: {screen: CompanyRouter},
         Customer: {screen: CustomerRouter},
       },
       {

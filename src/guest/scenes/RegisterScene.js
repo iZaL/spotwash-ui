@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import NavBar from 'components/NavBar';
-import NavButton from 'components/NavButton';
-import I18n, {isRTL} from 'utils/locale';
+import I18n from 'utils/locale';
 import FormLabel from 'components/FormLabel';
 import FormTextInput from 'components/FormTextInput';
 import FormSubmit from 'components/FormSubmit';
@@ -13,19 +11,16 @@ export default class RegisterScene extends Component {
   static propTypes = {
     handleRegister: PropTypes.func.isRequired,
     onFieldChange: PropTypes.func.isRequired,
-    name_en: PropTypes.string.isRequired,
-    name_ar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     mobile: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     busy: PropTypes.bool.isRequired,
-    isCompany: PropTypes.bool.isRequired,
   };
 
   render() {
     const {
-      name_en,
-      name_ar,
+      name,
       email,
       mobile,
       password,
@@ -33,80 +28,53 @@ export default class RegisterScene extends Component {
       onFieldChange,
       handleRegister,
       busy,
-      isCompany,
     } = this.props;
 
     return (
       <View style={styles.container}>
-        {isCompany ? (
-          <View>
-            <FormLabel title={I18n.t('company_name_en')} />
-            <FormTextInput
-              onChangeText={value => onFieldChange('name_en', value)}
-              value={name_en}
-              maxLength={40}
-              placeholder={I18n.t('name_en')}
-              autoFocus={true}
-            />
-
-            <FormLabel title={I18n.t('company_name_ar')} />
-            <FormTextInput
-              onChangeText={value => onFieldChange('name_ar', value)}
-              value={name_ar}
-              maxLength={40}
-              placeholder={I18n.t('name_ar')}
-              autoFocus={true}
-            />
-          </View>
-        ) : (
-          <View>
-            <FormLabel title={I18n.t('name')} />
-            <FormTextInput
-              onChangeText={value => onFieldChange('name_en', value)}
-              value={name_en}
-              maxLength={40}
-              placeholder={I18n.t('name')}
-              autoFocus={true}
-            />
-          </View>
-        )}
+        <FormLabel title={I18n.t('name')} />
+        <FormTextInput
+          onValueChange={value => onFieldChange('name', value)}
+          value={name}
+          maxLength={40}
+          label={I18n.t('name')}
+        />
 
         <FormLabel title={I18n.t('email')} />
-
         <FormTextInput
-          onChangeText={value => onFieldChange('email', value)}
+          onValueChange={value => onFieldChange('email', value)}
           value={email}
           maxLength={40}
-          placeholder={I18n.t('email')}
+          label={I18n.t('email')}
           keyboardType="email-address"
         />
 
         <FormLabel title={I18n.t('mobile')} />
 
         <FormTextInput
-          onChangeText={value => onFieldChange('mobile', value)}
+          onValueChange={value => onFieldChange('mobile', value)}
           value={mobile}
           maxLength={40}
-          placeholder={I18n.t('mobile')}
+          label={I18n.t('mobile')}
           keyboardType="phone-pad"
         />
 
         <FormLabel title={I18n.t('password')} />
         <FormTextInput
-          onChangeText={value => onFieldChange('password', value)}
+          onValueChange={value => onFieldChange('password', value)}
           value={password}
           maxLength={40}
-          placeholder={I18n.t('password')}
+          label={I18n.t('password')}
           secureTextEntry={true}
         />
 
         <FormLabel title={I18n.t('confirm_password')} />
         <FormTextInput
-          onChangeText={value => onFieldChange('password_confirmation', value)}
+          onValueChange={value => onFieldChange('password_confirmation', value)}
           value={password_confirmation}
           maxLength={40}
           secureTextEntry={true}
-          placeholder={I18n.t('password')}
+          label={I18n.t('password')}
         />
 
         <FormSubmit

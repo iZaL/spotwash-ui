@@ -4,37 +4,49 @@ import {getStorageItem} from 'utils/functions';
 import NavigatorService from 'components/NavigatorService';
 
 export async function request({
-  url,
+  path,
+  protocol = 'http://',
+  domain = null, //http://wwww.waa.com
   method = 'GET',
-  body = null,
-  isBlob = false,
+  params = {
+    body: null, // for POST
+    query: '', // in path abc=1 // must be QS.stringified
+    isBlob: false,
+    paginated: false,
+    paginatedUrl: '',
+  },
   requiresAuthentication = false,
   forceAuthentication = false,
 }) {
-  const delimiter = url.indexOf('?') === -1 ? '?' : '&';
-  const localeAwareUrl = `${API_URL}/${url + delimiter}lang=${I18n.locale}`;
+  let {paginated, paginatedUrl, body, isBlob, query} = params;
+
+  let fullUrl;
+
+  if (paginated) {
+    fullUrl = paginatedUrl;
+  } else {
+    let localeAwareUrl = domain
+      ? domain
+      : `${protocol + API_URL}/${path}?lang=${I18n.locale}&`;
+    fullUrl = localeAwareUrl + query;
+  }
+
   const apiToken = await getStorageItem(AUTH_KEY);
 
   if (__DEV__) {
     if (console.group) {
       console.groupCollapsed('action', 'NETWORK_REQUEST');
       console.log({
+        path: fullUrl,
         method: method,
-        body: body,
-        url: localeAwareUrl,
+        params: params,
+        api_token: apiToken,
       });
       console.groupEnd();
     }
   }
 
   if (requiresAuthentication && !apiToken) {
-    // if (__DEV__) {
-    //   if (console.group) {
-    //     console.groupCollapsed('action', 'NETWORK_REQUEST_FAILED');
-    //     console.log('NOT_AUTHENTICATED');
-    //     console.groupEnd();
-    //   }
-    // }
     if (forceAuthentication) {
       NavigatorService.navigate('Login');
     }
@@ -49,7 +61,7 @@ export async function request({
     isBlob ? 'multipart/form-data' : 'application/json',
   );
 
-  const request = fetch(localeAwareUrl, {
+  const request = fetch(fullUrl, {
     method,
     body: method === 'GET' ? null : isBlob ? body : JSON.stringify(body),
     headers,
@@ -83,6 +95,7 @@ export async function request({
       return json;
     })
     .catch(e => {
+      console.log('fetch error', e);
       return Promise.reject(`${e}`);
     });
 }

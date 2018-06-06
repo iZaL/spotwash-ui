@@ -1,12 +1,15 @@
-import {API_URL} from 'utils/env';
 import {request} from 'utils/network';
 
-function storePushToken(urlParams, body) {
-  const url = `${API_URL}/push_token/register${urlParams}`;
-  const method = 'POST';
-  return request({url, method, body});
+function storePushToken(params) {
+  const path = `push_token/register`;
+  return request({path, method: 'POST', params});
+}
+function storeDeviceID(params) {
+  const path = `device/uuid/register`;
+  return request({path, method: 'POST', params});
 }
 
 export const API = {
   storePushToken,
+  storeDeviceID,
 };

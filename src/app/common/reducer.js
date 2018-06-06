@@ -1,5 +1,5 @@
-import {ACTION_TYPES} from 'app/common/actions';
 import merge from 'lodash/merge';
+import {ACTION_TYPES} from 'app/common/actions';
 
 const appInitialState = {
   installed: false,
@@ -48,17 +48,22 @@ export function reducer(state = appInitialState, action = {}) {
   }
 }
 
-const entitiesInitialState = {
-  users: {},
-  categories: {},
-  timings: {},
-  orders: {},
-  companies: {},
-};
-
-export function entities(state = entitiesInitialState, action) {
+export function entities(
+  state = {
+    users: {},
+    categories: {},
+    packages: {},
+    services: {},
+    timings: {},
+    addresses: {},
+    drivers: {},
+    jobs: {},
+  },
+  action = {},
+) {
   if (action.entities) {
     return merge({}, state, action.entities);
   }
+
   return state;
 }

@@ -4,39 +4,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, Text, View} from 'react-native';
-import Touchable from 'react-native-platform-touchable';
 import colors from 'assets/theme/colors';
-import CompanyImage from "company/components/CompanyImage";
+import CompanyImage from 'company/components/CompanyImage';
 import I18n from 'utils/locale';
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const CompanyCard = ({company, amount, style, showConfirmed = false}) => {
   return (
-      <View style={[styles.container, style]} key={company.id}>
-        {company.logo &&
-        <CompanyImage rounded={true} image={company.logo}/>
-        }
-        <Text style={styles.companyName} >{company.name ? company.name : company.user.name}</Text>
-        <View style={{alignItems: 'center'}}>
-          <Text style={styles.price}>{amount}</Text>
-          <Text style={styles.currency}>{I18n.t('kd')}</Text>
+    <View style={[styles.container, style]} key={company.id}>
+      {company.logo && <CompanyImage rounded={true} image={company.logo} />}
+      <Text style={styles.companyName}>
+        {company.name ? company.name : company.user.name}
+      </Text>
+      <View style={{alignItems: 'center'}}>
+        <Text style={styles.price}>{amount}</Text>
+        <Text style={styles.currency}>{I18n.t('kd')}</Text>
 
-          {
-            showConfirmed &&
-            <View style={styles.confirmedContainer}>
-              <Text style={styles.statusValue}>{I18n.t('confirmed')}</Text>
-              <Ionicons name="ios-checkmark-circle" color={colors.success} size={24} />
-            </View>
-          }
-
-        </View>
+        {showConfirmed && (
+          <View style={styles.confirmedContainer}>
+            <Text style={styles.statusValue}>{I18n.t('confirmed')}</Text>
+            <Ionicons
+              name="ios-checkmark-circle"
+              color={colors.success}
+              size={24}
+            />
+          </View>
+        )}
       </View>
+    </View>
   );
 };
 
 CompanyCard.propTypes = {
   company: PropTypes.object.isRequired,
-  amount:PropTypes.string.isRequired,
+  amount: PropTypes.string.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   companyName: {
     flex: 1,
     fontSize: 20,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   itemContentContainer: {
     flex: 1,
@@ -69,15 +70,14 @@ const styles = StyleSheet.create({
     color: colors.primary,
     paddingRight: 10,
   },
-  statusValue:{
-    paddingHorizontal:5,
-    fontWeight:'500'
+  statusValue: {
+    paddingHorizontal: 5,
+    fontWeight: '500',
   },
-  confirmedContainer:{
-    flexDirection:'row',
-    alignItems:'center',
-    marginHorizontal:10
-  }
-
+  confirmedContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
 });
 export default CompanyCard;

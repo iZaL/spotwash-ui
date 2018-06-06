@@ -4,11 +4,10 @@
 import React, {Component} from 'react';
 import I18n from 'utils/locale';
 import DrawerItem from 'components/DrawerItem';
-import {DrawerSection} from "react-native-paper";
-import DrawerHeader from "components/DrawerHeader";
+import {DrawerSection} from 'react-native-paper';
+import DrawerHeader from 'components/DrawerHeader';
 
 export default class Drawer extends Component {
-
   onItemPress = (routeName: string) => {
     this.setState({
       activeRoute: routeName,
@@ -21,12 +20,11 @@ export default class Drawer extends Component {
   };
 
   render() {
-    let {logout,user} = this.props.screenProps;
+    let {logout, user} = this.props.screenProps;
     let {activeRoute} = this.state;
 
     return (
       <DrawerSection>
-
         <DrawerHeader user={user} />
 
         <DrawerItem
@@ -37,7 +35,37 @@ export default class Drawer extends Component {
             name: 'home-outline',
             type: 'MaterialCommunityIcons',
           }}
-          active={activeRoute === 'HomeStack'}
+          active={this.state.activeRoute === 'HomeStack'}
+        />
+
+        <DrawerItem
+          label={I18n.t('upcoming_orders')}
+          routeName="UpcomingOrdersStack"
+          onItemPress={this.onItemPress}
+          iconProps={{
+            name: 'car-estate',
+            type: 'MaterialCommunityIcons',
+          }}
+          active={activeRoute === 'UpcomingOrdersStack'}
+        />
+
+        <DrawerItem
+          label={I18n.t('past_orders')}
+          routeName="PastOrdersStack"
+          onItemPress={this.onItemPress}
+          iconProps={{name: 'timelapse', type: 'MaterialIcons'}}
+          active={activeRoute === 'PastOrdersStack'}
+        />
+
+        <DrawerItem
+          label={I18n.t('change_language')}
+          routeName="LanguageSelect"
+          onItemPress={this.onItemPress}
+          iconProps={{
+            name: 'md-globe',
+            type: 'Ionicons',
+          }}
+          active={this.state.activeRoute === 'LanguageSelect'}
         />
 
         {user.id ? (
@@ -49,7 +77,7 @@ export default class Drawer extends Component {
               name: 'logout',
               type: 'MaterialCommunityIcons',
             }}
-            active={activeRoute === 'Logout'}
+            active={this.state.activeRoute === 'Logout'}
           />
         ) : (
           <DrawerItem
@@ -60,12 +88,10 @@ export default class Drawer extends Component {
               name: 'login',
               type: 'MaterialCommunityIcons',
             }}
-            active={activeRoute === 'Login'}
+            active={this.state.activeRoute === 'Login'}
           />
         )}
-
       </DrawerSection>
-
     );
   }
 }

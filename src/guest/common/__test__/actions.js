@@ -1,4 +1,4 @@
-import {ACTION_TYPES, ACTIONS} from 'guest/common/actions';
+import {ACTION_TYPES, ACTIONS} from 'actions';
 
 describe('App Component Actions', () => {
   test('returns expected action', () => {

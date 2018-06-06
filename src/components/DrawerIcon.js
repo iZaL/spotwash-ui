@@ -2,13 +2,12 @@
  * @flow
  */
 import React, {Component} from 'react';
+import Touchable from 'react-native-platform-touchable';
 import PropTypes from 'prop-types';
-import IconFactory from "components/IconFactory";
-import {TouchableRipple} from "react-native-paper";
-import {Text} from "react-native";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import colors from 'assets/theme/colors';
 
 export default class DrawerIcon extends Component {
-
   static propTypes = {
     onPress: PropTypes.func.isRequired,
   };
@@ -20,14 +19,16 @@ export default class DrawerIcon extends Component {
   render() {
     let {onPress} = this.props;
     return (
-      <TouchableRipple
+      <Touchable
         onPress={onPress}
-        hitSlop={{top: 20, left: 20, right: 20, bottom: 20}}
-        style={{paddingLeft:10}}
-      >
-        <Text>wa</Text>
-        {/*<IconFactory type="FontAwesome" name="bars"/>*/}
-      </TouchableRipple>
+        hitSlop={{top: 20, left: 20, right: 20, bottom: 20}}>
+        <FontAwesome
+          name="bars"
+          size={28}
+          style={{paddingLeft: 10}}
+          color={colors.white}
+        />
+      </Touchable>
     );
   }
 }

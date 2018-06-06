@@ -1,4 +1,4 @@
-import {ACTION_TYPES} from 'customer/actions/cart';
+import {ACTION_TYPES} from 'customer/common/actions';
 import moment from 'moment';
 
 const initialState = {
@@ -16,7 +16,7 @@ const initialState = {
 
 export function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case ACTION_TYPES.CART_ADD_ITEM: {
+    case ACTION_TYPES.CART_ADD_ITEM_SUCCESS: {
       return {
         ...state,
         items: {

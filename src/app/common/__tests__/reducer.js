@@ -1,5 +1,5 @@
-import {reducer as app} from 'app/common/reducer';
-import {ACTION_TYPES} from 'app/common/actions';
+import app from 'reducer';
+import {ACTION_TYPES} from 'actions';
 
 const initialState = {
   installed: false,

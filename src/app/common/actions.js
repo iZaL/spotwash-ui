@@ -47,17 +47,14 @@ function dismissNotification() {
   };
 }
 
-function setNotification(message, messageType) {
+function setNotification(payload) {
   return {
     type: ACTION_TYPES.SET_NOTIFICATION,
-    payload: {
-      message: message,
-      messageType: messageType,
-    },
+    payload,
   };
 }
 
-function setPushToken(token) {
+function setPushToken(token: object) {
   return {
     type: ACTION_TYPES.SET_PUSH_TOKEN_REQUEST,
     params: token,

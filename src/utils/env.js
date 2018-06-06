@@ -3,8 +3,10 @@ const defaults = {};
 if (__DEV__) {
   module.exports = {
     ...defaults,
-    API_URL: 'http://spotwash.test/api',
-    SOCKET_SERVER: 'http://spotwash.test:3000',
+    // API_URL: 'beeprotection.test/api',
+    // SOCKET_SERVER: 'http://beeprotection.test:3000',
+    API_URL: 'bp.ideasowners.net/api',
+    SOCKET_SERVER: 'http://bp.ideasowners.net:3000',
     GOOGLE_MAPS_KEY: 'AIzaSyCpQX4H0QPxVgKuNMZ0ELG_ymgT8RHcKh4',
     GOOGLE_MAPS_IOS_KEY: 'AIzaSyDPCgdWqrkBe4v3uSuU-MZGJIZ0AQxfbCo',
     GOOGLE_MAPS_ANDROID_KEY: 'AIzaSyCpQX4H0QPxVgKuNMZ0ELG_ymgT8RHcKh4',
@@ -22,7 +24,8 @@ if (__DEV__) {
 } else {
   module.exports = {
     ...defaults,
-    API_URL: '',
+    API_URL: 'bp.ideasowners.net/api',
+    SOCKET_SERVER: 'http://bp.ideasowners.net:3000',
     GOOGLE_MAPS_KEY: 'AIzaSyCpQX4H0QPxVgKuNMZ0ELG_ymgT8RHcKh4',
     GOOGLE_MAPS_IOS_KEY: 'AIzaSyDPCgdWqrkBe4v3uSuU-MZGJIZ0AQxfbCo',
     GOOGLE_MAPS_ANDROID_KEY: 'AIzaSyCpQX4H0QPxVgKuNMZ0ELG_ymgT8RHcKh4',

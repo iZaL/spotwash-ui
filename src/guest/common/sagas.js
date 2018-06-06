@@ -1,14 +1,12 @@
 import {all, call, fork, put, takeLatest} from 'redux-saga/effects';
 import {NavigationActions} from 'react-navigation';
-
+import NavigatorService from 'components/NavigatorService';
 import {ACTION_TYPES} from 'guest/common/actions';
 import {API} from 'guest/common/api';
 import {AUTH_KEY} from 'utils/env';
 
-import {
-  ACTION_TYPES as APP_ACTION_TYPES,
-  ACTIONS as APP_ACTIONS,
-} from 'app/common/actions';
+import {ACTIONS as APP_ACTIONS} from 'app/common/actions';
+
 import {
   forgetStorageItem,
   getStorageItem,
@@ -20,48 +18,170 @@ import {Schema} from 'utils/schema';
 import {normalize} from 'normalizr';
 
 function* login(action) {
+  const {credentials, resolve, reject, redirectRoute} = action.payload;
+
   try {
     const pushTokenStorageKey = yield call(getStorageItem, PUSH_TOKEN_KEY);
 
     const params = {
-      ...action.credentials,
-      push_token: pushTokenStorageKey,
+      body: {
+        ...credentials,
+        push_token: pushTokenStorageKey,
+      },
     };
 
     const response = yield call(API.login, params);
+
+    if (response.meta) {
+      yield call(setStorageItem, AUTH_KEY, response.meta.api_token || '');
+    }
+
     const normalized = normalize(response.data, Schema.users);
 
     yield put({
-      type: ACTION_TYPES.LOGIN_SUCCESS,
-      payload: response.data,
-      entities: normalized.entities,
+      type: ACTION_TYPES.SYNC_USER_TO_SOCKET,
     });
 
-    yield call(setStorageItem, AUTH_KEY, response.data.api_token);
+    yield put({
+      type: ACTION_TYPES.LOGIN_SUCCESS,
+      entities: normalized.entities,
+      payload: response.data,
+    });
+
+    if (redirectRoute) {
+      // yield setTimeout(() => {
+      NavigatorService.navigate(redirectRoute);
+      // },1000);
+    }
+
+    yield resolve(response.data);
   } catch (error) {
     yield put({type: ACTION_TYPES.LOGIN_FAILURE, error});
-    yield put(APP_ACTIONS.setNotification(error, 'error'));
+
+    yield put(
+      APP_ACTIONS.setNotification({
+        message: error,
+        type: 'error',
+      }),
+    );
+
+    yield reject(error);
   }
 }
 
+// function* login(action) {
+//
+//   try {
+//     const pushTokenStorageKey = yield call(getStorageItem, PUSH_TOKEN_KEY);
+//
+//     const params = {
+//       body: {
+//         ...action.credentials,
+//         push_token: pushTokenStorageKey,
+//       },
+//     };
+//
+//     const response = yield call(API.login, params);
+//
+//     if (response.meta) {
+//       yield call(setStorageItem, AUTH_KEY, response.meta.api_token || '');
+//     }
+//
+//     const normalized = normalize(response.data, Schema.users);
+//
+//     yield put({
+//       type: ACTION_TYPES.SYNC_USER_TO_SOCKET,
+//     });
+//
+//     yield put({
+//       type: ACTION_TYPES.LOGIN_SUCCESS,
+//       entities: normalized.entities,
+//       payload: response.data,
+//     });
+//
+//     // yield NavigatorService.back();
+//
+//   } catch (error) {
+//     yield put({type: ACTION_TYPES.LOGIN_FAILURE, error});
+//
+//     yield put(
+//       APP_ACTIONS.setNotification({
+//         message: error,
+//         type: 'error',
+//       }),
+//     );
+//   }
+// }
+// function* login(action) {
+//
+//   try {
+//     const pushTokenStorageKey = yield call(getStorageItem, PUSH_TOKEN_KEY);
+//
+//     const params = {
+//       body: {
+//         ...action.credentials,
+//         push_token: pushTokenStorageKey,
+//       },
+//     };
+//
+//     const response = yield call(API.login, params);
+//
+//     if (response.meta) {
+//       yield call(setStorageItem, AUTH_KEY, response.meta.api_token || '');
+//     }
+//
+//     const normalized = normalize(response.data, Schema.users);
+//
+//     yield put({
+//       type: ACTION_TYPES.SYNC_USER_TO_SOCKET,
+//     });
+//
+//     yield put({
+//       type: ACTION_TYPES.LOGIN_SUCCESS,
+//       entities: normalized.entities,
+//       payload: response.data,
+//     });
+//
+//     // yield NavigatorService.back();
+//
+//   } catch (error) {
+//     yield put({type: ACTION_TYPES.LOGIN_FAILURE, error});
+//
+//     yield put(
+//       APP_ACTIONS.setNotification({
+//         message: error,
+//         type: 'error',
+//       }),
+//     );
+//   }
+// }
+
 function* register(action) {
   try {
-    const response = yield call(API.register, action.params);
+    const params = {
+      body: {
+        ...action.params,
+      },
+    };
+    const response = yield call(API.register, params);
+
     yield put({type: ACTION_TYPES.REGISTER_SUCCESS, payload: response.data});
 
     yield put(
-      APP_ACTIONS.setNotification(I18n.t('registration_success'), 'success'),
+      APP_ACTIONS.setNotification({
+        message: I18n.t('registration_success'),
+        type: 'success',
+      }),
     );
-    yield put(NavigationActions.back());
+    yield NavigatorService.back();
   } catch (error) {
     yield put({type: ACTION_TYPES.REGISTER_FAILURE, error});
-    yield put({
-      type: APP_ACTION_TYPES.SET_NOTIFICATION,
-      payload: {
+    yield put(
+      APP_ACTIONS.setNotification({
         message: error,
-        messageType: 'error',
-      },
-    });
+        type: 'error',
+      }),
+    );
   }
 }
 
@@ -70,41 +190,77 @@ function* forgotPassword(action) {
     const emailPattern = /(.+)@(.+){2,}\.(.+){2,}/;
 
     if (!emailPattern.test(action.params.email)) {
-      return yield put(APP_ACTIONS.setNotification('Invalid Email', 'error'));
+      return yield put(
+        APP_ACTIONS.setNotification({
+          message: 'Invalid Email',
+          type: 'error',
+        }),
+      );
     }
 
-    const response = yield call(API.forgotPassword, action.params);
+    const params = {
+      body: {
+        ...action.params,
+      },
+    };
+
+    const response = yield call(API.forgotPassword, params);
 
     yield put({
       type: ACTION_TYPES.FORGOT_PASSWORD_SUCCESS,
       payload: response.data,
     });
   } catch (error) {
-    yield put(APP_ACTIONS.setNotification(error, 'error'));
+    yield put(
+      APP_ACTIONS.setNotification({
+        message: error,
+        type: 'error',
+      }),
+    );
     yield put({type: ACTION_TYPES.FORGOT_PASSWORD_FAILURE, error});
   }
 }
 
 function* recoverPassword(action) {
   try {
-    const response = yield call(API.recoverPassword, action.params);
+    const params = {
+      body: {
+        ...action.params,
+      },
+    };
+
+    const response = yield call(API.recoverPassword, params);
     yield put({
       type: ACTION_TYPES.RECOVER_PASSWORD_SUCCESS,
       payload: response.data,
     });
   } catch (error) {
-    yield put(APP_ACTIONS.setNotification(error, 'error'));
+    yield put(
+      APP_ACTIONS.setNotification({
+        message: error,
+        type: 'error',
+      }),
+    );
     yield put({type: ACTION_TYPES.RECOVER_PASSWORD_FAILURE, error});
   }
 }
 
 function* updatePassword(action) {
   try {
-    const response = yield call(API.updatePassword, action.params);
+    const params = {
+      body: {
+        ...action.params,
+      },
+    };
+
+    const response = yield call(API.updatePassword, params);
 
     if (action.params.password !== action.params.password_confirmation) {
       return yield put(
-        APP_ACTIONS.setNotification('Password does not match', 'error'),
+        APP_ACTIONS.setNotification({
+          message: 'Password does not match',
+          type: 'error',
+        }),
       );
     }
 
@@ -115,7 +271,12 @@ function* updatePassword(action) {
 
     yield put(NavigationActions.back(null));
   } catch (error) {
-    yield put(APP_ACTIONS.setNotification(error, 'error'));
+    yield put(
+      APP_ACTIONS.setNotification({
+        message: error,
+        type: 'error',
+      }),
+    );
     yield put({type: ACTION_TYPES.PASSWORD_UPDATE_FAILURE, error});
   }
 }
@@ -144,6 +305,7 @@ function* forgotPasswordMonitor() {
 function* recoverPasswordMonitor() {
   yield takeLatest(ACTION_TYPES.RECOVER_PASSWORD_REQUEST, recoverPassword);
 }
+
 function* passwordUpdateMonitor() {
   yield takeLatest(ACTION_TYPES.PASSWORD_UPDATE_REQUEST, updatePassword);
 }

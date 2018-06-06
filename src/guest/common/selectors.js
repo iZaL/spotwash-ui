@@ -30,4 +30,5 @@ export const SELECTORS = {
   isAuthenticated,
   getAuthUser,
   getAuthUserProfile,
+  getAuthUserID,
 };

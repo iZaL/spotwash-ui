@@ -1,80 +1,120 @@
 import React, {Component} from 'react';
-import {Button, Dimensions, Image, ScrollView} from 'react-native';
-import images from 'assets/theme/images';
-import HomeActionButtons from 'customer/components/HomeActionButtons';
-import Divider from 'components/Divider';
-import colors from 'assets/theme/colors';
-import StandingOrdersList from 'customer/orders/components/StandingOrdersList';
+import {
+  AppState,
+  ImageBackground,
+  RefreshControl,
+  ScrollView,
+} from 'react-native';
+import {SELECTORS} from 'customer/selectors/orders';
 import {connect} from 'react-redux';
-import {ACTIONS as ORDER_ACTIONS} from 'customer/actions/orders';
-import {SELECTORS as ORDER_SELECTORS} from 'customer/selectors/orders';
-import DrawerIcon from "../components/DrawerIcon";
+import {ACTIONS as ORDER_ACTIONS} from 'customer/common/actions';
+import StandingOrdersList from 'customer/components/StandingOrdersList';
+import colors from 'assets/theme/colors';
 
 class Home extends Component {
-  componentDidMount() {
-    // this.props.dispatch(ORDER_ACTIONS.fetchStandingOrders());
-  }
+  static defaultProps = {
+    upcoming_orders: [],
+    working_order: {},
+  };
 
-  static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
+  state = {
+    appState: AppState.currentState,
+  };
 
+  static navigationOptions = ({navigation}) => {
     return {
-      headerLeft: (
-        <DrawerIcon onPress={()=>navigation.openDrawer()} />
-      ),
+      headerStyle: {
+        backgroundColor: colors.secondary,
+        borderBottomWidth: 0,
+      },
+      // headerLeft: <DrawerIcon onPress={() => navigation.navigate('DrawerToggle')} />,
     };
   };
 
+  componentDidMount() {
+    this.fetchWorkingOrders();
+    AppState.addEventListener('change', this.handleAppStateChange);
+  }
 
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange = nextAppState => {
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      this.fetchWorkingOrders();
+    }
+    this.setState({appState: nextAppState});
+  };
 
   onCreateOrderPress = () => {
     this.props.navigation.navigate('CreateOrder');
   };
 
-  onFindNearByCompaniesPress = () => {};
+  onProtectionPress = () => {};
 
-  onViewAllOrdersListPress = () => {};
-
-  onStandingOrderListItemPress = (item: Object) => {
-    this.props.navigation.navigate('BidsList', {
+  onItemTrackPress = (item: Object) => {
+    this.props.navigation.navigate('TrackOrder', {
+      orderID: item.id,
       order: item,
     });
   };
 
+  onStandingOrderListItemPress = (item: Object) => {
+    this.props.navigation.navigate('OrderDetail', {
+      orderID: item.id,
+    });
+  };
+
+  fetchWorkingOrders = () => {
+    this.props.dispatch(
+      ORDER_ACTIONS.fetchWorkingOrders({
+        force: true,
+      }),
+    );
+  };
+
+  onRefresh = () => {
+    this.fetchWorkingOrders();
+  };
+
   render() {
-    let {orders} = this.props;
+    let {working_order} = this.props;
 
     return (
-      <ScrollView style={{flex: 1}}>
-        <Image
-          source={images.home_bg}
-          style={{width: Dimensions.get('window').width, height: 250}}
-          resizeMode="cover"
-        />
+      <ImageBackground
+        source={require('./../assets/images/home-bg.png')}
+        resizeMode="stretch"
+        style={{flex: 1, backgroundColor: '#2D72A8'}}>
+        {/*<HomeActionButtons*/}
+        {/*onCreateOrderPress={this.onCreateOrderPress}*/}
+        {/*onProtectionPress={this.onProtectionPress}*/}
+        {/*/>*/}
 
-        <HomeActionButtons
-          onCreateOrderPress={this.onCreateOrderPress}
-          onFindNearByCompaniesPress={this.onFindNearByCompaniesPress}
-        />
-
-        <Divider
-          style={{backgroundColor: colors.mediumGrey, marginHorizontal: 10}}
-        />
-
-        <StandingOrdersList
-          items={orders}
-          onItemPress={this.onStandingOrderListItemPress}
-          activeItemID={0}
-          onViewAllPress={this.onViewAllOrdersListPress}
-        />
-      </ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={this.onRefresh} />
+          }
+          refreshing={false}
+          contentContainerStyle={{paddingTop: 400}}>
+          <StandingOrdersList
+            items={working_order}
+            onItemPress={this.onStandingOrderListItemPress}
+            onItemTrackPress={this.onItemTrackPress}
+            onCreateOrderPress={this.onCreateOrderPress}
+          />
+        </ScrollView>
+      </ImageBackground>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    orders: ORDER_SELECTORS.getOrders(state),
+    working_order: SELECTORS.getWorkingOrder(state),
   };
 }
 

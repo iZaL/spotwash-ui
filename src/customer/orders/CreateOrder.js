@@ -2,187 +2,349 @@
  * @flow
  */
 import React, {PureComponent} from 'react';
-import moment from 'moment';
-import CategoriesList from 'customer/orders/components/CategoriesList';
-import Button from 'components/Button';
-import I18n from 'utils/locale';
-import DatePicker from 'customer/orders/components/DatePicker';
-import TimePicker from 'customer/orders/components/TimePicker';
-import AddressPicker from 'customer/orders/components/AddressPicker';
-import Divider from 'components/Divider';
-import CategoriesChildrenList from 'customer/orders/components/CategoriesChildrenList';
-import {ScrollView} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import {ACTIONS as ORDER_ACTIONS} from 'customer/actions/orders';
-import {ACTIONS as CART_ACTIONS} from 'customer/actions/cart';
-import {ACTIONS as ADDRESS_ACTIONS} from 'customer/actions/address';
-import {SELECTORS} from 'customer/common/selectors';
-import {SELECTORS as USER_SELECTORS} from 'guest/common/selectors';
+import {bindActionCreators} from 'redux';
+import {ACTIONS, ACTIONS as CART_ACTIONS} from 'customer/common/actions';
+import {ACTIONS as APP_ACTIONS} from 'app/common/actions';
+import {SELECTORS} from 'customer/selectors/orders';
+import CategoriesList from 'customer/orders/components/CategoriesList';
+import PackagesList from 'customer/orders/components/PackagesList';
+import ServicesList from 'customer/orders/components/ServicesList';
+import {Title} from 'react-native-paper';
+import I18n from 'utils/locale';
+import NavButton from 'components/NavButton';
+import colors from 'assets/theme/colors';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Button from 'components/Button';
+import Dialog from 'components/Dialog';
+import IconFactory from 'components/IconFactory';
+import FreeWash from 'customer/components/FreeWash';
+import Modal from 'react-native-modal';
 
 type State = {
-  dates: Array,
+  showCartSuccessModal: boolean,
 };
 
+const initialState = {};
+
 class CreateOrder extends PureComponent {
-  state: State = {
-    dates: [],
+  state = {
+    showCartSuccessModal: false,
+    showFreewashModal: false,
+  };
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      headerRight: (
+        <View>
+          <Text
+            style={{
+              position: 'absolute',
+              left: 8,
+              top: 3,
+              fontWeight: '700',
+              color: colors.maroon,
+              fontSize: 15,
+            }}>
+            {navigation.state.params && navigation.state.params.cartItemsCount}
+          </Text>
+          <NavButton
+            icon={
+              <MaterialCommunityIcons
+                name="cart-outline"
+                size={30}
+                color={colors.white}
+              />
+            }
+            onPress={() =>
+              navigation.state.params &&
+              navigation.state.params.handleRightButtonPress()
+            }
+          />
+        </View>
+      ),
+    };
   };
 
   componentDidMount() {
-    this.props.dispatch(ORDER_ACTIONS.fetchCategories());
-    this.props.dispatch(ORDER_ACTIONS.fetchTimings());
-    this.props.dispatch(ADDRESS_ACTIONS.fetchAddresses());
-
-    const dates = [];
-    for (let i = 0; i < 30; i++) {
-      dates.push(moment().add(i, 'days'));
-    }
-    this.setState({
-      dates: dates,
+    this.props.actions.fetchCategories();
+    this.props.navigation.setParams({
+      handleRightButtonPress: this.loadCartScene,
     });
+    this.setCartItemsCount();
+
+    let {hasFreeWash} = this.props.cart;
+
+    if (hasFreeWash) {
+      this.setState({
+        showFreewashModal: true,
+      });
+    }
+    this.props.actions.setCartItem('isFreeWash', false);
   }
 
+  loadCartScene = () => {
+    this.props.navigation.navigate('Cart');
+  };
+
+  componentDidUpdate() {
+    const {categories} = this.props;
+    if (categories.length) {
+      if (!this.props.cart.activeCategoryID) {
+        this.props.actions.setCartItem('activeCategoryID', categories[0].id);
+      }
+    }
+  }
+
+  setCartItemsCount = () => {
+    return this.props.navigation.setParams({
+      cartItemsCount: Object.keys(this.props.cart.items).length || 0,
+    });
+  };
+
   onCategoriesListItemPress = (item: object) => {
-    this.props.dispatch(
-      CART_ACTIONS.setCartItem('selectedCategoryID', item.id),
-    );
+    if (this.props.cart.activeCategoryID !== item.id) {
+      this.props.actions.setCartItems({
+        activeCategoryID: item.id,
+        activePackageID: undefined,
+        activeServicesIDs: [],
+      });
+    }
   };
 
-  onPackagesListItemPress = (item: object, packages: Array) => {
-    let activePackages = this.props.cart.selectedPackageIDs;
-    let filteredPackages = activePackages.filter(
-      id => packages.indexOf(id) === -1,
-    );
-    let newPackages = filteredPackages.concat(item.id);
-    this.props.dispatch(
-      CART_ACTIONS.setCartItem('selectedPackageIDs', newPackages),
-    );
-  };
-
-  onDatePickerItemPress = (item: object) => {
-    this.props.dispatch(CART_ACTIONS.setCartItem('selectedDate', item));
-  };
-
-  onTimePickerItemPress = (item: object) => {
-    this.props.dispatch(CART_ACTIONS.setCartItem('selectedTimeID', item.id));
-  };
-
-  onCreateOrderPress = () => {
-    const {user, isAuthenticated, cart} = this.props;
-    const {
-      selectedDate,
-      selectedTimeID,
-      selectedAddressID,
-      selectedCategoryID,
-      selectedPackageIDs,
-    } = cart;
-    // if (!isAuthenticated) {
-    //   this.props.navigation.navigate('Login');
-    // } else {
-    const item = {
-      date: selectedDate,
-      address_id: selectedAddressID,
-      category_id: selectedCategoryID,
-      package_ids: selectedPackageIDs,
-      user_id: user ? user.id : undefined,
-      time_id: selectedTimeID,
+  onPackagesListItemPress = (item: object) => {
+    let params = {
+      activePackageID: item.id,
+      total: parseFloat(item.price),
     };
-    this.props.dispatch(ORDER_ACTIONS.saveOrder(item));
-    // }
+
+    if (this.props.cart.activePackageID !== item.id) {
+      params = {
+        ...params,
+        activeServicesIDs: [],
+      };
+    }
+
+    this.props.actions.setCartItems(params);
   };
 
-  onAddressPickerItemPress = (item: object) => {
-    this.props.dispatch(CART_ACTIONS.setCartItem('selectedAddressID', item.id));
+  onServicesListItemPress = (item: object) => {
+    const {total, activeServicesIDs} = this.props.cart;
+
+    let currentAmount;
+
+    let index = activeServicesIDs.indexOf(item.id);
+
+    if (index > -1) {
+      currentAmount = parseFloat(total) - parseFloat(item.price);
+    } else {
+      currentAmount = parseFloat(total) + parseFloat(item.price);
+    }
+
+    let params = {
+      activeServicesIDs:
+        index > -1
+          ? activeServicesIDs.filter(serviceID => serviceID !== item.id)
+          : activeServicesIDs.concat(item.id),
+      total: currentAmount,
+    };
+
+    this.props.actions.setCartItems(params);
   };
 
-  saveAddress = address => {
-    this.props.dispatch(ADDRESS_ACTIONS.saveAddress(address));
+  onAddToCartPress = () => {
+    const {
+      activeCategoryID,
+      activePackageID,
+      activeServicesIDs,
+      total,
+    } = this.props.cart;
+
+    const item = {
+      category: activeCategoryID,
+      package: activePackageID,
+      services: activeServicesIDs,
+      total: total,
+    };
+
+    this.props.actions.setCartItems({
+      activeCategoryID: undefined,
+      activePackageID: undefined,
+      activeServicesIDs: [],
+      hasFreeWash: false,
+      isFreeWash: false,
+    });
+
+    // return new Promise((resolve, reject) => {
+    this.props.actions.addToCart(item);
+
+    // dispatch order success
+    this.setState(
+      {
+        showCartSuccessModal: true,
+      },
+      () => this.setCartItemsCount(),
+    );
   };
 
-  onGuestFieldChange = (field, value) => {
-    this.props.dispatch(CART_ACTIONS.setCartItem(field, value));
+  onAddNewItemPress = () => {
+    this.props.actions.setCartItem('total', 0);
+    this.setState({
+      showCartSuccessModal: false,
+    });
+  };
+
+  onCheckoutPress = () => {
+    this.setState({
+      showCartSuccessModal: false,
+    });
+    this.props.navigation.navigate('Cart');
+  };
+
+  hideFreeWashModal = () => {
+    this.props.actions.setCartItem('hasFreeWash', false);
+    this.setState({
+      showFreewashModal: false,
+    });
+  };
+
+  onFreeWashPress = () => {
+    this.props.navigation.navigate('Cart');
+    this.props.actions.setCartItem('hasFreeWash', false);
+    this.props.actions.setCartItem('isFreeWash', true);
+    this.setState({
+      showFreewashModal: false,
+    });
   };
 
   render() {
-    const {categories, timings, cart, user} = this.props;
-    const {dates} = this.state;
     const {
-      selectedDate,
-      selectedTimeID,
-      selectedCategoryID,
-      selectedAddressID,
-      selectedPackageIDs,
-    } = cart;
+      activeCategoryID,
+      activePackageID,
+      activeServicesIDs,
+      total,
+    } = this.props.cart;
+    const {categories} = this.props;
+
+    const {showCartSuccessModal, showFreewashModal} = this.state;
+
+    let activeCategory = activeCategoryID
+      ? categories.find(item => item.id === activeCategoryID)
+      : categories.length
+        ? categories[0]
+        : {
+            id: undefined,
+            packages: [],
+          };
 
     return (
-      <ScrollView style={{flex: 1}} keyboardShouldPersistTaps={'always'}>
+      <ScrollView
+        style={{flex: 1, backgroundColor: 'white'}}
+        keyboardShouldPersistTaps={'always'}
+        contentInset={{bottom: 50}}>
         <CategoriesList
           items={categories}
           onItemPress={this.onCategoriesListItemPress}
-          activeItemID={selectedCategoryID}
+          activeItemID={activeCategoryID}
         />
 
-        <Divider style={{marginVertical: 10}} />
+        {activeCategory.packages &&
+          activeCategory.packages.length && (
+            <PackagesList
+              items={activeCategory.packages}
+              onItemPress={this.onPackagesListItemPress}
+              activeItemID={activePackageID}
+            />
+          )}
 
-        {selectedCategoryID && (
-          <CategoriesChildrenList
+        {activePackageID && (
+          <ServicesList
             items={
-              (categories.find(
-                category => category.id === selectedCategoryID,
-              ) &&
-                categories.find(category => category.id === selectedCategoryID)
-                  .children) ||
-              []
+              activeCategory.packages.find(item => item.id === activePackageID)
+                .services
             }
-            onItemPress={this.onPackagesListItemPress}
-            activePackageIds={selectedPackageIDs}
+            onItemPress={this.onServicesListItemPress}
+            activeItemIDs={activeServicesIDs}
           />
         )}
 
-        <DatePicker
-          items={dates}
-          onItemPress={this.onDatePickerItemPress}
-          activeItem={selectedDate}
-        />
-
-        <Divider style={{marginVertical: 10}} />
-
-        <TimePicker
-          items={timings}
-          onItemPress={this.onTimePickerItemPress}
-          activeItemID={selectedTimeID}
-        />
-
-        <Divider style={{marginVertical: 10}} />
-
-        <AddressPicker
-          addresses={user ? (user.addresses ? user.addresses : []) : []}
-          saveAddress={this.saveAddress}
-          onAddressPickerItemPress={this.onAddressPickerItemPress}
-          activeItemID={selectedAddressID}
-        />
-
-        <Divider style={{marginVertical: 10}} />
+        <Title
+          style={{
+            textAlign: 'center',
+            padding: 10,
+            backgroundColor: colors.fadedWhite,
+            marginBottom: 10,
+          }}>
+          {I18n.t('total')} {total} KD
+        </Title>
 
         <Button
-          title={I18n.t('create_order')}
-          onPress={this.onCreateOrderPress}
-          style={{marginVertical: 20}}
-          // disabled={!canCreateOrder}
+          onPress={this.onAddToCartPress}
+          disabled={!activePackageID}
+          raised
+          dark
+          style={{
+            backgroundColor: colors.primary,
+          }}
+          title={I18n.t('add_to_cart')}
         />
+
+        <Dialog
+          title={I18n.t('success')}
+          description={
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <IconFactory
+                type="MaterialIcons"
+                name="check"
+                color={colors.primary}
+              />
+              <Text style={{paddingHorizontal: 10}}>
+                {I18n.t('cart_item_added')}
+              </Text>
+            </View>
+          }
+          leftButtonPress={this.onAddNewItemPress}
+          rightButtonPress={this.onCheckoutPress}
+          visible={showCartSuccessModal}
+          rightButtonText={I18n.t('checkout').toUpperCase()}
+          leftButtonText={I18n.t('add_item').toUpperCase()}
+          rightButtonStyle={{
+            primary: true,
+          }}
+        />
+
+        <Modal
+          isVisible={showFreewashModal}
+          style={{
+            marginVertical: 100,
+            marginHorizontal: 30,
+            backgroundColor: 'white',
+          }}>
+          <FreeWash
+            close={this.hideFreeWashModal}
+            onPress={this.onFreeWashPress}
+          />
+        </Modal>
       </ScrollView>
     );
   }
 }
 
-function mapStateToProps(state) {
+function mapDispatchToProps(dispatch) {
   return {
-    categories: SELECTORS.getParentCategories(state),
-    timings: SELECTORS.getTimings(state) || [],
-    user: USER_SELECTORS.getAuthUser(state),
-    isAuthenticated: USER_SELECTORS.isAuthenticated(state),
-    cart: state.customer.cart,
+    actions: bindActionCreators(
+      {...ACTIONS, ...CART_ACTIONS, ...APP_ACTIONS},
+      dispatch,
+    ),
   };
 }
 
-export default connect(mapStateToProps)(CreateOrder);
+function mapStateToProps(state) {
+  return {
+    categories: SELECTORS.getCategories(state),
+    cart: SELECTORS.getCart(state),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateOrder);

@@ -1,67 +1,63 @@
 import {schema} from 'normalizr';
 const categoriesSchema = new schema.Entity('categories');
 const packagesSchema = new schema.Entity('packages');
+const servicesSchema = new schema.Entity('services');
 const timingsSchema = new schema.Entity('timings');
 const ordersSchema = new schema.Entity('orders');
 const usersSchema = new schema.Entity('users');
-const bidsSchema = new schema.Entity('bids');
-const companiesSchema = new schema.Entity('companies');
 const driversSchema = new schema.Entity('drivers');
-const addressesSchema = new schema.Entity('addresses');
 const jobsSchema = new schema.Entity('jobs');
+const areasSchema = new schema.Entity('areas');
 
-// const driverOrCompany = new schema.Array({
-//   drivers: driversSchema,
-//   companies: companiesSchema
-// }, (entity) => entity.type);
+const profileSchema = new schema.Union(
+  {
+    drivers: driversSchema,
+  },
+  input => input.schema,
+);
 
 categoriesSchema.define({
-  children: [categoriesSchema],
   packages: [packagesSchema],
+});
+
+packagesSchema.define({
+  services: [servicesSchema],
+  category: categoriesSchema,
+});
+
+servicesSchema.define({
+  package: packagesSchema,
 });
 
 ordersSchema.define({
   user: usersSchema,
-  category: categoriesSchema,
-  time: timingsSchema,
-  address: addressesSchema,
+  job: jobsSchema,
   packages: [packagesSchema],
-  bids: [bidsSchema],
-  accepted_bid:bidsSchema,
-  accepted_job:jobsSchema,
-  jobs:[jobsSchema],
-  company:companiesSchema,
+  // services:[servicesSchema]
+});
+
+jobsSchema.define({
+  driver: driversSchema,
 });
 
 usersSchema.define({
   orders: [ordersSchema],
-  // profile: driverOrCompany
-});
-
-bidsSchema.define({
-  company: companiesSchema,
-  order: ordersSchema,
-});
-
-companiesSchema.define({
-  user: usersSchema,
-  packages:[packagesSchema],
-  drivers:[driversSchema]
+  profile: profileSchema,
 });
 
 driversSchema.define({
   user: usersSchema,
-  company: companiesSchema,
-});
-
-packagesSchema.define({
-  category:categoriesSchema
+  working_order: ordersSchema,
+  past_orders: [ordersSchema],
+  upcoming_orders: [ordersSchema],
 });
 
 export const Schema = {
   categories: categoriesSchema,
+  packages: packagesSchema,
   timings: timingsSchema,
   orders: ordersSchema,
   users: usersSchema,
-  companies:companiesSchema
+  drivers: driversSchema,
+  areas: areasSchema,
 };
