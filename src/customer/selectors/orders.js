@@ -7,7 +7,6 @@ const getCart = state => state.customer.cart;
 const cartItems = state => state.customer.cart.items;
 const categoriesEntity = state => state.entities.categories;
 const packagesEntity = state => state.entities.packages;
-const servicesEntity = state => state.entities.services;
 const schemas = state => state.entities;
 const timingsEntity = state => state.entities.timings;
 const areasEntity = state => state.entities.areas;
@@ -27,7 +26,10 @@ const getCategories = createSelector(
 );
 
 const getParentCategories = createSelector([getCategories], categories => {
-  return categories.filter(category => category.parent_id === null);
+  if(categories.length) {
+    return categories.filter(category => category.parent_id === null);
+  }
+  return [];
 });
 
 const getTimings = createSelector([timingsEntity], timings => {
@@ -45,18 +47,18 @@ const getOrderByID = () => {
 };
 
 const getCartItems = createSelector(
-  [cartItems, categoriesEntity, packagesEntity, servicesEntity],
-  (items, categories, packages, services) => {
+  [cartItems, categoriesEntity, packagesEntity],
+  (items, categories, packages) => {
     return Object.keys(items)
       .map(id => items[id])
       .map(item => {
         return {
           ...item,
           category: categories[item.category],
-          package: packages[item.package],
-          services:
-            (item.services &&
-              item.services.map(service => services[service])) ||
+          // package: packages[item.package],
+          packages:
+            (item.packages &&
+              item.packages.map(packageID => packages[packageID])) ||
             [],
         };
       });

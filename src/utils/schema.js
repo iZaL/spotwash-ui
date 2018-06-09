@@ -1,7 +1,6 @@
 import {schema} from 'normalizr';
 const categoriesSchema = new schema.Entity('categories');
 const packagesSchema = new schema.Entity('packages');
-const servicesSchema = new schema.Entity('services');
 const timingsSchema = new schema.Entity('timings');
 const ordersSchema = new schema.Entity('orders');
 const usersSchema = new schema.Entity('users');
@@ -17,23 +16,19 @@ const profileSchema = new schema.Union(
 );
 
 categoriesSchema.define({
+  children: [categoriesSchema],
   packages: [packagesSchema],
 });
 
 packagesSchema.define({
-  services: [servicesSchema],
-  category: categoriesSchema,
+  // category: categoriesSchema,
 });
 
-servicesSchema.define({
-  package: packagesSchema,
-});
 
 ordersSchema.define({
   user: usersSchema,
   job: jobsSchema,
   packages: [packagesSchema],
-  // services:[servicesSchema]
 });
 
 jobsSchema.define({
@@ -51,6 +46,10 @@ driversSchema.define({
   past_orders: [ordersSchema],
   upcoming_orders: [ordersSchema],
 });
+
+// packagesSchema.define({
+//   category:categoriesSchema
+// });
 
 export const Schema = {
   categories: categoriesSchema,

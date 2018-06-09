@@ -400,6 +400,9 @@ class Cart extends PureComponent {
       return <EmptyCart />;
     }
 
+    console.log('timings',timings);
+    console.log('cartItems',cartItems);
+
     return (
       <ScrollView
         contentInset={{bottom: 50}}
@@ -416,9 +419,9 @@ class Cart extends PureComponent {
               iconType="MaterialIcons"
             />
 
-            {/*<CartItems items={cartItems} onItemPress={this.onCartItemPress} />*/}
+            <CartItems items={cartItems} onItemPress={this.onCartItemPress} />
 
-            <CartTotal total={cartTotal} />
+            {/*<CartTotal total={cartTotal} />*/}
           </View>
         )}
 

@@ -117,9 +117,9 @@ class CreateOrder extends PureComponent {
   onPackagesListItemPress = (item: object, packages: Array) => {
     console.log('item',item);
     let activePackages = this.props.cart.activePackageIDs;
-    let filteredPackages = activePackages.filter(
+    let filteredPackages = activePackages && activePackages.filter(
       id => packages.indexOf(id) === -1,
-    );
+    ) || [];
     let newPackages = filteredPackages.concat(item.id);
 
     this.props.actions.setCartItems({
@@ -176,7 +176,7 @@ class CreateOrder extends PureComponent {
 
     const item = {
       category: activeCategoryID,
-      package: activePackageIDs,
+      packages: activePackageIDs,
       total: total,
     };
 
@@ -348,7 +348,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    categories: SELECTORS.getCategories(state),
+    categories: SELECTORS.getParentCategories(state),
     cart: SELECTORS.getCart(state),
   };
 }
