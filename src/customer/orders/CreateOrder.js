@@ -9,9 +9,6 @@ import {ACTIONS, ACTIONS as CART_ACTIONS} from 'customer/common/actions';
 import {ACTIONS as APP_ACTIONS} from 'app/common/actions';
 import {SELECTORS} from 'customer/selectors/orders';
 import CategoriesList from 'customer/orders/components/CategoriesList';
-import PackagesList from 'customer/orders/components/PackagesList';
-import ServicesList from 'customer/orders/components/ServicesList';
-import {Title} from 'react-native-paper';
 import I18n from 'utils/locale';
 import NavButton from 'components/NavButton';
 import colors from 'assets/theme/colors';
@@ -22,12 +19,6 @@ import IconFactory from 'components/IconFactory';
 import FreeWash from 'customer/components/FreeWash';
 import Modal from 'react-native-modal';
 import CategoriesChildrenList from "./components/CategoriesChildrenList";
-
-type State = {
-  showCartSuccessModal: boolean,
-};
-
-const initialState = {};
 
 class CreateOrder extends PureComponent {
   state = {
@@ -124,6 +115,7 @@ class CreateOrder extends PureComponent {
   };
 
   onPackagesListItemPress = (item: object, packages: Array) => {
+    console.log('item',item);
     let activePackages = this.props.cart.activePackageIDs;
     let filteredPackages = activePackages.filter(
       id => packages.indexOf(id) === -1,
@@ -178,22 +170,19 @@ class CreateOrder extends PureComponent {
   onAddToCartPress = () => {
     const {
       activeCategoryID,
-      activePackageID,
-      activeServicesIDs,
+      activePackageIDs,
       total,
     } = this.props.cart;
 
     const item = {
       category: activeCategoryID,
-      package: activePackageID,
-      services: activeServicesIDs,
+      package: activePackageIDs,
       total: total,
     };
 
     this.props.actions.setCartItems({
       activeCategoryID: undefined,
-      activePackageID: undefined,
-      activeServicesIDs: [],
+      activePackageIDs: [],
       hasFreeWash: false,
       isFreeWash: false,
     });
@@ -286,15 +275,15 @@ class CreateOrder extends PureComponent {
           />
         )}
 
-        <Title
-          style={{
-            textAlign: 'center',
-            padding: 10,
-            backgroundColor: colors.fadedWhite,
-            marginBottom: 10,
-          }}>
-          {I18n.t('total')} {total} KD
-        </Title>
+        {/*<Title*/}
+          {/*style={{*/}
+            {/*textAlign: 'center',*/}
+            {/*padding: 10,*/}
+            {/*backgroundColor: colors.fadedWhite,*/}
+            {/*marginBottom: 10,*/}
+          {/*}}>*/}
+          {/*{I18n.t('total')} {total} KD*/}
+        {/*</Title>*/}
 
         <Button
           onPress={this.onAddToCartPress}

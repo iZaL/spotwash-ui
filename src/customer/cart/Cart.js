@@ -416,7 +416,7 @@ class Cart extends PureComponent {
               iconType="MaterialIcons"
             />
 
-            <CartItems items={cartItems} onItemPress={this.onCartItemPress} />
+            {/*<CartItems items={cartItems} onItemPress={this.onCartItemPress} />*/}
 
             <CartTotal total={cartTotal} />
           </View>
