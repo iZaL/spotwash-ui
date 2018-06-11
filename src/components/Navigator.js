@@ -20,6 +20,8 @@ export default class Navigator extends Component {
     switch (userType) {
       case 10:
         return 'Driver';
+      case 20:
+        return 'Company';
       case 100:
         return 'Admin';
       default:

@@ -46,44 +46,46 @@ export const ACTION_TYPES = {
     '@company/drivers/SAVE_DRIVER_ATTRIBUTES_SUCCESS',
 
   SUBSCRIBE_TO_DRIVER_TRACKINGS: '@company/SUBSCRIBE_TO_DRIVER_TRACKINGS',
+
+  DRIVER_SET_TIMINGS_REQUEST : '@company/DRIVER_SET_TIMINGS_REQUEST',
 };
 
-function fetchUpcomingOrders(params) {
+function fetchUpcomingOrders(params = {}) {
   return {
     type: ACTION_TYPES.FETCH_UPCOMING_ORDERS_REQUEST,
     params,
   };
 }
 
-function fetchUpcomingOrdersRefresh(params) {
+function fetchUpcomingOrdersRefresh(params = {}) {
   return {
     type: ACTION_TYPES.FETCH_UPCOMING_ORDERS_REFRESH_REQUEST,
     params,
   };
 }
 
-function fetchWorkingOrders(params) {
+function fetchWorkingOrders(params = {}) {
   return {
     type: ACTION_TYPES.FETCH_WORKING_ORDERS_REQUEST,
     params,
   };
 }
 
-function fetchWorkingOrdersRefresh(params) {
+function fetchWorkingOrdersRefresh(params = {}) {
   return {
     type: ACTION_TYPES.FETCH_WORKING_ORDERS_REFRESH_REQUEST,
     params,
   };
 }
 
-function fetchPastOrders(params) {
+function fetchPastOrders(params = {}) {
   return {
     type: ACTION_TYPES.FETCH_PAST_ORDERS_REQUEST,
     params,
   };
 }
 
-function fetchPastOrdersRefresh(params) {
+function fetchPastOrdersRefresh(params = {}) {
   return {
     type: ACTION_TYPES.FETCH_PAST_ORDERS_REFRESH_REQUEST,
     params,
@@ -160,4 +162,5 @@ export const ACTIONS = {
   assignDriver,
   saveDriverAttributes,
   subscribeToDriverTrackings,
+  setTimings
 };

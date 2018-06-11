@@ -43,17 +43,18 @@ class DriversListScene extends PureComponent {
           onItemPress={this.onDriversListItemPress}
           activeItemID={0}
         />
+
+        <View style={{flex:1,alignItems:'flex-end',justifyContent:'flex-end',padding:20}}>
         <FAB
           icon="add"
           dark
           onPress={this.onAddPress}
           medium
           style={{
-            left: 20,
-            bottom: 20,
             backgroundColor: colors.primary,
           }}
         />
+        </View>
       </View>
     );
   }

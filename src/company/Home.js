@@ -10,7 +10,6 @@ import {ACTIONS as COMPANY_ACTIONS} from 'company/common/actions';
 import I18n from 'utils/locale';
 import SectionHeading from 'company/components/SectionHeading';
 import OrdersList from 'company/orders/components/OrdersList';
-import {ACTIONS as CUSTOMER_ACTIONS} from 'customer/common/actions';
 
 class Home extends PureComponent {
   static propTypes = {
@@ -38,11 +37,6 @@ class Home extends PureComponent {
   fetchData = () => {
     this.props.dispatch(
       ORDER_ACTIONS.fetchUpcomingOrders({
-        force: true,
-      }),
-    );
-    this.props.dispatch(
-      ORDER_ACTIONS.fetchWorkingOrders({
         force: true,
       }),
     );
