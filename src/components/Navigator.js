@@ -40,7 +40,7 @@ export default class Navigator extends Component {
       },
       {
         headerMode: 'none',
-        initialRouteName: user.id ? screen : 'Customer',
+        initialRouteName: user.id ? this.resolveScreenForUser(user.type) : 'Customer',
       },
     );
 

@@ -4,16 +4,18 @@ import {
   ImageBackground,
   RefreshControl,
   ScrollView,
-  Dimensions
+  Dimensions, View
 } from 'react-native';
 import {SELECTORS} from 'customer/selectors/orders';
 import {connect} from 'react-redux';
 import {ACTIONS as ORDER_ACTIONS} from 'customer/common/actions';
-import StandingOrdersList from 'customer/components/StandingOrdersList';
+import OrderList from 'customer/components/OrderList';
 import colors from 'assets/theme/colors';
-import HomeActionButtons from "./components/HomeActionButtons";
-import images from 'assets/theme/images';
-import Divider from "../components/Divider";
+import HomeActionButtons from "customer/components/HomeActionButtons";
+import Divider from "components/Divider";
+import SectionHeading from "company/components/SectionHeading";
+import I18n from 'utils/locale';
+import images from "assets/theme/images";
 
 class Home extends Component {
   static defaultProps = {
@@ -95,6 +97,12 @@ class Home extends Component {
         refreshing={false}
         >
 
+        <Image
+          source={images.home_bg}
+          style={{width: Dimensions.get('window').width, height: 250}}
+          resizeMode="cover"
+        />
+
         <HomeActionButtons
           onCreateOrderPress={this.onCreateOrderPress}
           onFindNearByCompaniesPress={this.onFindNearByCompaniesPress}
@@ -102,7 +110,11 @@ class Home extends Component {
 
         <Divider/>
 
-        <StandingOrdersList
+        <View>
+        <SectionHeading title={I18n.t('standing_orders')} buttonTitle="view all" style={{backgroundColor:'transparent'}}/>
+        </View>
+
+        <OrderList
           items={working_order}
           onItemPress={this.onStandingOrderListItemPress}
           onItemTrackPress={this.onItemTrackPress}

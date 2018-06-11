@@ -8,15 +8,16 @@ import colors from 'assets/theme/colors';
 import CompanyImage from 'company/components/CompanyImage';
 import I18n from 'utils/locale';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Avatar from "../../components/Avatar";
 
 const CompanyCard = ({company, amount, style, showConfirmed = false}) => {
   return (
     <View style={[styles.container, style]} key={company.id}>
-      {company.logo && <CompanyImage rounded={true} image={company.logo} />}
+      {company.logo && <Avatar image={company.logo} size={80} />}
       <Text style={styles.companyName}>
         {company.name ? company.name : company.user.name}
       </Text>
-      <View style={{alignItems: 'center'}}>
+      <View style={{ paddingHorizontal:5,alignItems:'center'}}>
         <Text style={styles.price}>{amount}</Text>
         <Text style={styles.currency}>{I18n.t('kd')}</Text>
 
@@ -46,8 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     borderRadius: 5,
-    marginVertical: 5,
-    paddingVertical: 5,
+    padding: 5,
   },
   price: {
     fontSize: 18,
@@ -57,13 +57,11 @@ const styles = StyleSheet.create({
   companyName: {
     flex: 1,
     fontSize: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
   },
   itemContentContainer: {
     flex: 1,
     flexDirection: 'row',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
   },
   currency: {
     fontSize: 13,

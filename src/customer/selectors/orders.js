@@ -14,6 +14,8 @@ const upcomingOrders = state => state.customer.upcoming_orders.ids;
 const workingOrder = state => state.customer.working_order.ids;
 const pastOrders = state => state.customer.past_orders.ids;
 const getItemIdProp = (state, itemID) => itemID;
+const getOrderIdProps = ({}, props) => props.orderID;
+const getBidIdProp = ({}, props) => props.bidID;
 const getTrackings = state => state.customer.trackings;
 
 const getCategories = createSelector(
@@ -115,6 +117,14 @@ const getPastOrders = createSelector(
   },
 );
 
+const getBidsByID = () => {
+  return createSelector([schemas,getOrderIdProps, getBidIdProp], (entities,orderID, bidID) => {
+      let order =  denormalize(orderID, Schema.orders, entities);
+      return order.bids.find(bid => bid.id === bidID);
+    }
+  );
+};
+
 export const SELECTORS = {
   getCart,
   getCartItems,
@@ -128,4 +138,6 @@ export const SELECTORS = {
   getWorkingOrder,
   getPastOrders,
   getAreas,
+  getBidsByID,
+
 };

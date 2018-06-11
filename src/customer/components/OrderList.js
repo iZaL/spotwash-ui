@@ -5,9 +5,8 @@ import Touchable from 'react-native-platform-touchable';
 import colors from 'assets/theme/colors';
 import I18n from 'utils/locale';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeActionButtons from 'customer/components/HomeActionButtons';
 
-export default class StandingOrdersList extends Component {
+export default class OrderList extends Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.items !== this.props.items;
   }
@@ -27,12 +26,8 @@ export default class StandingOrdersList extends Component {
           style={styles.itemContentContainer}
           onPress={() => onItemPress(item)}>
           <View>
-            <Text style={[styles.dateTime, {fontWeight: 'bold'}]}>
-              {I18n.t('order_details')}
-            </Text>
-
             {item.packages.map((packageItem, index) => (
-              <View key={`${index}`}>
+              <View key={`${index}`} style={{flexDirection:'row'}}>
                 <Text style={styles.dateTime}>{packageItem.category.name}</Text>
                 <Text style={styles.dateTime}>{packageItem.name},</Text>
               </View>
@@ -44,14 +39,11 @@ export default class StandingOrdersList extends Component {
           </View>
         </Touchable>
 
-        <Touchable onPress={() => onItemTrackPress(item)}>
-          <View style={{alignItems: 'center'}}>
-            <MaterialCommunityIcons
-              name="map-marker"
-              color="#a51300"
-              size={50}
-            />
-            <Text style={styles.dateTime}>{I18n.t('track')}</Text>
+        <Touchable onPress={() => onItemTrackPress(item)} style={styles.bidContainer}>
+          <View style={styles.bidInnerContainer}>
+            <View style={styles.bidRowContainer}>
+              <Text style={styles.bidText}>5</Text>
+            </View>
           </View>
         </Touchable>
       </View>
@@ -82,10 +74,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: colors.primary,
-    borderRadius: 40,
-    borderColor: 'white',
-    borderWidth: 2,
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    borderColor: colors.fadedWhite,
+    borderWidth: 1,
     width: Dimensions.get('window').width - 60,
     marginVertical: 10,
     padding: 10,
@@ -104,7 +96,8 @@ const styles = StyleSheet.create({
   },
   dateTime: {
     fontSize: 16,
-    color: colors.white,
+    color: colors.primary,
+    paddingRight:10
   },
   viewAll: {
     fontSize: 15,
@@ -128,5 +121,34 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 20,
     paddingVertical: 10,
+  },
+  bidText:{
+    color:'white',
+    fontWeight:'700',
+
+  },
+  bidContainer:{
+    width:50,
+    height:50,
+    borderRadius:25,
+    backgroundColor:colors.primary,
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  bidInnerContainer:{
+    backgroundColor:colors.white,
+    width:40,
+    height:40,
+    borderRadius:20,
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  bidRowContainer:{
+    backgroundColor:colors.primary,
+    width:30,
+    height:30,
+    borderRadius:15,
+    alignItems:'center',
+    justifyContent:'center',
   },
 });

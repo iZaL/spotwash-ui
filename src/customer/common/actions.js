@@ -81,6 +81,15 @@ export const ACTION_TYPES = {
   FETCH_HAS_FREE_WASH_REQUEST: '@customer/FETCH_HAS_FREE_WASH_REQUEST',
   FETCH_HAS_FREE_WASH_SUCCESS: '@customer/FETCH_HAS_FREE_WASH_SUCCESS',
   FETCH_HAS_FREE_WASH_FAILURE: '@customer/FETCH_HAS_FREE_WASH_FAILURE',
+
+
+  FETCH_BIDS_REQUEST: '@customer/orders/FETCH_BIDS_REQUEST',
+  FETCH_BIDS_SUCCESS: '@customer/orders/FETCH_BIDS_SUCCESS',
+  FETCH_BIDS_FAILURE: '@customer/orders/FETCH_BIDS_FAILURE',
+
+  CONFIRM_BID_REQUEST: '@customer/orders/CONFIRM_BID_REQUEST',
+  CONFIRM_BID_SUCCESS: '@customer/orders/CONFIRM_BID_SUCCESS',
+  CONFIRM_BID_FAILURE: '@customer/orders/CONFIRM_BID_FAILURE',
 };
 
 function fetchCartItems() {
@@ -241,6 +250,20 @@ function fetchOrderDetails(id) {
   };
 }
 
+function fetchBids(params: object) {
+  return {
+    type: ACTION_TYPES.FETCH_BIDS_REQUEST,
+    params,
+  };
+}
+
+function confirmBid(params: object) {
+  return {
+    type: ACTION_TYPES.CONFIRM_BID_REQUEST,
+    params,
+  };
+}
+
 export const ACTIONS = {
   addToCart,
   fetchCartItems,
@@ -265,4 +288,6 @@ export const ACTIONS = {
   fetchPastOrders,
   fetchPastOrdersRefresh,
   fetchOrderDetails,
+  fetchBids,
+  confirmBid,
 };

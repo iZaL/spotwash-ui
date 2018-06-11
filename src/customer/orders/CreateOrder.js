@@ -310,11 +310,11 @@ class CreateOrder extends PureComponent {
               </Text>
             </View>
           }
-          leftButtonPress={this.onAddNewItemPress}
-          rightButtonPress={this.onCheckoutPress}
+          leftPress={this.onAddNewItemPress}
+          rightPress={this.onCheckoutPress}
           visible={showCartSuccessModal}
-          rightButtonText={I18n.t('checkout').toUpperCase()}
-          leftButtonText={I18n.t('add_item').toUpperCase()}
+          rightText={I18n.t('checkout').toUpperCase()}
+          leftText={I18n.t('add_item').toUpperCase()}
           rightButtonStyle={{
             primary: true,
           }}

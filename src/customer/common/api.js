@@ -85,6 +85,21 @@ function fetchOrderDetails(id) {
   return request({path, requiresAuthentication: true});
 }
 
+function fetchBids(orderID) {
+  const path = `customer/orders/${orderID}/bids`;
+  return request({path, requiresAuthentication: true});
+}
+
+function confirmBid(bidID, params) {
+  const path = `customer/orders/bids/${bidID}/confirm`;
+  let requestParams = {
+    path,
+    params,
+    method: 'POST',
+  };
+  return request(requestParams);
+}
+
 export const API = {
   fetchCartItems,
   fetchCategories,
@@ -99,4 +114,6 @@ export const API = {
   fetchPastOrders,
   fetchWorkingOrders,
   fetchOrderDetails,
+  fetchBids,
+  confirmBid,
 };

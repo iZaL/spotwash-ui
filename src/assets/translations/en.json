@@ -15,7 +15,7 @@
   "create_account": "Create Account",
   "forgot_password": "Forgot Password",
   "logout":"Logout",
-  "confirm": "confirm",
+  "confirm": "Confirm",
   "new_password":"New Password",
   "confirm_new_password":"Confirm New Password",
   "change_language":"Change Language",
@@ -126,6 +126,7 @@
   "call" : "Call",
   "thank_you" : "Thank you",
   "order_confirmed" : "Order Success",
+  "view_bids" : "View Bids",
 
   "admin_home" : "Admin Home",
   "customer_home": "Customer Home",
@@ -177,5 +178,8 @@
   "today" : "Today",
   "open_in_google_maps?" : "Open in Google Maps ?",
 
-  "nearby_companies" : "Nearby Companies"
+  "nearby_companies" : "Nearby Companies",
+
+  "bidding_closed" : "Bid for this order has been closed",
+  "ok" : "OK"
 }

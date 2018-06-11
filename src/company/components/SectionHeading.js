@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     flex: 1,
+    // color:colors.black
   },
   addDriver: {
     color: colors.primary,

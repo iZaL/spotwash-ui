@@ -62,9 +62,9 @@ export default class GoogleMapDirection extends Component {
 
         <Dialog
           title={I18n.t('open_in_google_maps?')}
-          rightButtonPress={this.onConfirm}
-          leftButtonPress={this.hideModal}
-          leftButtonText={I18n.t('cancel')}
+          rightPress={this.onConfirm}
+          leftPress={this.hideModal}
+          leftText={I18n.t('cancel')}
           visible={dialogVisible}
         />
       </View>

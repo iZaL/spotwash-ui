@@ -300,6 +300,53 @@ function* fetchHasFreeWash(action) {
   }
 }
 
+
+function* fetchBids(action) {
+  try {
+    const response = yield call(API.fetchBids, action.params.order_id);
+
+
+    const normalized = normalize(response.data, Schema.orders);
+    yield put({
+      type: ACTION_TYPES.FETCH_BIDS_SUCCESS,
+      entities: normalized.entities,
+    });
+  } catch (error) {
+    yield put({type: ACTION_TYPES.FETCH_BIDS_FAILURE, error});
+  }
+}
+
+function* confirmBid(action) {
+  try {
+
+    let params = {
+      body:{
+        ...action.params
+      }
+    };
+    const response = yield call(API.confirmBid, action.params.bid_id, params);
+    const normalized = normalize(response.data, Schema.orders);
+    let {entities} = normalized;
+    yield put({
+      type: ACTION_TYPES.CONFIRM_BID_SUCCESS,
+      entities: entities,
+    });
+
+    yield put(
+      APP_ACTIONS.setNotification({
+        message: I18n.t('confirm_bid_success'),
+      }),
+    );
+  } catch (error) {
+    yield put({type: ACTION_TYPES.CONFIRM_BID_FAILURE, error});
+    yield put(APP_ACTIONS.setNotification({
+      message:error,
+      type:'error'
+    }));
+  }
+}
+
+
 // Monitoring Sagas
 function* fetchCategoriesMonitor() {
   yield takeLatest(ACTION_TYPES.CATEGORY_REQUEST, fetchCategories);
@@ -357,6 +404,15 @@ function* fetchHasFreeWashMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_HAS_FREE_WASH_REQUEST, fetchHasFreeWash);
 }
 
+
+function* fetchBidsMonitor() {
+  yield takeLatest(ACTION_TYPES.FETCH_BIDS_REQUEST, fetchBids);
+}
+
+function* confirmBidMonitor() {
+  yield takeLatest(ACTION_TYPES.CONFIRM_BID_REQUEST, confirmBid);
+}
+
 export const sagas = all([
   fork(fetchCategoriesMonitor),
   fork(fetchHasFreeWashMonitor),
@@ -371,4 +427,6 @@ export const sagas = all([
   fork(fetchUpcomingOrdersMonitor),
   fork(fetchPastOrdersMonitor),
   fork(fetchOrderDetailsMonitor),
+  fork(fetchBidsMonitor),
+  fork(confirmBidMonitor),
 ]);

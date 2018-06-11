@@ -19,7 +19,7 @@ const SectionTitle = ({titleStyle, title, style, icon, iconType, iconSize}) => {
           size={iconSize}
         />
       )}
-      <Title style={[styles.title, {color: colors.darkGrey}, titleStyle]}>
+      <Title style={[styles.title, {color: colors.black}, titleStyle]}>
         {title}
       </Title>
     </View>

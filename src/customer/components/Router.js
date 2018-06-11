@@ -19,6 +19,9 @@ import UpcomingOrdersScene from 'customer/orders/UpcomingOrdersScene';
 import I18n from 'utils/locale';
 import colors from 'assets/theme/colors';
 import LanguageSelect from 'app/LanguageSelect';
+import BidsListScene from 'customer/bids/BidsListScene';
+import BidsDetailScene from 'customer/bids/BidsDetailScene';
+
 
 const getDrawerIcon = navigation => {
   return {
@@ -26,6 +29,10 @@ const getDrawerIcon = navigation => {
       <DrawerIcon onPress={() => navigation.navigate('DrawerToggle')} />
     ),
   };
+};
+
+const cardStyle ={
+  backgroundColor:'#f5f5f5'
 };
 
 const navStyle = {
@@ -53,6 +60,7 @@ const AuthStack = StackNavigator(
     navigationOptions: ({navigation}) => ({
       ...navStyle,
     }),
+
     // initialRouteName:'RegisterScreen'
   },
 );
@@ -73,6 +81,8 @@ const HomeStack = StackNavigator(
       }),
     },
     OrderDetail: {screen: OrderDetailScene},
+    BidsList: {screen: BidsListScene},
+    BidsDetail: {screen: BidsDetailScene},
     TrackOrder: {
       screen: TrackOrderScene,
       navigationOptions: ({navigation}) => ({
@@ -108,6 +118,9 @@ const HomeStack = StackNavigator(
       gesturesEnabled: false,
       ...navStyle,
     }),
+    cardStyle:{
+      ...cardStyle
+    }
     // initialRouteName:'Cart'
   },
 );

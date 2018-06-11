@@ -5,7 +5,7 @@ const timingsSchema = new schema.Entity('timings');
 const ordersSchema = new schema.Entity('orders');
 const usersSchema = new schema.Entity('users');
 const driversSchema = new schema.Entity('drivers');
-const jobsSchema = new schema.Entity('jobs');
+// const jobsSchema = new schema.Entity('jobs');
 const areasSchema = new schema.Entity('areas');
 
 const profileSchema = new schema.Union(
@@ -24,16 +24,15 @@ packagesSchema.define({
   // category: categoriesSchema,
 });
 
-
 ordersSchema.define({
   user: usersSchema,
-  job: jobsSchema,
+  // job: jobsSchema,
   packages: [packagesSchema],
 });
 
-jobsSchema.define({
-  driver: driversSchema,
-});
+// jobsSchema.define({
+//   driver: driversSchema,
+// });
 
 usersSchema.define({
   orders: [ordersSchema],

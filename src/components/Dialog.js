@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
   Dialog as PaperDialog,
+  Button,
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -9,22 +10,21 @@ import {
   Colors,
 } from 'react-native-paper';
 import I18n from 'utils/locale';
-import Button from 'components/Button';
+import {View} from 'react-native';
 
 export default class Dialog extends Component {
   static propTypes = {
     title: PropTypes.string,
-    description: PropTypes.element,
-    leftButtonPress: PropTypes.func.isRequired,
-    rightButtonPress: PropTypes.func.isRequired,
+    description: PropTypes.string,
+    leftPress: PropTypes.func,
+    rightPress: PropTypes.func.isRequired,
     visible: PropTypes.bool.isRequired,
     onDismiss: PropTypes.func,
     dismissable: PropTypes.bool,
   };
 
   static defaultProps = {
-    leftButtonText: I18n.t('cancel'),
-    rightButtonText: I18n.t('yes'),
+    rightText: I18n.t('yes'),
     dismissable: false,
   };
 
@@ -37,11 +37,10 @@ export default class Dialog extends Component {
       title,
       description,
       visible,
-      leftButtonPress,
-      rightButtonPress,
-      leftButtonText,
-      rightButtonText,
-      rightButtonStyle,
+      leftPress,
+      rightPress,
+      leftText,
+      rightText,
       dismissable,
       onDismiss,
     } = this.props;
@@ -52,21 +51,20 @@ export default class Dialog extends Component {
         onDismiss={onDismiss}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          <Paragraph>{description}</Paragraph>
+          <View>
+            <Paragraph>{description}</Paragraph>
+            {this.props.children}
+          </View>
         </DialogContent>
         <DialogActions>
-          <Button
-            onPress={leftButtonPress}
-            title={leftButtonText}
-            color={Colors.grey700}
-          />
-          <Button
-            color={Colors.teal500}
-            primary
-            onPress={rightButtonPress}
-            title={rightButtonText}
-            {...rightButtonStyle}
-          />
+          {leftText && (
+            <Button color={Colors.teal500} onPress={leftPress}>
+              {leftText}
+            </Button>
+          )}
+          <Button primary onPress={rightPress}>
+            {rightText}
+          </Button>
         </DialogActions>
       </PaperDialog>
     );

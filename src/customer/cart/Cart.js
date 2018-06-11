@@ -66,10 +66,10 @@ class Cart extends PureComponent {
     user: {
       addresses: [],
     },
-    areas: [],
     timings: [],
     cartItems: [],
     cart: {},
+    orderID:null
   };
 
   componentDidMount() {
@@ -82,7 +82,6 @@ class Cart extends PureComponent {
     });
     this.props.actions.fetchCartItems();
     this.props.actions.fetchAddresses();
-    this.props.actions.fetchAreas();
     this.fetchTimings();
   }
 
@@ -224,6 +223,9 @@ class Cart extends PureComponent {
       force: true,
     });
     this.props.navigation.popToTop();
+    this.props.navigation.navigate('OrderDetail',{
+      orderID:this.state.orderID
+    })
     this.props.actions.setCartItem('isFreeWash', false);
   };
 
@@ -320,6 +322,7 @@ class Cart extends PureComponent {
             this.setState({
               showOrderSuccessModal: true,
               showCheckoutConfirmDialog: false,
+              orderID:order.id
             });
           } else if (order.status == 'Checkout') {
             this.setState({
@@ -379,7 +382,6 @@ class Cart extends PureComponent {
       checkout,
       timings,
       isFetchingTimings,
-      areas,
     } = this.props;
 
     let {selectedDate, selectedAddressID, selectedTimeID, isFreeWash} = cart;
@@ -399,9 +401,6 @@ class Cart extends PureComponent {
     if (!isFreeWash && !cartItems.length) {
       return <EmptyCart />;
     }
-
-    console.log('timings',timings);
-    console.log('cartItems',cartItems);
 
     return (
       <ScrollView
@@ -554,7 +553,6 @@ class Cart extends PureComponent {
           <CreateAddress
             onCancel={this.hideAddressCreateModal}
             onSave={this.saveAddress}
-            areas={areas}
             address={address}
           />
         </Modal>
@@ -614,7 +612,6 @@ function mapStateToProps(state) {
     user: USER_SELECTORS.getAuthUser(state),
     isAuthenticated: USER_SELECTORS.isAuthenticated(state),
     checkout: state.customer.checkout,
-    areas: SELECTORS.getAreas(state),
   };
 }
 

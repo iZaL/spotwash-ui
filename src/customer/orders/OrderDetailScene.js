@@ -43,6 +43,12 @@ class OrderDetailScene extends Component {
     });
   };
 
+  viewBids = () => {
+    this.props.navigation.navigate('BidsList', {
+      orderID: this.props.order.id,
+    });
+  };
+
   render() {
     let {order} = this.props;
     return (
@@ -54,6 +60,15 @@ class OrderDetailScene extends Component {
             <OrderBasicInfo item={order} />
             <OrderItems order={order} />
             <OrderTotal total={order.total} />
+
+            <Button
+              onPress={this.viewBids}
+              primary
+              raised
+              dark
+              title={I18n.t('view_bids')}
+            />
+
 
             {order.job &&
               order.job.driver &&

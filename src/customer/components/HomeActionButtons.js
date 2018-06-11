@@ -10,7 +10,7 @@ import I18n from 'utils/locale';
 export default class HomeActionButtons extends Component {
   static propTypes = {
     onCreateOrderPress: PropTypes.func.isRequired,
-    onFindNearByCompaniesPress: PropTypes.func.isRequired,
+    // onFindNearByCompaniesPress: PropTypes.func.isRequired,
   };
 
   render() {

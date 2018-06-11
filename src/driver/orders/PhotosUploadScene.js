@@ -232,9 +232,9 @@ class PhotosUploadScene extends Component {
 
         <Dialog
           title={I18n.t('approve_images_confirm')}
-          rightButtonText={I18n.t('yes').toUpperCase()}
-          leftButtonPress={this.hideImageApprovalDialog}
-          rightButtonPress={this.approveImages}
+          rightText={I18n.t('yes').toUpperCase()}
+          leftPress={this.hideImageApprovalDialog}
+          rightPress={this.approveImages}
           visible={imageApprovalDialogVisible}
         />
 
@@ -242,10 +242,10 @@ class PhotosUploadScene extends Component {
           title={I18n.t('upload_images')}
           onDismiss={this.onImageUploadOptionsDialogDismiss}
           dismissable={true}
-          leftButtonText={I18n.t('upload_from_album').toUpperCase()}
-          rightButtonText={I18n.t('upload_from_camera').toUpperCase()}
-          leftButtonPress={this.uploadFromAlbum}
-          rightButtonPress={this.uploadFromCamera}
+          leftText={I18n.t('upload_from_album').toUpperCase()}
+          rightText={I18n.t('upload_from_camera').toUpperCase()}
+          leftPress={this.uploadFromAlbum}
+          rightPress={this.uploadFromCamera}
           visible={showImageUploadOptionsDialog}
         />
 

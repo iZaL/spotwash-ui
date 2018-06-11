@@ -165,28 +165,28 @@ export default class MapButtons extends Component {
 
         <Dialog
           description="You are about to start driving to the destination"
-          leftButtonPress={this.hideStartDrivingDialog}
-          rightButtonPress={this.startDriving}
+          leftPress={this.hideStartDrivingDialog}
+          rightPress={this.startDriving}
           visible={showStartDrivingDialog}
         />
         <Dialog
           description="Have you reached the destination ?"
-          leftButtonPress={this.hideStopDrivingDialog}
-          leftButtonText={I18n.t('no')}
-          rightButtonPress={this.stopDriving}
+          leftPress={this.hideStopDrivingDialog}
+          leftText={I18n.t('no')}
+          rightPress={this.stopDriving}
           visible={showStopDrivingDialog}
         />
         <Dialog
           description="Do you want to start working on the Job ?"
-          leftButtonPress={this.hideStartWorkingDialog}
-          rightButtonPress={this.startWorking}
+          leftPress={this.hideStartWorkingDialog}
+          rightPress={this.startWorking}
           visible={showStartWorkingDialog}
         />
         <Dialog
           description="Have you completed the Job ?"
-          leftButtonPress={this.hideStopWorkingDialog}
-          leftButtonText={I18n.t('no')}
-          rightButtonPress={this.stopWorking}
+          leftPress={this.hideStopWorkingDialog}
+          leftText={I18n.t('no')}
+          rightPress={this.stopWorking}
           visible={showStopWorkingDialog}
         />
       </View>
