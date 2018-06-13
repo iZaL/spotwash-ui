@@ -4,7 +4,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {
-  ACTIONS as DRIVER_ACTIONS,
   ACTIONS as ORDER_ACTIONS,
 } from 'company/common/actions';
 import {SELECTORS as ORDER_SELECTORS} from 'company/selectors/orders';
@@ -19,6 +18,7 @@ import UserInfo from 'customer/components/UserInfo';
 import DriverAssign from 'company/orders/components/DriverAssign';
 import Button from 'components/Button';
 import I18n from 'utils/locale';
+import FormTextInput from "../../components/FormTextInput";
 
 class OrderDetailScene extends Component {
   static propTypes = {
@@ -31,13 +31,17 @@ class OrderDetailScene extends Component {
     }).isRequired,
   };
 
+  state = {
+    amount:0
+  };
+
   componentDidMount() {
     if (this.props.navigation.state && this.props.navigation.state.params) {
       let {orderID} = this.props.navigation.state.params;
       this.props.dispatch(ORDER_ACTIONS.fetchOrderDetails(orderID));
     }
 
-    this.props.dispatch(DRIVER_ACTIONS.fetchDrivers());
+    this.props.dispatch(ORDER_ACTIONS.fetchDrivers());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,7 +54,7 @@ class OrderDetailScene extends Component {
 
   selectDriver = (driver: object) => {
     this.props.dispatch(
-      DRIVER_ACTIONS.assignDriver(this.props.order.id, {
+      ORDER_ACTIONS.assignDriver(this.props.order.id, {
         driver_id: driver.id,
       }),
     );
@@ -71,8 +75,51 @@ class OrderDetailScene extends Component {
     });
   };
 
+
+  makeBid = () => {
+    this.props.dispatch(
+      ORDER_ACTIONS.makeBid({order_id: this.props.order.id, amount: this.state.amount}),
+    );
+  };
+
+  cancelBid = () => {
+    this.props.dispatch(
+      ORDER_ACTIONS.cancelBid({order_id: this.props.order.id}),
+    );
+  };
+
+  onFieldChange = (field, value) => {
+    this.setState({
+      [field]: value
+    })
+  };
+
+
   render() {
     let {order, drivers} = this.props;
+
+    console.log('order',order);
+
+    let {amount} = this.state;
+
+    let buttonComponent;
+    let showTextInput = false;
+
+    console.log('orderconfirmed',order.bid_open);
+
+    if (order.bid_open) {
+
+      console.log('asdasdasd',order.bid_open);
+
+      buttonComponent = <Button title={I18n.t('cannot_bid')} onPress={() => {}} style={{marginVertical: 40}} disabled={true}/>;
+    } else {
+      if (order.has_bidded) {
+        buttonComponent = <Button title={I18n.t('cancel_bid')} onPress={this.cancelBid} style={{marginVertical: 40}} background={'warning'}/>
+      } else {
+        showTextInput = true;
+        buttonComponent = <Button title={I18n.t('make_bid')} onPress={this.makeBid} style={{marginVertical: 40}}/>
+      }
+    }
 
     return (
       <ScrollView style={{flex: 1}} keyboardShouldPersistTap="always">
@@ -90,6 +137,27 @@ class OrderDetailScene extends Component {
           drivers={drivers}
           onDriversListItemPress={this.selectDriver}
         />
+
+
+        {
+          showTextInput &&
+
+          <FormTextInput
+            onChangeText={value => this.onFieldChange('amount', value)}
+            value={`${amount}`}
+            field='amount'
+            label={I18n.t('bid_price')}
+            maxLength={40}
+            placeholder={I18n.t('bid_price')}
+            keyboardType="numeric"
+            style={{backgroundColor: 'white', marginHorizontal: 5, padding: 10, textAlign: 'right'}}
+          />
+
+        }
+
+
+
+        {buttonComponent}
 
         {order.job &&
           order.job.driver &&
