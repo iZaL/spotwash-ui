@@ -181,5 +181,6 @@
   "nearby_companies" : "Nearby Companies",
 
   "bidding_closed" : "Bid for this order has been closed",
-  "ok" : "OK"
+  "ok" : "OK",
+  "send_request" : "Send Request"
 }
