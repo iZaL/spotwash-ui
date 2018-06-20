@@ -19,6 +19,9 @@ import IconFactory from 'components/IconFactory';
 import FreeWash from 'customer/components/FreeWash';
 import Modal from 'react-native-modal';
 import CategoriesChildrenList from "./components/CategoriesChildrenList";
+import Divider from "../../components/Divider";
+import SectionHeading from "../../company/components/SectionHeading";
+import SectionTitle from "../../components/SectionTitle";
 
 class CreateOrder extends PureComponent {
   state = {
@@ -250,15 +253,19 @@ class CreateOrder extends PureComponent {
 
     return (
       <ScrollView
-        style={{flex: 1, backgroundColor: 'white'}}
+        style={{flex: 1}}
         keyboardShouldPersistTaps={'always'}
         contentInset={{bottom: 50}}>
+
+        <SectionTitle title={I18n.t('select_car_size')} style={{paddingHorizontal:10}}/>
 
         <CategoriesList
           items={categories}
           onItemPress={this.onCategoriesListItemPress}
           activeItemID={activeCategoryID}
         />
+
+        <Divider/>
 
         {activeCategoryID && (
           <CategoriesChildrenList

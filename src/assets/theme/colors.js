@@ -1,6 +1,6 @@
 export default {
   darkGrey: '#5d5f63',
-  mediumGrey: '#858b91',
+  mediumGrey: '#9ca2a8',
   lightGrey: '#f5f5f5',
   info: '#2196f3',
   error: '#f44336',

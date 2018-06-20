@@ -74,6 +74,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width / 2 - 20,
     alignItems: 'center',
     justifyContent: 'space-around',
+    borderWidth:1,
+    borderColor:colors.mediumGrey,
   },
   image: {
     width: 25,

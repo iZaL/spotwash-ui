@@ -4,6 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import colors from 'assets/theme/colors';
 import Divider from 'components/Divider';
 import PackagesList from 'customer/orders/components/PackagesList';
+import SectionTitle from "../../../components/SectionTitle";
 
 export default class CategoriesChildrenList extends Component {
   shouldComponentUpdate(nextProps) {
@@ -20,7 +21,7 @@ export default class CategoriesChildrenList extends Component {
         {items.map(item => (
           <View key={item.id}>
             <View style={[styles.listContainer]}>
-              <Text style={styles.sectionTitle}>{item.name}</Text>
+              <SectionTitle title={item.name} style={{paddingHorizontal:10}}/>
               <PackagesList
                 items={item.packages || []}
                 onItemPress={onItemPress}
@@ -45,8 +46,12 @@ CategoriesChildrenList.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  container: {},
-  listContainer: {},
+  container: {
+
+  },
+  listContainer: {
+
+  },
   sectionTitle: {
     textAlign: 'left',
     fontSize: 20,
