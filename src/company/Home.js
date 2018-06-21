@@ -30,6 +30,7 @@ class Home extends PureComponent {
 
   componentDidMount() {
     this.fetchData();
+    this.props.dispatch(COMPANY_ACTIONS.fetchBidRequests());
     this.props.dispatch(COMPANY_ACTIONS.fetchDrivers());
     this.props.dispatch(COMPANY_ACTIONS.fetchTimings());
   }
@@ -77,7 +78,7 @@ class Home extends PureComponent {
   };
 
   render() {
-    const {working_orders, upcoming_orders, drivers} = this.props;
+    const {working_orders, upcoming_orders, drivers,bids} = this.props;
 
     return (
       <ScrollView
@@ -88,6 +89,17 @@ class Home extends PureComponent {
             onRefresh={this._onRefresh.bind(this)}
           />
         }>
+
+        <SectionHeading
+          title={I18n.t('order_requests')}
+          buttonTitle={I18n.t('view_all')}
+          onButtonPress={this.loadCurrentOrders}
+        />
+        <OrdersList
+          items={bids}
+          onItemPress={this.onOrdersListItemPress}
+        />
+
         <SectionHeading
           title={I18n.t('working_orders')}
           buttonTitle={I18n.t('view_all')}
@@ -97,6 +109,13 @@ class Home extends PureComponent {
         <OrdersList
           items={working_orders}
           onItemPress={this.onOrdersListItemPress}
+        />
+
+
+        <SectionHeading
+          title={I18n.t('upcoming_orders')}
+          buttonTitle={I18n.t('view_all')}
+          onButtonPress={this.loadUpcomingOrders}
         />
 
         <SectionHeading
@@ -110,11 +129,6 @@ class Home extends PureComponent {
           onItemPress={this.onDriversListItemPress}
         />
 
-        <SectionHeading
-          title={I18n.t('upcoming_orders')}
-          buttonTitle={I18n.t('view_all')}
-          onButtonPress={this.loadUpcomingOrders}
-        />
 
         <OrdersList
           items={upcoming_orders}
@@ -130,6 +144,7 @@ function mapStateToProps(state) {
     upcoming_orders: ORDER_SELECTORS.getUpcomingOrders(state),
     working_orders: ORDER_SELECTORS.getWorkingOrders(state),
     drivers: DRIVER_SELECTORS.getDrivers(state),
+    bids:ORDER_SELECTORS.getBids(state)
   };
 }
 

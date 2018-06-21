@@ -22,7 +22,7 @@ export default class OrderItems extends Component {
       <View style={styles.container}>
         <SectionTitle title={I18n.t('order_details')} />
 
-        {packages.map((packageModel, index) => (
+        {packages && packages.map((packageModel, index) => (
           <View style={styles.itemContainer} key={packageModel.id}>
             <Text style={styles.categoryTitle}>
               {packageModel.category.name}
@@ -102,6 +102,5 @@ const styles = StyleSheet.create({
   totalPrice: {
     flex: 1,
     fontSize: 18,
-    textAlign: 'right',
   },
 });

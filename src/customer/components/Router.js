@@ -81,7 +81,12 @@ const HomeStack = StackNavigator(
       }),
     },
     OrderDetail: {screen: OrderDetailScene},
-    BidsList: {screen: BidsListScene},
+    BidsList: {
+      screen: BidsListScene,
+      navigationOptions:({navigation}) => ({
+        headerTitle:I18n.t('bids')
+      })
+    },
     BidsDetail: {screen: BidsDetailScene},
     TrackOrder: {
       screen: TrackOrderScene,
@@ -121,7 +126,7 @@ const HomeStack = StackNavigator(
     cardStyle:{
       ...cardStyle
     },
-    initialRouteName:'OrderDetail'
+    // initialRouteName:'BidsList'
     // initialRouteName:'Cart'
   },
 );

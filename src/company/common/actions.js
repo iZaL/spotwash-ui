@@ -34,6 +34,10 @@ export const ACTION_TYPES = {
   FETCH_TIMINGS_SUCCESS: '@company/drivers/FETCH_TIMINGS_SUCCESS',
   FETCH_TIMINGS_FAILURE: '@company/drivers/FETCH_TIMINGS_FAILURE',
 
+  FETCH_BID_REQUESTS_REQUEST: '@company/bids/FETCH_BID_REQUESTS_REQUEST',
+  FETCH_BID_REQUESTS_SUCCESS: '@company/bids/FETCH_BID_REQUESTS_SUCCESS',
+  FETCH_BID_REQUESTS_FAILURE: '@company/bids/FETCH_BID_REQUESTS_FAILURE',
+
   ASSIGN_DRIVER_REQUEST: '@company/drivers/ASSIGN_DRIVER_REQUEST',
   ASSIGN_DRIVER_SUCCESS: '@company/drivers/ASSIGN_DRIVER_SUCCESS',
   ASSIGN_DRIVER_FAILURE: '@company/drivers/ASSIGN_DRIVER_FAILURE',
@@ -113,6 +117,13 @@ function fetchDrivers(params) {
   };
 }
 
+function fetchBidRequests(params) {
+  return {
+    type: ACTION_TYPES.FETCH_BID_REQUESTS_REQUEST,
+    params,
+  };
+}
+
 function fetchTimings(params) {
   return {
     type: ACTION_TYPES.FETCH_TIMINGS_REQUEST,
@@ -157,6 +168,7 @@ export const ACTIONS = {
   fetchPastOrdersRefresh,
   fetchOrderDetails,
   fetchDrivers,
+  fetchBidRequests,
   fetchTimings,
   fetchDriver,
   assignDriver,

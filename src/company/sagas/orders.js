@@ -127,6 +127,27 @@ function* fetchTimings(action) {
   }
 }
 
+function* fetchBidRequests(action) {
+  try {
+    const response = yield call(API.fetchBidRequests);
+
+    const formattedResponse = {
+      ...response.company,
+      orders: {
+        'bids': response.orders,
+      },
+    };
+
+    const normalizedOrders = normalize(formattedResponse, Schema.companies);
+    yield put({
+      type: ACTION_TYPES.FETCH_BID_REQUESTS_SUCCESS,
+      entities: normalizedOrders.entities,
+    });
+  } catch (error) {
+    yield put({type: ACTION_TYPES.FETCH_BID_REQUESTS_FAILURE, error});
+  }
+}
+
 function* fetchUpcomingOrdersMonitor() {
   yield takeLatest(
     ACTION_TYPES.FETCH_UPCOMING_ORDERS_REQUEST,
@@ -149,6 +170,10 @@ function* fetchOrderDetailsMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_ORDER_DETAILS_REQUEST, fetchOrderDetails);
 }
 
+function* fetchBidRequestsMonitor() {
+  yield takeLatest(ACTION_TYPES.FETCH_BID_REQUESTS_REQUEST, fetchBidRequests);
+}
+
 function* fetchTimingsMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_TIMINGS_REQUEST, fetchTimings);
 }
@@ -158,5 +183,6 @@ export const sagas = all([
   fork(fetchWorkingOrdersMonitor),
   fork(fetchPastOrdersMonitor),
   fork(fetchOrderDetailsMonitor),
+  fork(fetchBidRequestsMonitor),
   fork(fetchTimingsMonitor),
 ]);

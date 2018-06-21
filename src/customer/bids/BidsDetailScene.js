@@ -10,6 +10,8 @@ import {ScrollView} from "react-native";
 import I18n from 'utils/locale';
 import Button from 'components/Button';
 import ConfirmedButton from "../../components/ConfirmedButton";
+import OrderBasicInfo from "../orders/components/OrderBasicInfo";
+import OrderItems from "../orders/components/OrderItems";
 
 class BidsDetailScene extends PureComponent {
 
@@ -47,6 +49,10 @@ class BidsDetailScene extends PureComponent {
           bid &&
           <BidsDetail bid={bid} />
         }
+
+        <OrderBasicInfo item={order} />
+        <OrderItems order={order} />
+
         {buttonComponent}
       </ScrollView>
 

@@ -2,7 +2,7 @@
  * @flow
  */
 import React, {PureComponent} from 'react';
-import {ScrollView, View} from 'react-native';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
 import {ACTIONS as ORDER_ACTIONS} from 'customer/common/actions';
 import {SELECTORS as ORDER_SELECTORS} from 'customer/selectors/orders';
@@ -15,7 +15,7 @@ class BidsListScene extends PureComponent {
 
   componentDidMount() {
     this.props.dispatch(ORDER_ACTIONS.fetchBids({
-      order_id: this.props.navigation.getParam('orderID')
+      order_id: this.props.navigation.getParam('orderID',7)
     }));
   }
 
@@ -69,7 +69,7 @@ const makeMapStateToProps = () => {
   const getOrderByID = ORDER_SELECTORS.getOrderByID();
   const mapStateToProps = (state, props) => {
     return {
-      order: getOrderByID(state, props.navigation.getParam('orderID')),
+      order: getOrderByID(state, props.navigation.getParam('orderID',7)),
     };
   };
   return mapStateToProps;

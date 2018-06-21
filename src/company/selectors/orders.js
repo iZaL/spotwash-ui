@@ -1,6 +1,7 @@
 import {createSelector} from 'reselect';
 import {denormalize} from 'normalizr';
 import {Schema} from 'utils/schema';
+import {SELECTORS as PROFILE_SELECTOR} from 'company/selectors/profile';
 
 const schemas = state => state.entities;
 const upcomingOrders = state => state.company.upcoming_orders.ids;
@@ -53,10 +54,18 @@ const getPastOrders = createSelector(
 const getTimings = createSelector([timingsEntity], timings => {
   return Object.keys(timings).map(timing => timings[timing]);
 });
+
+
+const getBids = createSelector([PROFILE_SELECTOR.getProfile,schemas], (company,entities) => {
+  let bids = company.orders && company.orders.bids || [];
+  return bids.map(orderId => denormalize(orderId, Schema.orders, entities)) || []
+});
+
 export const SELECTORS = {
   getUpcomingOrders,
   getWorkingOrders,
   getPastOrders,
   getOrderByID,
   getTimings,
+  getBids
 };

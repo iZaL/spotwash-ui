@@ -182,5 +182,8 @@
 
   "bidding_closed" : "Bid for this order has been closed",
   "ok" : "OK",
-  "send_request" : "Send Request"
+  "send_request" : "Send Request",
+  "bids": "Bids",
+
+  "order_requests" : "Order Requests"
 }

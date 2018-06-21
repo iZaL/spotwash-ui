@@ -105,8 +105,7 @@ const makeMapStateToProps = () => {
   const getOrderByID = ORDER_SELECTORS.getOrderByID();
   const mapStateToProps = (state, props) => {
     return {
-      order: getOrderByID(state, 7),
-      // order: getOrderByID(state, props.navigation.getParam('orderID',7)),
+      order: getOrderByID(state, props.navigation.getParam('orderID',7)),
     };
   };
   return mapStateToProps;

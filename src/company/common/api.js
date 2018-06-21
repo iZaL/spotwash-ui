@@ -35,6 +35,11 @@ function fetchTimings() {
   return request({path});
 }
 
+function fetchBidRequests() {
+  const path = `company/bids`;
+  return request({path});
+}
+
 function assignDriver(id, params) {
   const path = `company/orders/${id}/drivers/assign`;
   let requestParams = {
@@ -65,4 +70,5 @@ export const API = {
   fetchDriver,
   assignDriver,
   saveDriverAttributes,
+  fetchBidRequests
 };
