@@ -12,6 +12,7 @@ import AddressInfo from 'components/AddressInfo';
 const OrderBasicInfo = ({item, onPress, style}) => {
   return (
     <View style={[styles.container, style]}>
+
       <SectionTitle title="Basic Information" />
 
       <View style={styles.contentContainer}>
@@ -71,10 +72,12 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     marginVertical: 10,
-    backgroundColor: 'white',
   },
   contentContainer: {
     marginVertical: 10,
+    backgroundColor: 'white',
+    padding:10,
+    borderRadius:10
   },
   content: {
     flexDirection: 'row',
