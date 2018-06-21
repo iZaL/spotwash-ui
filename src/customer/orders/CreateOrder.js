@@ -29,6 +29,7 @@ import AddressTypeSelectionModal from 'customer/cart/components/AddressTypeSelec
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import CreateAddressFields from 'customer/cart/components/CreateAddressFields';
 import OrderSuccess from 'customer/cart/components/OrderSuccess';
+import ConfirmedButton from "../../components/ConfirmedButton";
 
 class CreateOrder extends PureComponent {
   state = {
@@ -121,16 +122,6 @@ class CreateOrder extends PureComponent {
     });
   };
 
-  // onCategoriesListItemPress = (item: object) => {
-  //   this.props.dispatch(
-  //     CART_ACTIONS.setCartItems({
-  //       activeCategoryID:item.id,
-  //       activePackageIDs:[]
-  //     }),
-  //   );
-  // };
-  //
-
   onCategoriesListItemPress = (item: object) => {
     if (this.props.cart.activeCategoryID !== item.id) {
       this.props.actions.setCartItems({
@@ -152,51 +143,14 @@ class CreateOrder extends PureComponent {
       'activePackageIDs' : newPackages
     });
   };
-  //
-  // onPackagesListItemPress = (item: object) => {
-  //   let params = {
-  //     activePackageID: item.id,
-  //     total: parseFloat(item.price),
-  //   };
-  //
-  //   if (this.props.cart.activePackageID !== item.id) {
-  //     params = {
-  //       ...params,
-  //       activeServicesIDs: [],
-  //     };
-  //   }
-  //
-  //   this.props.actions.setCartItems(params);
-  // };
-
-  onServicesListItemPress = (item: object) => {
-    const {total, activeServicesIDs} = this.props.cart;
-
-    let currentAmount;
-
-    let index = activeServicesIDs.indexOf(item.id);
-
-    if (index > -1) {
-      currentAmount = parseFloat(total) - parseFloat(item.price);
-    } else {
-      currentAmount = parseFloat(total) + parseFloat(item.price);
-    }
-
-    let params = {
-      activeServicesIDs:
-        index > -1
-          ? activeServicesIDs.filter(serviceID => serviceID !== item.id)
-          : activeServicesIDs.concat(item.id),
-      total: currentAmount,
-    };
-
-    this.props.actions.setCartItems(params);
-  };
 
   onRequestSendPress = () => {
     const {
       activeCategoryID,
       activePackageIDs,
+      selectedDate,
+      selectedAddressID,
+      selectedTimeID,
       total,
     } = this.props.cart;
 
@@ -206,13 +160,18 @@ class CreateOrder extends PureComponent {
       total: total,
     };
 
-    this.props.actions.setCartItems({
-      activeCategoryID: undefined,
-      activePackageIDs: [],
-    });
+    // this.props.actions.setCartItems({
+    //   activeCategoryID: undefined,
+    //   activePackageIDs: [],
+    //   selectedDate:moment(),
+    //   selectedAddressID:null,
+    //   selectedTimeID:moment(),
+    // });
 
     // return new Promise((resolve, reject) => {
     this.props.actions.addToCart(item);
+
+    this.performCheckout();
 
     // dispatch order success
     this.setState(
@@ -221,36 +180,6 @@ class CreateOrder extends PureComponent {
       },
       () => this.setCartItemsCount(),
     );
-  };
-
-  onAddNewItemPress = () => {
-    this.props.actions.setCartItem('total', 0);
-    this.setState({
-      showCartSuccessModal: false,
-    });
-  };
-
-  onCheckoutPress = () => {
-    this.setState({
-      showCartSuccessModal: false,
-    });
-    this.props.navigation.navigate('Cart');
-  };
-
-  hideFreeWashModal = () => {
-    this.props.actions.setCartItem('hasFreeWash', false);
-    this.setState({
-      showFreewashModal: false,
-    });
-  };
-
-  onFreeWashPress = () => {
-    this.props.navigation.navigate('Cart');
-    this.props.actions.setCartItem('hasFreeWash', false);
-    this.props.actions.setCartItem('isFreeWash', true);
-    this.setState({
-      showFreewashModal: false,
-    });
   };
 
   checkout = () => {
@@ -296,40 +225,17 @@ class CreateOrder extends PureComponent {
   };
 
   onTimeChange = time => {
-    // this.props.actions.setCartItem('selectedTime', moment(time));
     this.props.actions.setCartItem('selectedTimeID', time.id);
-  };
-
-  onPaymentOptionsItemPress = (option: string) => {
-    this.setState({
-      paymentMode: option,
-    });
   };
 
   onAddressesListItemPress = (item: object) => {
     this.props.actions.setCartItem('selectedAddressID', item.id);
   };
 
-  hideCheckoutModal = () => {
-    this.setState({
-      showPaymentModal: false,
-    });
-  };
-
   hideSuccessModal = () => {
     this.setState({
       showOrderSuccessModal: false,
     });
-  };
-
-  onCartItemPress = (item: object) => {
-    return Alert.alert(`${I18n.t('cart_remove_item')} ?`, '', [
-      {text: I18n.t('cancel')},
-      {
-        text: I18n.t('yes'),
-        onPress: () => this.props.actions.removeCartItem(item.id),
-      },
-    ]);
   };
 
   saveAddress = address => {
@@ -393,7 +299,7 @@ class CreateOrder extends PureComponent {
     this.props.navigation.popToTop();
     this.props.navigation.navigate('OrderDetail',{
       orderID:this.state.orderID
-    })
+    });
     this.props.actions.setCartItem('isFreeWash', false);
   };
 
@@ -448,10 +354,10 @@ class CreateOrder extends PureComponent {
     const {paymentMode} = this.state;
 
     const {
+      activePackageIDs,
       selectedDate,
       selectedAddressID,
       selectedTimeID,
-      items,
       total,
     } = cart;
     if (!isAuthenticated) {
@@ -461,38 +367,25 @@ class CreateOrder extends PureComponent {
       const item = {
         user_id: user.id,
         address_id: selectedAddressID,
-        items: items,
         total: total,
-        time: selectedTimeID,
+        time_id: selectedTimeID,
         date: selectedDate,
         payment_mode: paymentMode,
-        free_wash: cart.isFreeWash,
+        package_ids:activePackageIDs
       };
-
-      // let address =
-      //   user &&
-      //   user.addresses.find(address => address.id === selectedAddressID);
-      //
-      // if (address && address.area && !address.area.active) {
-      //   return this.props.actions.(
-      //     APP_ACTIONS.setNotification({
-      //       type: 'error',
-      //       message: `${I18n.t('address_disabled')}`,
-      //     }),
-      //   );
-      // }
 
       return new Promise((resolve, reject) => {
         this.props.actions.checkout({item, resolve, reject});
       })
         .then(order => {
-          if (order.status == 'Success') {
+          console.log('order',order);
+          if (order.status == 'success') {
             this.setState({
               showOrderSuccessModal: true,
               showCheckoutConfirmDialog: false,
               orderID:order.id
             });
-          } else if (order.status == 'Checkout') {
+          } else if (order.status == 'checkout') {
             this.setState({
               showPaymentModal: true,
               showCheckoutConfirmDialog: false,
@@ -672,7 +565,7 @@ class CreateOrder extends PureComponent {
           style={{flex: 1, padding: 10, backgroundColor: colors.lightGrey}}
         />
 
-        <Button
+        <ConfirmedButton
           onPress={this.onRequestSendPress}
           disabled={!activePackageIDs || !activePackageIDs.length}
           raised

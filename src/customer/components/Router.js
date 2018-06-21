@@ -120,7 +120,8 @@ const HomeStack = StackNavigator(
     }),
     cardStyle:{
       ...cardStyle
-    }
+    },
+    initialRouteName:'OrderDetail'
     // initialRouteName:'Cart'
   },
 );

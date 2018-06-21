@@ -33,7 +33,7 @@ class OrderDetailScene extends Component {
 
   componentDidMount() {
     this.props.actions.fetchOrderDetails(
-      this.props.navigation.state.params.orderID,
+      this.props.navigation.getParam('orderID',7),
     );
   }
 
@@ -59,7 +59,11 @@ class OrderDetailScene extends Component {
             contentContainerStyle={{paddingBottom: 30}}>
             <OrderBasicInfo item={order} />
             <OrderItems order={order} />
-            <OrderTotal total={order.total} />
+
+            {
+              order.total &&
+              <OrderTotal total={order.total} />
+            }
 
             <Button
               onPress={this.viewBids}
@@ -69,22 +73,21 @@ class OrderDetailScene extends Component {
               title={I18n.t('view_bids')}
             />
 
-
             {order.job &&
-              order.job.driver &&
-              order.job.driver.user && (
-                <View>
-                  <SectionHeading title={I18n.t('driver_info')} />
-                  <DriverInfo driver={order.job.driver} />
-                  <Button
-                    onPress={this.trackOrder}
-                    primary
-                    raised
-                    dark
-                    title={I18n.t('track')}
-                  />
-                </View>
-              )}
+            order.job.driver &&
+            order.job.driver.user && (
+              <View>
+                <SectionHeading title={I18n.t('driver_info')} />
+                <DriverInfo driver={order.job.driver} />
+                <Button
+                  onPress={this.trackOrder}
+                  primary
+                  raised
+                  dark
+                  title={I18n.t('track')}
+                />
+              </View>
+            )}
           </ScrollView>
         )}
       </View>
@@ -102,7 +105,8 @@ const makeMapStateToProps = () => {
   const getOrderByID = ORDER_SELECTORS.getOrderByID();
   const mapStateToProps = (state, props) => {
     return {
-      order: getOrderByID(state, props.navigation.state.params.orderID),
+      order: getOrderByID(state, 7),
+      // order: getOrderByID(state, props.navigation.getParam('orderID',7)),
     };
   };
   return mapStateToProps;

@@ -15,12 +15,16 @@ export default class AddressInfo extends Component {
     address: PropTypes.object.isRequired,
   };
 
+  static defaultProps = {
+    border:true
+  };
+
   render() {
-    let {style,textStyle} = this.props;
+    let {style,textStyle,border} = this.props;
     const {area, block, street, avenue, building} = this.props.address;
 
     return (
-      <View style={[styles.container,style]}>
+      <View style={[styles.container,border && {padding:10,borderRadius:5,borderColor:colors.mediumGrey,borderWidth:1,},style]}>
         <Text style={[styles.text, textStyle ]}>
           {area && <Text>{area.name + ', '}</Text>}
           <Text>
@@ -47,13 +51,10 @@ export default class AddressInfo extends Component {
 
 const styles = StyleSheet.create({
   container:{
-    padding:10,
-    margin:10,
-    borderRadius:5,
-    borderColor:colors.mediumGrey,
-    borderWidth:1,
+    paddingHorizontal:5,
   },
   text: {
     color: colors.primary,
+    textAlign:'right'
   },
 });

@@ -43,8 +43,9 @@ const getAreas = createSelector([areasEntity], timings => {
 });
 
 const getOrderByID = () => {
-  return createSelector([schemas, getItemIdProp], (entities, itemID) =>
-    denormalize(itemID, Schema.orders, entities),
+  return createSelector([schemas, getItemIdProp], (entities, itemID) => {
+      return denormalize(itemID, Schema.orders, entities);
+    }
   );
 };
 
@@ -59,9 +60,9 @@ const getCartItems = createSelector(
           category: categories[item.category],
           // package: packages[item.package],
           packages:
-            (item.packages &&
-              item.packages.map(packageID => packages[packageID])) ||
-            [],
+          (item.packages &&
+            item.packages.map(packageID => packages[packageID])) ||
+          [],
         };
       });
   },

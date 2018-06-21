@@ -17,11 +17,11 @@ export default class Avatar extends Component {
     dialogVisible: false,
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      nextState.dialogVisible !== this.state.dialogVisible
-    );
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return (
+  //     nextState.dialogVisible !== this.state.dialogVisible
+  //   );
+  // }
 
   static defaultProps = {
     dialogTitle:I18n.t('confirm')

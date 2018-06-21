@@ -63,18 +63,12 @@ export default class OrderItems extends Component {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    marginVertical: 10,
-  },
-  listContainer: {
-    paddingTop: 0,
-    padding: 10,
-    backgroundColor: 'white',
   },
   itemContainer: {
-    // padding: 5,
-    marginHorizontal: 5,
     backgroundColor: 'white',
     marginBottom: 5,
+    padding:10,
+    borderRadius:10,
   },
   categoryTitle: {
     fontSize: 20,
