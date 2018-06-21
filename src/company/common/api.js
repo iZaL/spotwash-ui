@@ -60,6 +60,16 @@ function saveDriverAttributes(params) {
   return request(requestParams);
 }
 
+function makeBid(params) {
+  const path = `company/orders/${params.order_id}/bids`;
+  let requestParams = {
+    path,
+    params,
+    method: 'POST',
+  };
+  return request(requestParams);
+}
+
 export const API = {
   fetchUpcomingOrders,
   fetchWorkingOrders,
@@ -70,5 +80,7 @@ export const API = {
   fetchDriver,
   assignDriver,
   saveDriverAttributes,
-  fetchBidRequests
+  fetchBidRequests,
+  makeBid,
+
 };

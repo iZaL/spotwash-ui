@@ -4,6 +4,7 @@ import {API} from 'company/common/api';
 import {Schema} from 'utils/schema';
 import {normalize} from 'normalizr';
 import I18n from 'utils/locale';
+import {ACTIONS as APP_ACTIONS} from "../../app/common/actions";
 
 function* fetchUpcomingOrders(action) {
   try {
@@ -148,6 +149,25 @@ function* fetchBidRequests(action) {
   }
 }
 
+function* makeBid(action) {
+  try {
+    const response = yield call(API.makeBid, action.params);
+    const normalized = normalize(response.data, Schema.orders);
+
+    yield put({
+      type: ACTION_TYPES.MAKE_BID_SUCCESS,
+      entities:normalized.entities
+    });
+
+  } catch (error) {
+    yield put({type: ACTION_TYPES.MAKE_BID_FAILURE, error});
+    yield put(APP_ACTIONS.setNotification({
+      message:error,
+      type:'error'
+    }));
+  }
+}
+
 function* fetchUpcomingOrdersMonitor() {
   yield takeLatest(
     ACTION_TYPES.FETCH_UPCOMING_ORDERS_REQUEST,
@@ -178,6 +198,11 @@ function* fetchTimingsMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_TIMINGS_REQUEST, fetchTimings);
 }
 
+
+function* makeBidMonitor() {
+  yield takeLatest(ACTION_TYPES.MAKE_BID_REQUEST, makeBid);
+}
+
 export const sagas = all([
   fork(fetchUpcomingOrdersMonitor),
   fork(fetchWorkingOrdersMonitor),
@@ -185,4 +210,6 @@ export const sagas = all([
   fork(fetchOrderDetailsMonitor),
   fork(fetchBidRequestsMonitor),
   fork(fetchTimingsMonitor),
+  fork(makeBidMonitor),
+
 ]);

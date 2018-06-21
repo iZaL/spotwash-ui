@@ -35,24 +35,24 @@ export default class OrderItems extends Component {
               )}
             </View>
 
-            {order.services &&
-              order.services.length &&
-              order.services
-                .filter(service => service.package.id === packageModel.id)
-                .map(service => {
-                  return (
-                    <View style={{flex: 1}} key={service.id}>
-                      <Divider style={{marginVertical: 10}} />
+            {/*{order.services &&*/}
+              {/*order.services.length &&*/}
+              {/*order.services*/}
+                {/*.filter(service => service.package.id === packageModel.id)*/}
+                {/*.map(service => {*/}
+                  {/*return (*/}
+                    {/*<View style={{flex: 1}} key={service.id}>*/}
+                      {/*<Divider style={{marginVertical: 10}} />*/}
 
-                      <View style={styles.serviceListContainer}>
-                        <Text style={styles.packageTitle}>{service.name} </Text>
-                        <Text style={styles.packagePrice}>
-                          {service.price} KD
-                        </Text>
-                      </View>
-                    </View>
-                  );
-                })}
+                      {/*<View style={styles.serviceListContainer}>*/}
+                        {/*<Text style={styles.packageTitle}>{service.name} </Text>*/}
+                        {/*<Text style={styles.packagePrice}>*/}
+                          {/*{service.price} KD*/}
+                        {/*</Text>*/}
+                      {/*</View>*/}
+                    {/*</View>*/}
+                  {/*);*/}
+                {/*})}*/}
           </View>
         ))}
       </View>

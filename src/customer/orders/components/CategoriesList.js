@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   sectionTitle: {
-    textAlign: 'left',
     fontSize: 20,
     paddingHorizontal: 10,
     // color: colors.fadedBlack

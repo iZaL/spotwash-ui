@@ -43,7 +43,7 @@ const OrderBasicInfo = ({item, onPress, style}) => {
           <Text style={styles.label}>{I18n.t('address')}</Text>
           <AddressInfo
             address={item.address}
-            style={{flex: 1, textAlign: 'right'}}
+            style={{flex: 1}}
             border={false}
           />
         </View>

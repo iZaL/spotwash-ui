@@ -52,6 +52,11 @@ export const ACTION_TYPES = {
   SUBSCRIBE_TO_DRIVER_TRACKINGS: '@company/SUBSCRIBE_TO_DRIVER_TRACKINGS',
 
   DRIVER_SET_TIMINGS_REQUEST : '@company/DRIVER_SET_TIMINGS_REQUEST',
+
+  MAKE_BID_REQUEST: '@company/orders/MAKE_BID_REQUEST',
+  MAKE_BID_SUCCESS: '@company/orders/MAKE_BID_SUCCESS',
+  MAKE_BID_FAILURE: '@company/orders/MAKE_BID_FAILURE',
+
 };
 
 function fetchUpcomingOrders(params = {}) {
@@ -159,6 +164,13 @@ function subscribeToDriverTrackings() {
   };
 }
 
+function makeBid(params) {
+  return {
+    type: ACTION_TYPES.MAKE_BID_REQUEST,
+    params,
+  };
+}
+
 export const ACTIONS = {
   fetchWorkingOrders,
   fetchWorkingOrdersRefresh,
@@ -174,5 +186,5 @@ export const ACTIONS = {
   assignDriver,
   saveDriverAttributes,
   subscribeToDriverTrackings,
-  setTimings
+  makeBid
 };
