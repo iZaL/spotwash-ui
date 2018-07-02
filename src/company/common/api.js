@@ -61,7 +61,7 @@ function saveDriverAttributes(params) {
 }
 
 function makeBid(params) {
-  const path = `company/orders/${params.order_id}/bids`;
+  const path = `company/orders/${params.body.order_id}/bids`;
   let requestParams = {
     path,
     params,

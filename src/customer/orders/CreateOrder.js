@@ -2,7 +2,7 @@
  * @flow
  */
 import React, {PureComponent} from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, View,Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ACTIONS, ACTIONS as CART_ACTIONS} from 'customer/common/actions';
@@ -21,15 +21,15 @@ import SectionTitle from "components/SectionTitle";
 import DatePicker from 'customer/cart/components/DatePicker';
 import TimePicker from 'customer/cart/components/TimePicker';
 import AddressesList from 'customer/cart/components/AddressesList';
-import {SELECTORS as USER_SELECTORS} from "../../guest/common/selectors";
-import {SELECTORS as ORDER_SELECTORS} from "../selectors/orders";
-import moment from 'moment';
+import {SELECTORS as USER_SELECTORS} from "guest/common/selectors";
+import {SELECTORS as ORDER_SELECTORS} from "customer/selectors/orders";
 import CreateAddress from 'customer/cart/components/CreateAddress';
 import AddressTypeSelectionModal from 'customer/cart/components/AddressTypeSelectionModal';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import CreateAddressFields from 'customer/cart/components/CreateAddressFields';
 import OrderSuccess from 'customer/cart/components/OrderSuccess';
-import ConfirmedButton from "../../components/ConfirmedButton";
+import ConfirmedButton from "components/ConfirmedButton";
+import moment from 'moment';
 
 class CreateOrder extends PureComponent {
   state = {
@@ -577,27 +577,27 @@ class CreateOrder extends PureComponent {
         />
 
         {/*<Dialog*/}
-          {/*title={I18n.t('success')}*/}
-          {/*description={*/}
-            {/*<View style={{flexDirection: 'row', alignItems: 'center'}}>*/}
-              {/*<IconFactory*/}
-                {/*type="MaterialIcons"*/}
-                {/*name="check"*/}
-                {/*color={colors.primary}*/}
-              {/*/>*/}
-              {/*<Text style={{paddingHorizontal: 10}}>*/}
-                {/*{I18n.t('cart_item_added')}*/}
-              {/*</Text>*/}
-            {/*</View>*/}
-          {/*}*/}
-          {/*leftPress={this.onAddNewItemPress}*/}
-          {/*rightPress={this.onCheckoutPress}*/}
-          {/*visible={showCartSuccessModal}*/}
-          {/*rightText={I18n.t('checkout').toUpperCase()}*/}
-          {/*leftText={I18n.t('add_item').toUpperCase()}*/}
-          {/*rightButtonStyle={{*/}
-            {/*primary: true,*/}
-          {/*}}*/}
+        {/*title={I18n.t('success')}*/}
+        {/*description={*/}
+        {/*<View style={{flexDirection: 'row', alignItems: 'center'}}>*/}
+        {/*<IconFactory*/}
+        {/*type="MaterialIcons"*/}
+        {/*name="check"*/}
+        {/*color={colors.primary}*/}
+        {/*/>*/}
+        {/*<Text style={{paddingHorizontal: 10}}>*/}
+        {/*{I18n.t('cart_item_added')}*/}
+        {/*</Text>*/}
+        {/*</View>*/}
+        {/*}*/}
+        {/*leftPress={this.onAddNewItemPress}*/}
+        {/*rightPress={this.onCheckoutPress}*/}
+        {/*visible={showCartSuccessModal}*/}
+        {/*rightText={I18n.t('checkout').toUpperCase()}*/}
+        {/*leftText={I18n.t('add_item').toUpperCase()}*/}
+        {/*rightButtonStyle={{*/}
+        {/*primary: true,*/}
+        {/*}}*/}
         {/*/>*/}
 
 
@@ -678,7 +678,7 @@ function mapStateToProps(state) {
     isFetchingTimings: state.customer.timings.isFetching,
     isAuthenticated: USER_SELECTORS.isAuthenticated(state),
     checkout: state.customer.checkout,
-    };
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateOrder);

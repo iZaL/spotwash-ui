@@ -94,7 +94,6 @@ class OrderDetailScene extends Component {
     })
   };
 
-
   render() {
     let {order, drivers} = this.props;
 
@@ -110,8 +109,12 @@ class OrderDetailScene extends Component {
     if (order.bid_open) {
 
       console.log('asdasdasd',order.bid_open);
-
-      buttonComponent = <Button raised primary title={I18n.t('make_bid')} onPress={this.makeBid} style={{marginVertical: 40}} />;
+      buttonComponent = (
+        <View style={{padding:10,backgroundColor:'white'}}>
+          <FormTextInput field="amount" onValueChange={this.onFieldChange} label={I18n.t('amount')}/>
+          <Button raised primary title={I18n.t('make_bid')} onPress={this.makeBid} style={{marginVertical: 40}} />
+        </View>
+      );
     } else {
       if (order.has_bidded) {
         buttonComponent = <Button title={I18n.t('cancel_bid')} onPress={this.cancelBid} style={{marginVertical: 40}} background={'warning'}/>

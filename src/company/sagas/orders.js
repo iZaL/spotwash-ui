@@ -151,7 +151,12 @@ function* fetchBidRequests(action) {
 
 function* makeBid(action) {
   try {
-    const response = yield call(API.makeBid, action.params);
+
+    const params = {
+      body: action.params,
+    };
+
+    const response = yield call(API.makeBid, params);
     const normalized = normalize(response.data, Schema.orders);
 
     yield put({

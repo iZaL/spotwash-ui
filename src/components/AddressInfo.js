@@ -24,7 +24,8 @@ export default class AddressInfo extends Component {
     const {area, block, street, avenue, building} = this.props.address;
 
     return (
-      <View style={[styles.container,border && {padding:10,borderRadius:5,borderColor:colors.mediumGrey,borderWidth:1,},style]}>
+      <View style={[styles.container,border && {    margin:5,
+        padding:10,borderRadius:5,borderColor:colors.mediumGrey,borderWidth:1,},style]}>
         <Text style={[styles.text, textStyle ]}>
           {area && <Text>{area.name + ', '}</Text>}
           <Text>
@@ -55,6 +56,5 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.primary,
-    textAlign:'right'
   },
 });
