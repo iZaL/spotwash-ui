@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'components/Modal';
 import Listing from 'components/Listing';
-import Button from "components/Button";
+import Button from 'components/Button';
 import I18n from 'utils/locale';
 
 export default class ListModal extends Component {
@@ -17,8 +17,8 @@ export default class ListModal extends Component {
     items: PropTypes.array.isRequired,
     header: PropTypes.any,
     activeIDs: PropTypes.array,
-    buttonDisabled:PropTypes.bool,
-    buttonText:PropTypes.string
+    buttonDisabled: PropTypes.bool,
+    buttonText: PropTypes.string,
   };
 
   shouldComponentUpdate(nextProps) {
@@ -31,14 +31,12 @@ export default class ListModal extends Component {
   }
 
   static defaultProps = {
-    activeIDs:[],
-    buttonText:I18n.t('save'),
-    buttonDisabled:false
+    activeIDs: [],
+    buttonText: I18n.t('save'),
+    buttonDisabled: false,
   };
 
-
   render() {
-
     let {
       onItemPress,
       children,
@@ -49,7 +47,7 @@ export default class ListModal extends Component {
       buttonText,
       onSave,
       buttonDisabled,
-      ...rest,
+      ...rest
     } = this.props;
     return (
       <Modal {...rest}>
@@ -61,7 +59,14 @@ export default class ListModal extends Component {
           description={description}
         />
         {children}
-        <Button onPress={onSave} raised primary dark title={buttonText} disabled={buttonDisabled} />
+        <Button
+          onPress={onSave}
+          raised
+          primary
+          dark
+          title={buttonText}
+          disabled={buttonDisabled}
+        />
       </Modal>
     );
   }

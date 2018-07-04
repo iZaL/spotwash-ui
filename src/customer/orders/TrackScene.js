@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ACTIONS} from 'customer/common/actions';
 import MapView from 'react-native-maps';
-import {Dimensions, Image, RefreshControl, ScrollView, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  RefreshControl,
+  ScrollView,
+  View,
+} from 'react-native';
 import images from 'assets/theme/images';
 import {SELECTORS} from 'customer/selectors/orders';
-import IconFactory from "components/IconFactory";
-import {TouchableRipple} from "react-native-paper";
-import HomeActionButtons from "customer/components/HomeActionButtons";
+import IconFactory from 'components/IconFactory';
+import {TouchableRipple} from 'react-native-paper';
+import HomeActionButtons from 'customer/components/HomeActionButtons';
 import OrderList from 'customer/components/OrderList';
 
 const {width, height} = Dimensions.get('window');
@@ -113,7 +119,6 @@ class TrackScene extends PureComponent {
   };
 
   onItemTrackPress = (item: Object) => {
-
     this.props.navigation.navigate('BidsList', {
       order: item,
       orderID: item.id,
@@ -158,7 +163,7 @@ class TrackScene extends PureComponent {
         heading: 305.16,
         job_id: '1',
         latitude: 29.3195616,
-        longitude: 47.991724
+        longitude: 47.991724,
       },
     ];
 
@@ -167,11 +172,11 @@ class TrackScene extends PureComponent {
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={this.onRefresh} />
         }
-        refreshing={false}
-      >
-
+        refreshing={false}>
         {this.state.pauseTrackingUpdate && (
-          <TouchableRipple onPress={this.resumeTrackingUpdate} style={{position:'absolute',top:10,right:10,zIndex:500}}>
+          <TouchableRipple
+            onPress={this.resumeTrackingUpdate}
+            style={{position: 'absolute', top: 10, right: 10, zIndex: 500}}>
             <IconFactory
               name="arrow-left"
               type="MaterialCommunityIcons"
@@ -181,7 +186,7 @@ class TrackScene extends PureComponent {
           </TouchableRipple>
         )}
 
-        <View style={{height:350}}>
+        <View style={{height: 350}}>
           <MapView
             // provider={PROVIDER_GOOGLE}
             ref={ref => {
@@ -225,16 +230,13 @@ class TrackScene extends PureComponent {
           </MapView>
         </View>
 
-        <HomeActionButtons
-          onCreateOrderPress={this.onCreateOrderPress}
-        />
+        <HomeActionButtons onCreateOrderPress={this.onCreateOrderPress} />
 
         <OrderList
           items={orders}
           onItemPress={this.onOrderListItemPress}
           onItemTrackPress={this.onItemTrackPress}
         />
-
       </ScrollView>
     );
   }

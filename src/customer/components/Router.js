@@ -21,7 +21,7 @@ import colors from 'assets/theme/colors';
 import LanguageSelect from 'app/LanguageSelect';
 import BidsListScene from 'customer/bids/BidsListScene';
 import BidsDetailScene from 'customer/bids/BidsDetailScene';
-import TrackScene from "customer/orders/TrackScene";
+import TrackScene from 'customer/orders/TrackScene';
 
 const getDrawerIcon = navigation => {
   return {
@@ -31,8 +31,8 @@ const getDrawerIcon = navigation => {
   };
 };
 
-const cardStyle ={
-  backgroundColor:'#f5f5f5'
+const cardStyle = {
+  backgroundColor: '#f5f5f5',
 };
 
 const navStyle = {
@@ -83,9 +83,9 @@ const HomeStack = StackNavigator(
     OrderDetail: {screen: OrderDetailScene},
     BidsList: {
       screen: BidsListScene,
-      navigationOptions:({navigation}) => ({
-        headerTitle:I18n.t('bids')
-      })
+      navigationOptions: ({navigation}) => ({
+        headerTitle: I18n.t('bids'),
+      }),
     },
     BidsDetail: {screen: BidsDetailScene},
     TrackOrder: {
@@ -94,8 +94,8 @@ const HomeStack = StackNavigator(
         title: I18n.t('track_order'),
       }),
     },
-    Track:{
-      screen:TrackScene
+    Track: {
+      screen: TrackScene,
     },
     Cart: {
       screen: Cart,
@@ -126,8 +126,8 @@ const HomeStack = StackNavigator(
       gesturesEnabled: false,
       ...navStyle,
     }),
-    cardStyle:{
-      ...cardStyle
+    cardStyle: {
+      ...cardStyle,
     },
     // initialRouteName:'BidsList'
     // initialRouteName:'Track'

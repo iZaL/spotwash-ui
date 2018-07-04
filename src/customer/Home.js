@@ -1,23 +1,24 @@
 import React, {Component} from 'react';
 import {
-  AppState, Image,
+  AppState,
+  Image,
   RefreshControl,
   ScrollView,
-  Dimensions, View
+  Dimensions,
+  View,
 } from 'react-native';
 import {SELECTORS} from 'customer/selectors/orders';
 import {connect} from 'react-redux';
 import {ACTIONS as ORDER_ACTIONS} from 'customer/common/actions';
 import OrderList from 'customer/components/OrderList';
 import colors from 'assets/theme/colors';
-import HomeActionButtons from "customer/components/HomeActionButtons";
-import Divider from "components/Divider";
-import SectionHeading from "company/components/SectionHeading";
+import HomeActionButtons from 'customer/components/HomeActionButtons';
+import Divider from 'components/Divider';
+import SectionHeading from 'company/components/SectionHeading';
 import I18n from 'utils/locale';
-import images from "assets/theme/images";
+import images from 'assets/theme/images';
 
 class Home extends Component {
-
   static defaultProps = {
     upcoming_orders: [],
     working_order: {},
@@ -62,7 +63,6 @@ class Home extends Component {
   onProtectionPress = () => {};
 
   onItemTrackPress = (item: Object) => {
-
     // this.props.navigation.navigate('BidsList', {
     //   order: item,
     //   orderID: item.id,
@@ -100,23 +100,23 @@ class Home extends Component {
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={this.onRefresh} />
         }
-        refreshing={false}
-        >
-
+        refreshing={false}>
         <Image
           source={images.home_bg}
           style={{width: Dimensions.get('window').width, height: 250}}
           resizeMode="cover"
         />
 
-        <HomeActionButtons
-          onCreateOrderPress={this.onCreateOrderPress}
-        />
+        <HomeActionButtons onCreateOrderPress={this.onCreateOrderPress} />
 
-        <Divider/>
+        <Divider />
 
         <View>
-        <SectionHeading title={I18n.t('standing_orders')} buttonTitle="view all" style={{backgroundColor:'transparent'}}/>
+          <SectionHeading
+            title={I18n.t('standing_orders')}
+            buttonTitle="view all"
+            style={{backgroundColor: 'transparent'}}
+          />
         </View>
 
         <OrderList

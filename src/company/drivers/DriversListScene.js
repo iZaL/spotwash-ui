@@ -44,16 +44,22 @@ class DriversListScene extends PureComponent {
           activeItemID={0}
         />
 
-        <View style={{flex:1,alignItems:'flex-end',justifyContent:'flex-end',padding:20}}>
-        <FAB
-          icon="add"
-          dark
-          onPress={this.onAddPress}
-          medium
+        <View
           style={{
-            backgroundColor: colors.primary,
-          }}
-        />
+            flex: 1,
+            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
+            padding: 20,
+          }}>
+          <FAB
+            icon="add"
+            dark
+            onPress={this.onAddPress}
+            medium
+            style={{
+              backgroundColor: colors.primary,
+            }}
+          />
         </View>
       </View>
     );

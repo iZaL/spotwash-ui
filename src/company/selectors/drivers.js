@@ -40,11 +40,17 @@ const getDriverTrackings = createSelector(
     }),
 );
 
-
-const getDrivers = createSelector([PROFILE_SELECTOR.getProfile,schemas], (company,entities) => {
-  let drivers = company.drivers || [];
-  return drivers.map(driverID => denormalize(driverID, Schema.drivers, entities)) || []
-});
+const getDrivers = createSelector(
+  [PROFILE_SELECTOR.getProfile, schemas],
+  (company, entities) => {
+    let drivers = company.drivers || [];
+    return (
+      drivers.map(driverID =>
+        denormalize(driverID, Schema.drivers, entities),
+      ) || []
+    );
+  },
+);
 
 export const SELECTORS = {
   getDrivers,

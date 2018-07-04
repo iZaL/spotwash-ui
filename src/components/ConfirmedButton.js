@@ -4,8 +4,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
-import Dialog from "components/Dialog";
-import Button from "components/Button";
+import Dialog from 'components/Dialog';
+import Button from 'components/Button';
 import I18n from 'utils/locale';
 
 export default class Avatar extends Component {
@@ -24,7 +24,7 @@ export default class Avatar extends Component {
   // }
 
   static defaultProps = {
-    dialogTitle:I18n.t('confirm')
+    dialogTitle: I18n.t('confirm'),
   };
 
   showModal = () => {
@@ -46,7 +46,7 @@ export default class Avatar extends Component {
 
   render() {
     let {dialogVisible} = this.state;
-    let {dialogTitle,...rest} = this.props;
+    let {dialogTitle, ...rest} = this.props;
     return (
       <View>
         <Button

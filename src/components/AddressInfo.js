@@ -6,7 +6,6 @@ import Touchable from 'react-native-platform-touchable';
 import I18n from 'utils/locale';
 
 export default class AddressInfo extends Component {
-
   // shouldComponentUpdate(nextProps) {
   //   return nextProps.address !== this.props.address;
   // }
@@ -16,17 +15,27 @@ export default class AddressInfo extends Component {
   };
 
   static defaultProps = {
-    border:true
+    border: true,
   };
 
   render() {
-    let {style,textStyle,border} = this.props;
+    let {style, textStyle, border} = this.props;
     const {area, block, street, avenue, building} = this.props.address;
 
     return (
-      <View style={[styles.container,border && {    margin:5,
-        padding:10,borderRadius:5,borderColor:colors.mediumGrey,borderWidth:1,},style]}>
-        <Text style={[styles.text, textStyle ]}>
+      <View
+        style={[
+          styles.container,
+          border && {
+            margin: 5,
+            padding: 10,
+            borderRadius: 5,
+            borderColor: colors.mediumGrey,
+            borderWidth: 1,
+          },
+          style,
+        ]}>
+        <Text style={[styles.text, textStyle]}>
           {area && <Text>{area.name + ', '}</Text>}
           <Text>
             {I18n.t('block')} {block},{' '}
@@ -51,8 +60,8 @@ export default class AddressInfo extends Component {
 }
 
 const styles = StyleSheet.create({
-  container:{
-    paddingHorizontal:5,
+  container: {
+    paddingHorizontal: 5,
   },
   text: {
     color: colors.primary,

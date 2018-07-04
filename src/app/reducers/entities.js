@@ -11,7 +11,7 @@ export function reducer(
     drivers: {},
     jobs: {},
     areas: {},
-    orders:{}
+    orders: {},
   },
   action = {},
 ) {

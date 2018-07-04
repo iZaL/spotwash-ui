@@ -11,7 +11,7 @@ const areasSchema = new schema.Entity('areas');
 const profileSchema = new schema.Union(
   {
     drivers: driversSchema,
-    companies:companiesSchema
+    companies: companiesSchema,
   },
   input => input.schema,
 );
@@ -52,12 +52,12 @@ driversSchema.define({
 // });
 
 companiesSchema.define({
-  bids:{
-    pending:[ordersSchema],
-    confirmed:[ordersSchema]
+  bids: {
+    pending: [ordersSchema],
+    confirmed: [ordersSchema],
   },
-  drivers:[driversSchema],
-  packages:[packagesSchema]
+  drivers: [driversSchema],
+  packages: [packagesSchema],
 });
 
 export const Schema = {
@@ -67,6 +67,6 @@ export const Schema = {
   orders: ordersSchema,
   users: usersSchema,
   drivers: driversSchema,
-  companies:companiesSchema,
+  companies: companiesSchema,
   areas: areasSchema,
 };

@@ -299,11 +299,9 @@ function* fetchHasFreeWash(action) {
   }
 }
 
-
 function* fetchBids(action) {
   try {
     const response = yield call(API.fetchBids, action.params.order_id);
-
 
     const normalized = normalize(response.data, Schema.orders);
     yield put({
@@ -317,11 +315,10 @@ function* fetchBids(action) {
 
 function* confirmBid(action) {
   try {
-
     let params = {
-      body:{
-        ...action.params
-      }
+      body: {
+        ...action.params,
+      },
     };
     const response = yield call(API.confirmBid, action.params.bid_id, params);
     const normalized = normalize(response.data, Schema.orders);
@@ -338,10 +335,12 @@ function* confirmBid(action) {
     );
   } catch (error) {
     yield put({type: ACTION_TYPES.CONFIRM_BID_FAILURE, error});
-    yield put(APP_ACTIONS.setNotification({
-      message:error,
-      type:'error'
-    }));
+    yield put(
+      APP_ACTIONS.setNotification({
+        message: error,
+        type: 'error',
+      }),
+    );
   }
 }
 
@@ -358,7 +357,6 @@ function* fetchDrivers() {
     yield put({type: ACTION_TYPES.FETCH_DRIVERS_FAILURE, error});
   }
 }
-
 
 // Monitoring Sagas
 function* fetchCategoriesMonitor() {
@@ -417,7 +415,6 @@ function* fetchHasFreeWashMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_HAS_FREE_WASH_REQUEST, fetchHasFreeWash);
 }
 
-
 function* fetchBidsMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_BIDS_REQUEST, fetchBids);
 }
@@ -446,5 +443,4 @@ export const sagas = all([
   fork(fetchBidsMonitor),
   fork(confirmBidMonitor),
   fork(fetchDriversMonitor),
-
 ]);

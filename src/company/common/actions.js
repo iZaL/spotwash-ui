@@ -59,12 +59,11 @@ export const ACTION_TYPES = {
 
   SUBSCRIBE_TO_DRIVER_TRACKINGS: '@company/SUBSCRIBE_TO_DRIVER_TRACKINGS',
 
-  DRIVER_SET_TIMINGS_REQUEST : '@company/DRIVER_SET_TIMINGS_REQUEST',
+  DRIVER_SET_TIMINGS_REQUEST: '@company/DRIVER_SET_TIMINGS_REQUEST',
 
   MAKE_BID_REQUEST: '@company/orders/MAKE_BID_REQUEST',
   MAKE_BID_SUCCESS: '@company/orders/MAKE_BID_SUCCESS',
   MAKE_BID_FAILURE: '@company/orders/MAKE_BID_FAILURE',
-
 };
 
 function fetchUpcomingOrders(params = {}) {
@@ -209,5 +208,5 @@ export const ACTIONS = {
   assignDriver,
   saveDriverAttributes,
   subscribeToDriverTrackings,
-  makeBid
+  makeBid,
 };

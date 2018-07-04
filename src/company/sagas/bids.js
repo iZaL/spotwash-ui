@@ -4,7 +4,7 @@ import {API} from 'company/common/api';
 import {Schema} from 'utils/schema';
 import {normalize} from 'normalizr';
 import I18n from 'utils/locale';
-import {ACTIONS as APP_ACTIONS} from "../../app/common/actions";
+import {ACTIONS as APP_ACTIONS} from '../../app/common/actions';
 
 function* fetchPendingBids(action) {
   try {
@@ -13,7 +13,7 @@ function* fetchPendingBids(action) {
     const formattedResponse = {
       ...response.company,
       bids: {
-        'pending': response.orders,
+        pending: response.orders,
       },
     };
 
@@ -34,7 +34,7 @@ function* fetchConfirmedBids(action) {
     const formattedResponse = {
       ...response.company,
       bids: {
-        'confirmed': response.orders,
+        confirmed: response.orders,
       },
     };
 
@@ -50,7 +50,6 @@ function* fetchConfirmedBids(action) {
 
 function* makeBid(action) {
   try {
-
     const params = {
       body: action.params,
     };
@@ -60,15 +59,16 @@ function* makeBid(action) {
 
     yield put({
       type: ACTION_TYPES.MAKE_BID_SUCCESS,
-      entities:normalized.entities
+      entities: normalized.entities,
     });
-
   } catch (error) {
     yield put({type: ACTION_TYPES.MAKE_BID_FAILURE, error});
-    yield put(APP_ACTIONS.setNotification({
-      message:error,
-      type:'error'
-    }));
+    yield put(
+      APP_ACTIONS.setNotification({
+        message: error,
+        type: 'error',
+      }),
+    );
   }
 }
 
@@ -76,7 +76,10 @@ function* fetchPendingBidsMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_PENDING_BIDS_REQUEST, fetchPendingBids);
 }
 function* fetchConfirmedBidsMonitor() {
-  yield takeLatest(ACTION_TYPES.FETCH_CONFIRMED_BIDS_REQUEST, fetchConfirmedBids);
+  yield takeLatest(
+    ACTION_TYPES.FETCH_CONFIRMED_BIDS_REQUEST,
+    fetchConfirmedBids,
+  );
 }
 
 function* makeBidMonitor() {
@@ -87,5 +90,4 @@ export const sagas = all([
   fork(fetchPendingBidsMonitor),
   fork(fetchConfirmedBidsMonitor),
   fork(makeBidMonitor),
-
 ]);

@@ -4,8 +4,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import colors from 'assets/theme/colors';
 import I18n from 'utils/locale';
 import Touchable from 'react-native-platform-touchable';
-import Button from "../../../components/Button";
-import {Title} from "react-native-paper";
+import Button from '../../../components/Button';
+import {Title} from 'react-native-paper';
 
 export default class OrderSuccess extends Component {
   static propTypes = {
@@ -16,9 +16,11 @@ export default class OrderSuccess extends Component {
     let {onPress} = this.props;
     return (
       <View style={styles.container}>
-        <Title style={styles.thankyou}>{I18n.t('order_confirmed').toUpperCase()}</Title>
+        <Title style={styles.thankyou}>
+          {I18n.t('order_confirmed').toUpperCase()}
+        </Title>
         <Touchable onPress={onPress}>
-            <Button  title={I18n.t('view_bids').toUpperCase()} />
+          <Button title={I18n.t('view_bids').toUpperCase()} />
         </Touchable>
         {/*<Text style={styles.thankyou}>{I18n.t('thank_you')}</Text>*/}
       </View>

@@ -6,7 +6,7 @@ import I18n from 'utils/locale';
 import Divider from 'components/Divider';
 import CheckedListItem from 'components/CheckedListItem';
 import AddressInfo from '../../../components/AddressInfo';
-import {TouchableRipple} from "react-native-paper";
+import {TouchableRipple} from 'react-native-paper';
 
 export default class AddressesList extends Component {
   shouldComponentUpdate(nextProps) {
@@ -20,13 +20,12 @@ export default class AddressesList extends Component {
     const {onItemPress, activeItemID} = this.props;
 
     return (
-      <TouchableRipple
-        onPress={() => onItemPress(item)}
-      >
+      <TouchableRipple onPress={() => onItemPress(item)}>
         <AddressInfo
-          style={activeItemID === item.id && {backgroundColor:colors.primary}}
-          textStyle={activeItemID === item.id && {color:colors.white}}
-          address={item}  />
+          style={activeItemID === item.id && {backgroundColor: colors.primary}}
+          textStyle={activeItemID === item.id && {color: colors.white}}
+          address={item}
+        />
       </TouchableRipple>
     );
   };

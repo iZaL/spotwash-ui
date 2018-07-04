@@ -29,8 +29,8 @@ class Home extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.dispatch(COMPANY_ACTIONS.fetchUpcomingOrders({force:true}));
-    this.props.dispatch(COMPANY_ACTIONS.fetchWorkingOrders({force:true}));
+    this.props.dispatch(COMPANY_ACTIONS.fetchUpcomingOrders({force: true}));
+    this.props.dispatch(COMPANY_ACTIONS.fetchWorkingOrders({force: true}));
     this.props.dispatch(COMPANY_ACTIONS.fetchPendingBids());
     this.props.dispatch(COMPANY_ACTIONS.fetchConfirmedBids());
     this.props.dispatch(COMPANY_ACTIONS.fetchDrivers());
@@ -87,13 +87,18 @@ class Home extends PureComponent {
   };
 
   render() {
-
     // 1- New Bids
     // 2- Accepted Bids ===> Assign Driver
     // 3- Upcoming Orders ===> After Assigning Driver, But Not Started Working
     // 4- Working Orders ====> Current Working Orders
 
-    const {working_orders, upcoming_orders, drivers,pending_bids,confirmed_bids} = this.props;
+    const {
+      working_orders,
+      upcoming_orders,
+      drivers,
+      pending_bids,
+      confirmed_bids,
+    } = this.props;
 
     return (
       <ScrollView
@@ -104,7 +109,6 @@ class Home extends PureComponent {
             onRefresh={this._onRefresh.bind(this)}
           />
         }>
-
         <SectionHeading
           title={I18n.t('bids_new')}
           buttonTitle={I18n.t('view_all')}
@@ -154,8 +158,6 @@ class Home extends PureComponent {
           items={drivers}
           onItemPress={this.onDriversListItemPress}
         />
-
-
       </ScrollView>
     );
   }
@@ -166,8 +168,8 @@ function mapStateToProps(state) {
     upcoming_orders: ORDER_SELECTORS.getUpcomingOrders(state),
     working_orders: ORDER_SELECTORS.getWorkingOrders(state),
     drivers: DRIVER_SELECTORS.getDrivers(state),
-    pending_bids:ORDER_SELECTORS.getPendingBids(state),
-    confirmed_bids:ORDER_SELECTORS.getConfirmedBids(state)
+    pending_bids: ORDER_SELECTORS.getPendingBids(state),
+    confirmed_bids: ORDER_SELECTORS.getConfirmedBids(state),
   };
 }
 

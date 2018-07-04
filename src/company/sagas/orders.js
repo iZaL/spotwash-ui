@@ -177,5 +177,4 @@ export const sagas = all([
   fork(fetchOrderDetailsMonitor),
   fork(fetchTimingsMonitor),
   fork(fetchPackagesMonitor),
-
 ]);

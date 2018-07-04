@@ -6,8 +6,8 @@ import Touchable from 'react-native-platform-touchable';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import I18n from 'utils/locale';
-import IconFactory from "../../components/IconFactory";
-import {Title, TouchableRipple} from "react-native-paper";
+import IconFactory from '../../components/IconFactory';
+import {Title, TouchableRipple} from 'react-native-paper';
 
 export default class HomeActionButtons extends Component {
   static propTypes = {
@@ -23,7 +23,12 @@ export default class HomeActionButtons extends Component {
           style={styles.buttonContainer}
           onPress={onCreateOrderPress}>
           <View style={styles.content}>
-            <IconFactory type="Ionicons" name="ios-hand" size={40} color={colors.primary} />
+            <IconFactory
+              type="Ionicons"
+              name="ios-hand"
+              size={40}
+              color={colors.primary}
+            />
             <Title>{I18n.t('create_order')}</Title>
           </View>
         </TouchableRipple>
@@ -39,9 +44,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     padding: 10,
-    backgroundColor:'white',
-    borderRadius:10,
-    margin:15,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    margin: 15,
   },
   content: {
     alignItems: 'center',

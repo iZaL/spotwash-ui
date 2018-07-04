@@ -82,7 +82,6 @@ export const ACTION_TYPES = {
   FETCH_HAS_FREE_WASH_SUCCESS: '@customer/FETCH_HAS_FREE_WASH_SUCCESS',
   FETCH_HAS_FREE_WASH_FAILURE: '@customer/FETCH_HAS_FREE_WASH_FAILURE',
 
-
   FETCH_BIDS_REQUEST: '@customer/orders/FETCH_BIDS_REQUEST',
   FETCH_BIDS_SUCCESS: '@customer/orders/FETCH_BIDS_SUCCESS',
   FETCH_BIDS_FAILURE: '@customer/orders/FETCH_BIDS_FAILURE',
@@ -96,7 +95,6 @@ export const ACTION_TYPES = {
   FETCH_DRIVERS_REQUEST: '@customer/FETCH_DRIVERS_REQUEST',
   FETCH_DRIVERS_SUCCESS: '@customer/FETCH_DRIVERS_SUCCESS',
   FETCH_DRIVERS_FAILURE: '@customer/FETCH_DRIVERS_FAILURE',
-
 };
 
 function fetchCartItems() {
@@ -116,7 +114,6 @@ function addToCart(item: object) {
     },
   };
 }
-
 
 function removeCartItem(key) {
   return {

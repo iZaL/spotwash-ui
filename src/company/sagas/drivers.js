@@ -15,7 +15,6 @@ function* fetchDrivers() {
       type: ACTION_TYPES.FETCH_DRIVERS_SUCCESS,
       entities: normalized.entities,
     });
-
   } catch (error) {
     yield put({type: ACTION_TYPES.FETCH_DRIVERS_FAILURE, error});
   }

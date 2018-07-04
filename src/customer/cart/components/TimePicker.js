@@ -43,10 +43,10 @@ export default class TimePicker extends Component {
             : activeItemID === item.id && styles.itemContainerActive,
         ]}>
         {/*<IconFactory*/}
-          {/*name={item.isDay ? 'ios-sunny' : 'ios-moon'}*/}
-          {/*type="Ionicons"*/}
-          {/*color={item.isDay ? '#ebbd21' : colors.darkGrey}*/}
-          {/*size={22}*/}
+        {/*name={item.isDay ? 'ios-sunny' : 'ios-moon'}*/}
+        {/*type="Ionicons"*/}
+        {/*color={item.isDay ? '#ebbd21' : colors.darkGrey}*/}
+        {/*size={22}*/}
         {/*/>*/}
 
         <Text

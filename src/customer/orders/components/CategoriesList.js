@@ -4,7 +4,7 @@ import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import colors from 'assets/theme/colors';
 import I18n from 'utils/locale';
-import IconFactory from "../../../components/IconFactory";
+import IconFactory from '../../../components/IconFactory';
 
 export default class CategoriesList extends Component {
   shouldComponentUpdate(nextProps) {
@@ -26,7 +26,11 @@ export default class CategoriesList extends Component {
               backgroundColor: colors.primary,
             },
           ]}>
-          <IconFactory type="MaterialCommunityIcons" name="car-hatchback" color={activeItemID === item.id ? 'white':'black'}/>
+          <IconFactory
+            type="MaterialCommunityIcons"
+            name="car-hatchback"
+            color={activeItemID === item.id ? 'white' : 'black'}
+          />
           <Text
             style={[
               styles.title,
@@ -78,8 +82,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width / 2 - 20,
     alignItems: 'center',
     justifyContent: 'space-around',
-    borderWidth:1,
-    borderColor:colors.mediumGrey,
+    borderWidth: 1,
+    borderColor: colors.mediumGrey,
   },
   image: {
     width: 25,

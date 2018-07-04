@@ -53,8 +53,7 @@ class TrackOrderScene extends Component {
   render() {
     const {order, isFetching} = this.props;
 
-    console.log('order',order);
-
+    console.log('order', order);
 
     let {job, address} = order;
     let destination = {
@@ -70,8 +69,8 @@ class TrackOrderScene extends Component {
       heading: 0,
     };
 
-    if(!job) {
-      job = {}
+    if (!job) {
+      job = {};
     }
 
     return (

@@ -69,7 +69,7 @@ class Cart extends PureComponent {
     timings: [],
     cartItems: [],
     cart: {},
-    orderID:null
+    orderID: null,
   };
 
   componentDidMount() {
@@ -223,9 +223,9 @@ class Cart extends PureComponent {
       force: true,
     });
     this.props.navigation.popToTop();
-    this.props.navigation.navigate('OrderDetail',{
-      orderID:this.state.orderID
-    })
+    this.props.navigation.navigate('OrderDetail', {
+      orderID: this.state.orderID,
+    });
     this.props.actions.setCartItem('isFreeWash', false);
   };
 
@@ -322,7 +322,7 @@ class Cart extends PureComponent {
             this.setState({
               showOrderSuccessModal: true,
               showCheckoutConfirmDialog: false,
-              orderID:order.id
+              orderID: order.id,
             });
           } else if (order.status == 'Checkout') {
             this.setState({

@@ -27,7 +27,7 @@ export default class OrderList extends Component {
           onPress={() => onItemPress(item)}>
           <View>
             {item.packages.map((packageItem, index) => (
-              <View key={`${index}`} style={{flexDirection:'row'}}>
+              <View key={`${index}`} style={{flexDirection: 'row'}}>
                 <Text style={styles.dateTime}>{packageItem.category.name}</Text>
                 <Text style={styles.dateTime}>{packageItem.name},</Text>
               </View>
@@ -39,7 +39,9 @@ export default class OrderList extends Component {
           </View>
         </Touchable>
 
-        <Touchable onPress={() => onItemTrackPress(item)} style={styles.bidContainer}>
+        <Touchable
+          onPress={() => onItemTrackPress(item)}
+          style={styles.bidContainer}>
           <View style={styles.bidInnerContainer}>
             <View style={styles.bidRowContainer}>
               <Text style={styles.bidText}>5</Text>
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
   dateTime: {
     fontSize: 16,
     color: colors.primary,
-    paddingRight:10
+    paddingRight: 10,
   },
   viewAll: {
     fontSize: 15,
@@ -122,33 +124,32 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingVertical: 10,
   },
-  bidText:{
-    color:'white',
-    fontWeight:'700',
-
+  bidText: {
+    color: 'white',
+    fontWeight: '700',
   },
-  bidContainer:{
-    width:50,
-    height:50,
-    borderRadius:25,
-    backgroundColor:colors.primary,
-    alignItems:'center',
-    justifyContent:'center',
+  bidContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  bidInnerContainer:{
-    backgroundColor:colors.white,
-    width:40,
-    height:40,
-    borderRadius:20,
-    alignItems:'center',
-    justifyContent:'center',
+  bidInnerContainer: {
+    backgroundColor: colors.white,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  bidRowContainer:{
-    backgroundColor:colors.primary,
-    width:30,
-    height:30,
-    borderRadius:15,
-    alignItems:'center',
-    justifyContent:'center',
+  bidRowContainer: {
+    backgroundColor: colors.primary,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

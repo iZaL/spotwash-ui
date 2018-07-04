@@ -67,10 +67,10 @@ export default class DatePicker extends Component {
     const {onItemPress} = this.props;
 
     return (
-      <View >
-          <Touchable onPress={() => onItemPress(item)}>
-            {this.renderDay(item)}
-          </Touchable>
+      <View>
+        <Touchable onPress={() => onItemPress(item)}>
+          {this.renderDay(item)}
+        </Touchable>
       </View>
     );
   };

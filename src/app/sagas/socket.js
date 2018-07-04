@@ -1,5 +1,14 @@
 import io from 'socket.io-client';
-import {all, call, cancel, fork, put, select, take,takeLatest} from 'redux-saga/effects';
+import {
+  all,
+  call,
+  cancel,
+  fork,
+  put,
+  select,
+  take,
+  takeLatest,
+} from 'redux-saga/effects';
 import {SOCKET_SERVER} from 'utils/env';
 import {eventChannel} from 'redux-saga';
 
@@ -100,7 +109,4 @@ function* bootMonitor() {
   }
 }
 
-export const sagas = all([
-  fork(socketFlowMonitor),
-  fork(bootMonitor),
-]);
+export const sagas = all([fork(socketFlowMonitor), fork(bootMonitor)]);

@@ -29,7 +29,7 @@ const getCategories = createSelector(
 );
 
 const getParentCategories = createSelector([getCategories], categories => {
-  if(categories.length) {
+  if (categories.length) {
     return categories.filter(category => category.parent_id === null);
   }
   return [];
@@ -45,9 +45,8 @@ const getAreas = createSelector([areasEntity], timings => {
 
 const getOrderByID = () => {
   return createSelector([schemas, getItemIdProp], (entities, itemID) => {
-      return denormalize(itemID, Schema.orders, entities);
-    }
-  );
+    return denormalize(itemID, Schema.orders, entities);
+  });
 };
 
 const getCartItems = createSelector(
@@ -61,9 +60,9 @@ const getCartItems = createSelector(
           category: categories[item.category],
           // package: packages[item.package],
           packages:
-          (item.packages &&
-            item.packages.map(packageID => packages[packageID])) ||
-          [],
+            (item.packages &&
+              item.packages.map(packageID => packages[packageID])) ||
+            [],
         };
       });
   },
@@ -119,10 +118,12 @@ const getPastOrders = createSelector(
 );
 
 const getBidsByID = () => {
-  return createSelector([schemas,getOrderIdProps, getBidIdProp], (entities,orderID, bidID) => {
-      let order =  denormalize(orderID, Schema.orders, entities);
+  return createSelector(
+    [schemas, getOrderIdProps, getBidIdProp],
+    (entities, orderID, bidID) => {
+      let order = denormalize(orderID, Schema.orders, entities);
       return order.bids.find(bid => bid.id === bidID);
-    }
+    },
   );
 };
 

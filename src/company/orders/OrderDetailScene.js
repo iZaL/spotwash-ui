@@ -3,9 +3,7 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-  ACTIONS as ORDER_ACTIONS,
-} from 'company/common/actions';
+import {ACTIONS as ORDER_ACTIONS} from 'company/common/actions';
 import {SELECTORS as ORDER_SELECTORS} from 'company/selectors/orders';
 import {SELECTORS as DRIVER_SELECTORS} from 'company/selectors/drivers';
 import {Linking, ScrollView, View} from 'react-native';
@@ -18,7 +16,7 @@ import UserInfo from 'customer/components/UserInfo';
 import DriverAssign from 'company/orders/components/DriverAssign';
 import Button from 'components/Button';
 import I18n from 'utils/locale';
-import FormTextInput from "../../components/FormTextInput";
+import FormTextInput from '../../components/FormTextInput';
 
 class OrderDetailScene extends Component {
   static propTypes = {
@@ -32,7 +30,7 @@ class OrderDetailScene extends Component {
   };
 
   state = {
-    amount:0
+    amount: 0,
   };
 
   componentDidMount() {
@@ -75,13 +73,12 @@ class OrderDetailScene extends Component {
     });
   };
 
-
   makeBid = () => {
     // this.props.dispatch(
     //   ORDER_ACTIONS.makeBid({order_id: this.props.order.id, amount: this.state.amount}),
     // );
-    this.props.navigation.navigate('MakeBid',{
-      orderID:this.props.order.id
+    this.props.navigation.navigate('MakeBid', {
+      orderID: this.props.order.id,
     });
   };
 
@@ -93,13 +90,13 @@ class OrderDetailScene extends Component {
 
   onFieldChange = (field, value) => {
     this.setState({
-      [field]: value
-    })
+      [field]: value,
+    });
   };
 
   render() {
     let {order, drivers} = this.props;
-    console.log('order',order);
+    console.log('order', order);
     let {amount} = this.state;
 
     let buttonComponent;
@@ -107,17 +104,36 @@ class OrderDetailScene extends Component {
 
     if (order.bid_open) {
       buttonComponent = (
-        <View style={{padding:10,backgroundColor:'white'}}>
+        <View style={{padding: 10, backgroundColor: 'white'}}>
           {/*<FormTextInput field="amount" onValueChange={this.onFieldChange} label={I18n.t('amount')}/>*/}
-          <Button raised primary title={I18n.t('make_bid')} onPress={this.makeBid} style={{marginVertical: 40}} />
+          <Button
+            raised
+            primary
+            title={I18n.t('make_bid')}
+            onPress={this.makeBid}
+            style={{marginVertical: 40}}
+          />
         </View>
       );
     } else {
       if (order.has_bidded) {
-        buttonComponent = <Button title={I18n.t('cancel_bid')} onPress={this.cancelBid} style={{marginVertical: 40}} background={'warning'}/>
+        buttonComponent = (
+          <Button
+            title={I18n.t('cancel_bid')}
+            onPress={this.cancelBid}
+            style={{marginVertical: 40}}
+            background={'warning'}
+          />
+        );
       } else {
         showTextInput = true;
-        buttonComponent = <Button title={I18n.t('cannot_bid')} style={{marginVertical: 40}} disabled={true}/>
+        buttonComponent = (
+          <Button
+            title={I18n.t('cannot_bid')}
+            style={{marginVertical: 40}}
+            disabled={true}
+          />
+        );
       }
     }
 
@@ -126,15 +142,12 @@ class OrderDetailScene extends Component {
         <OrderBasicInfo item={order} />
         <OrderItems order={order} />
 
-        {
-          order.total &&
-          <OrderTotal total={order.total} />
-        }
+        {order.total && <OrderTotal total={order.total} />}
 
         {order.user &&
-        order.user.id && (
-          <UserInfo user={order.user} makeCall={this.makeCall} />
-        )}
+          order.user.id && (
+            <UserInfo user={order.user} makeCall={this.makeCall} />
+          )}
 
         {/*<DriverAssign*/}
         {/*order={order}*/}
@@ -143,37 +156,37 @@ class OrderDetailScene extends Component {
         {/*/>*/}
 
         {/*{*/}
-          {/*showTextInput &&*/}
+        {/*showTextInput &&*/}
 
-          {/*<FormTextInput*/}
-            {/*onChangeText={value => this.onFieldChange('amount', value)}*/}
-            {/*value={`${amount}`}*/}
-            {/*field='amount'*/}
-            {/*label={I18n.t('bid_price')}*/}
-            {/*maxLength={40}*/}
-            {/*placeholder={I18n.t('bid_price')}*/}
-            {/*keyboardType="numeric"*/}
-            {/*style={{backgroundColor: 'white', marginHorizontal: 5, padding: 10, textAlign: 'right'}}*/}
-          {/*/>*/}
+        {/*<FormTextInput*/}
+        {/*onChangeText={value => this.onFieldChange('amount', value)}*/}
+        {/*value={`${amount}`}*/}
+        {/*field='amount'*/}
+        {/*label={I18n.t('bid_price')}*/}
+        {/*maxLength={40}*/}
+        {/*placeholder={I18n.t('bid_price')}*/}
+        {/*keyboardType="numeric"*/}
+        {/*style={{backgroundColor: 'white', marginHorizontal: 5, padding: 10, textAlign: 'right'}}*/}
+        {/*/>*/}
 
         {/*}*/}
 
         {buttonComponent}
 
         {order.job &&
-        order.job.driver &&
-        order.job.driver.user && (
-          <View>
-            <DriverInfo driver={order.job.driver} />
-            <Button
-              onPress={this.trackOrder}
-              primary
-              raised
-              dark
-              title={I18n.t('track')}
-            />
-          </View>
-        )}
+          order.job.driver &&
+          order.job.driver.user && (
+            <View>
+              <DriverInfo driver={order.job.driver} />
+              <Button
+                onPress={this.trackOrder}
+                primary
+                raised
+                dark
+                title={I18n.t('track')}
+              />
+            </View>
+          )}
       </ScrollView>
     );
   }

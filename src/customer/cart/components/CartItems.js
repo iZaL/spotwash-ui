@@ -15,7 +15,7 @@ export default class CartItems extends Component {
     onItemPress: PropTypes.func.isRequired,
   };
   renderItem = ({item}) => {
-    console.log('item',item);
+    console.log('item', item);
     const {onItemPress} = this.props;
     const {category, services} = item;
 
@@ -25,8 +25,8 @@ export default class CartItems extends Component {
           <Text style={styles.categoryTitle}>{category.name}</Text>
 
           {/*<View style={styles.packageItemContainer}>*/}
-            {/*<Text style={styles.packageTitle}>{item.package.name}</Text>*/}
-            {/*<Text style={styles.packagePrice}>{item.package.price} KD</Text>*/}
+          {/*<Text style={styles.packageTitle}>{item.package.name}</Text>*/}
+          {/*<Text style={styles.packagePrice}>{item.package.price} KD</Text>*/}
           {/*</View>*/}
           {item.packages.map((service, index) => (
             <View style={{flex: 1}} key={index}>

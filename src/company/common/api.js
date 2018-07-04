@@ -94,5 +94,4 @@ export const API = {
   fetchPendingBids,
   fetchConfirmedBids,
   makeBid,
-
 };

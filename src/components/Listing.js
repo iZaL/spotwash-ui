@@ -25,7 +25,7 @@ export default class Listing extends Component {
   }
 
   static defaultProps = {
-    activeIDs:[]
+    activeIDs: [],
   };
 
   renderItem = ({item}) => {

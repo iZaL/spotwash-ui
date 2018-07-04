@@ -100,7 +100,6 @@ function confirmBid(bidID, params) {
   return request(requestParams);
 }
 
-
 function fetchDrivers() {
   const path = `customer/drivers`;
   return request({path});

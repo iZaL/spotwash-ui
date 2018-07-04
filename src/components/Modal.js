@@ -42,8 +42,7 @@ export default class extends Component {
         transparent={true}
         style={[styles.container, style]}
         onSwipe={onCancel}
-        swipeDirection="down"
-      >
+        swipeDirection="down">
         {header && typeof header === 'string' ? (
           <Headline style={styles.headline}>{header}</Headline>
         ) : (

@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {FlatList, StyleSheet} from 'react-native';
 import colors from 'assets/theme/colors';
-import CompanyCard from "company/components/CompanyCard";
+import CompanyCard from 'company/components/CompanyCard';
 import Touchable from 'react-native-platform-touchable';
 export default class BidsList extends Component {
-
   static propTypes = {
     items: PropTypes.array.isRequired,
     onItemPress: PropTypes.func.isRequired,
@@ -40,7 +39,6 @@ export default class BidsList extends Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   listContainer: {

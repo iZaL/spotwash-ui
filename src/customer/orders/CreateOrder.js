@@ -2,7 +2,7 @@
  * @flow
  */
 import React, {PureComponent} from 'react';
-import {ScrollView, Text, View,Alert} from 'react-native';
+import {ScrollView, Text, View, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ACTIONS, ACTIONS as CART_ACTIONS} from 'customer/common/actions';
@@ -15,20 +15,20 @@ import colors from 'assets/theme/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Button from 'components/Button';
 import Modal from 'react-native-modal';
-import CategoriesChildrenList from "./components/CategoriesChildrenList";
-import Divider from "components/Divider";
-import SectionTitle from "components/SectionTitle";
+import CategoriesChildrenList from './components/CategoriesChildrenList';
+import Divider from 'components/Divider';
+import SectionTitle from 'components/SectionTitle';
 import DatePicker from 'customer/cart/components/DatePicker';
 import TimePicker from 'customer/cart/components/TimePicker';
 import AddressesList from 'customer/cart/components/AddressesList';
-import {SELECTORS as USER_SELECTORS} from "guest/common/selectors";
-import {SELECTORS as ORDER_SELECTORS} from "customer/selectors/orders";
+import {SELECTORS as USER_SELECTORS} from 'guest/common/selectors';
+import {SELECTORS as ORDER_SELECTORS} from 'customer/selectors/orders';
 import CreateAddress from 'customer/cart/components/CreateAddress';
 import AddressTypeSelectionModal from 'customer/cart/components/AddressTypeSelectionModal';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import CreateAddressFields from 'customer/cart/components/CreateAddressFields';
 import OrderSuccess from 'customer/cart/components/OrderSuccess';
-import ConfirmedButton from "components/ConfirmedButton";
+import ConfirmedButton from 'components/ConfirmedButton';
 import moment from 'moment';
 
 class CreateOrder extends PureComponent {
@@ -132,15 +132,16 @@ class CreateOrder extends PureComponent {
   };
 
   onPackagesListItemPress = (item: object, packages: Array) => {
-    console.log('item',item);
+    console.log('item', item);
     let activePackages = this.props.cart.activePackageIDs;
-    let filteredPackages = activePackages && activePackages.filter(
-      id => packages.indexOf(id) === -1,
-    ) || [];
+    let filteredPackages =
+      (activePackages &&
+        activePackages.filter(id => packages.indexOf(id) === -1)) ||
+      [];
     let newPackages = filteredPackages.concat(item.id);
 
     this.props.actions.setCartItems({
-      'activePackageIDs' : newPackages
+      activePackageIDs: newPackages,
     });
   };
 
@@ -295,8 +296,8 @@ class CreateOrder extends PureComponent {
       force: true,
     });
     this.props.navigation.popToTop();
-    this.props.navigation.navigate('OrderDetail',{
-      orderID:this.state.orderID
+    this.props.navigation.navigate('OrderDetail', {
+      orderID: this.state.orderID,
     });
     this.props.actions.setCartItem('isFreeWash', false);
   };
@@ -369,19 +370,19 @@ class CreateOrder extends PureComponent {
         time_id: selectedTimeID,
         date: selectedDate,
         payment_mode: paymentMode,
-        package_ids:activePackageIDs
+        package_ids: activePackageIDs,
       };
 
       return new Promise((resolve, reject) => {
         this.props.actions.checkout({item, resolve, reject});
       })
         .then(order => {
-          console.log('order',order);
+          console.log('order', order);
           if (order.status == 'success') {
             this.setState({
               showOrderSuccessModal: true,
               showCheckoutConfirmDialog: false,
-              orderID:order.id
+              orderID: order.id,
             });
           } else if (order.status == 'checkout') {
             this.setState({
@@ -433,7 +434,6 @@ class CreateOrder extends PureComponent {
   };
 
   render() {
-
     let {
       cart,
       cartItems,
@@ -445,7 +445,14 @@ class CreateOrder extends PureComponent {
       categories,
     } = this.props;
 
-    let {activeCategoryID,activePackageIDs,selectedDate, selectedAddressID, selectedTimeID, isFreeWash} = cart;
+    let {
+      activeCategoryID,
+      activePackageIDs,
+      selectedDate,
+      selectedAddressID,
+      selectedTimeID,
+      isFreeWash,
+    } = cart;
 
     const {showCartSuccessModal, showFreewashModal} = this.state;
 
@@ -472,11 +479,13 @@ class CreateOrder extends PureComponent {
 
     return (
       <ScrollView
-        style={{flex: 1,backgroundColor:'white'}}
+        style={{flex: 1, backgroundColor: 'white'}}
         keyboardShouldPersistTaps={'always'}
         contentInset={{bottom: 50}}>
-
-        <SectionTitle title={I18n.t('select_car_size')} style={{paddingHorizontal:10}}/>
+        <SectionTitle
+          title={I18n.t('select_car_size')}
+          style={{paddingHorizontal: 10}}
+        />
 
         <CategoriesList
           items={categories}
@@ -484,14 +493,12 @@ class CreateOrder extends PureComponent {
           activeItemID={activeCategoryID}
         />
 
-        <Divider/>
+        <Divider />
 
         {activeCategoryID && (
           <CategoriesChildrenList
             items={
-              (categories.find(
-                category => category.id === activeCategoryID,
-                ) &&
+              (categories.find(category => category.id === activeCategoryID) &&
                 categories.find(category => category.id === activeCategoryID)
                   .children) ||
               []
@@ -502,26 +509,26 @@ class CreateOrder extends PureComponent {
         )}
 
         {/*<SectionTitle*/}
-          {/*title={I18n.t('date')}*/}
-          {/*style={{padding: 10, marginTop: 10}}*/}
+        {/*title={I18n.t('date')}*/}
+        {/*style={{padding: 10, marginTop: 10}}*/}
         {/*/>*/}
 
         {/*<DatePicker*/}
-          {/*items={dates || []}*/}
-          {/*onItemPress={this.onDatePickerItemPress}*/}
-          {/*activeItem={selectedDate}*/}
+        {/*items={dates || []}*/}
+        {/*onItemPress={this.onDatePickerItemPress}*/}
+        {/*activeItem={selectedDate}*/}
         {/*/>*/}
 
         {/*<SectionTitle*/}
-          {/*title={I18n.t('time')}*/}
-          {/*style={{padding: 10, marginTop: 10}}*/}
+        {/*title={I18n.t('time')}*/}
+        {/*style={{padding: 10, marginTop: 10}}*/}
         {/*/>*/}
 
         {/*<TimePicker*/}
-          {/*items={timings || []}*/}
-          {/*onItemPress={this.onTimeChange}*/}
-          {/*activeItemID={selectedTimeID}*/}
-          {/*isFetching={isFetchingTimings}*/}
+        {/*items={timings || []}*/}
+        {/*onItemPress={this.onTimeChange}*/}
+        {/*activeItemID={selectedTimeID}*/}
+        {/*isFetching={isFetchingTimings}*/}
         {/*/>*/}
 
         <Divider
@@ -533,10 +540,7 @@ class CreateOrder extends PureComponent {
           }}
         />
 
-        <SectionTitle
-          title={I18n.t('address')}
-          style={{padding: 10}}
-        />
+        <SectionTitle title={I18n.t('address')} style={{padding: 10}} />
 
         <AddressesList
           items={user ? (user.addresses ? user.addresses : []) : []}
@@ -649,7 +653,6 @@ class CreateOrder extends PureComponent {
             total={cartTotal}
           />
         </Modal>
-
       </ScrollView>
     );
   }

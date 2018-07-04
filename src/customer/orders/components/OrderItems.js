@@ -22,40 +22,45 @@ export default class OrderItems extends Component {
       <View style={styles.container}>
         <SectionTitle title={I18n.t('order_details')} />
 
-        {packages && packages.map((packageModel, index) => (
-          <View style={styles.itemContainer} key={packageModel.id}>
-            <Text style={styles.categoryTitle}>
-              {packageModel.category.parent ? packageModel.category.parent.name : ''}
-              - {packageModel.category.name}
-            </Text>
+        {packages &&
+          packages.map((packageModel, index) => (
+            <View style={styles.itemContainer} key={packageModel.id}>
+              <Text style={styles.categoryTitle}>
+                {packageModel.category.parent
+                  ? packageModel.category.parent.name
+                  : ''}
+                - {packageModel.category.name}
+              </Text>
 
-            <View style={styles.packageItemContainer}>
-              <Text style={styles.packageTitle}>{packageModel.name}</Text>
-              {packageModel.price && (
-                <Text style={styles.packagePrice}>{packageModel.price} KD</Text>
-              )}
-            </View>
+              <View style={styles.packageItemContainer}>
+                <Text style={styles.packageTitle}>{packageModel.name}</Text>
+                {packageModel.price && (
+                  <Text style={styles.packagePrice}>
+                    {packageModel.price} KD
+                  </Text>
+                )}
+              </View>
 
-            {/*{order.services &&*/}
+              {/*{order.services &&*/}
               {/*order.services.length &&*/}
               {/*order.services*/}
-                {/*.filter(service => service.package.id === packageModel.id)*/}
-                {/*.map(service => {*/}
-                  {/*return (*/}
-                    {/*<View style={{flex: 1}} key={service.id}>*/}
-                      {/*<Divider style={{marginVertical: 10}} />*/}
+              {/*.filter(service => service.package.id === packageModel.id)*/}
+              {/*.map(service => {*/}
+              {/*return (*/}
+              {/*<View style={{flex: 1}} key={service.id}>*/}
+              {/*<Divider style={{marginVertical: 10}} />*/}
 
-                      {/*<View style={styles.serviceListContainer}>*/}
-                        {/*<Text style={styles.packageTitle}>{service.name} </Text>*/}
-                        {/*<Text style={styles.packagePrice}>*/}
-                          {/*{service.price} KD*/}
-                        {/*</Text>*/}
-                      {/*</View>*/}
-                    {/*</View>*/}
-                  {/*);*/}
-                {/*})}*/}
-          </View>
-        ))}
+              {/*<View style={styles.serviceListContainer}>*/}
+              {/*<Text style={styles.packageTitle}>{service.name} </Text>*/}
+              {/*<Text style={styles.packagePrice}>*/}
+              {/*{service.price} KD*/}
+              {/*</Text>*/}
+              {/*</View>*/}
+              {/*</View>*/}
+              {/*);*/}
+              {/*})}*/}
+            </View>
+          ))}
       </View>
     );
   }
@@ -68,8 +73,8 @@ const styles = StyleSheet.create({
   itemContainer: {
     backgroundColor: 'white',
     marginBottom: 5,
-    padding:10,
-    borderRadius:10,
+    padding: 10,
+    borderRadius: 10,
   },
   categoryTitle: {
     fontSize: 20,
