@@ -252,7 +252,7 @@ class PhotosUploadScene extends Component {
         <ListModal
           onCancel={this.hideUploadImageModal}
           onSave={this.onSaveUploadedImage}
-          isVisible={showUploadImageModal}>
+          visible={showUploadImageModal}>
           <UploadImage
             images={images}
             updateImage={this.uploadImage}

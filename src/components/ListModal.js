@@ -3,64 +3,66 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View} from 'react-native';
-
-import Modal from 'react-native-modal';
-import colors from 'assets/theme/colors';
-import {Headline} from 'react-native-paper';
+import Modal from 'components/Modal';
+import Listing from 'components/Listing';
+import Button from "components/Button";
 import I18n from 'utils/locale';
-import Button from 'components/Button';
 
 export default class ListModal extends Component {
   static propTypes = {
-    isVisible: PropTypes.bool.isRequired,
+    visible: PropTypes.bool.isRequired,
+    onItemPress: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
-    children: PropTypes.any.isRequired,
-    title: PropTypes.string,
+    onSave: PropTypes.func.isRequired,
+    items: PropTypes.array.isRequired,
+    header: PropTypes.any,
+    activeIDs: PropTypes.array,
+    buttonDisabled:PropTypes.bool,
+    buttonText:PropTypes.string
   };
+
+  shouldComponentUpdate(nextProps) {
+    return (
+      this.props.visible !== nextProps.visible ||
+      this.props.activeIDs !== nextProps.activeIDs ||
+      this.props.items !== nextProps.items ||
+      this.props.buttonDisabled !== nextProps.buttonDisabled
+    );
+  }
 
   static defaultProps = {
-    title: '',
+    activeIDs:[],
+    buttonText:I18n.t('save'),
+    buttonDisabled:false
   };
 
-  render() {
-    let {isVisible, onCancel, onSave, title, children, style} = this.props;
 
+  render() {
+
+    let {
+      onItemPress,
+      children,
+      items,
+      activeIDs,
+      description,
+      title,
+      buttonText,
+      onSave,
+      buttonDisabled,
+      ...rest,
+    } = this.props;
     return (
-      <Modal
-        isVisible={isVisible}
-        transparent={false}
-        style={[styles.container, style]}
-        onSwipe={onCancel}
-        swipeDirection="down">
-        <Headline style={styles.headline}>{title}</Headline>
-        {children}
-        <Button
-          onPress={onSave}
-          raised
-          primary
-          dark
-          style={{marginBottom: 50, paddingVertical: 10}}
-          title={I18n.t('save')}
+      <Modal {...rest}>
+        <Listing
+          onItemPress={onItemPress}
+          items={items}
+          activeIDs={activeIDs}
+          title={title}
+          description={description}
         />
+        {children}
+        <Button onPress={onSave} raised primary dark title={buttonText} disabled={buttonDisabled} />
       </Modal>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 0,
-    backgroundColor: colors.lightGrey,
-    opacity: 1,
-    paddingTop: 40,
-    paddingHorizontal: 0,
-    justifyContent: 'flex-start',
-  },
-  headline: {
-    textAlign: 'center',
-  },
-  itemTitle: {
-    flex: 1,
-  },
-});

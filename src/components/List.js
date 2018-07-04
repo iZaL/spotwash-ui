@@ -49,9 +49,7 @@ export default class List extends Component {
     let {isVisible, onCancel, items, title, onSave} = this.props;
     return (
       <ListModal
-        isVisible={isVisible}
-        transparent={false}
-        onBackdropPress={onCancel}
+        visible={isVisible}
         title={title}
         onCancel={onCancel}
         onSave={onSave}>

@@ -56,11 +56,8 @@ companiesSchema.define({
     pending:[ordersSchema],
     confirmed:[ordersSchema]
   },
-  orders:{
-    pending:[ordersSchema],
-    confirmed:[ordersSchema]
-  },
-  drivers:[driversSchema]
+  drivers:[driversSchema],
+  packages:[packagesSchema]
 });
 
 export const Schema = {

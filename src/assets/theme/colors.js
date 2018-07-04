@@ -15,4 +15,7 @@ export default {
   black: '#000000',
   white: '#ffffff',
   maroon: 'maroon',
+  darkBlue: '#44748e',
+  fadedGreen: '#0c8a41',
+  yellow: 'yellow',
 };

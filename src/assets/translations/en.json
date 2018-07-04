@@ -189,4 +189,7 @@
 
   "bids_new" : "New Bids",
   "bids_accepted" : "Accepted Bids",
+  "package_select" : "Select Package",
+  "package_add" : "Add Package",
+
 }

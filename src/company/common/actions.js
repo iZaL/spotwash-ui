@@ -34,6 +34,10 @@ export const ACTION_TYPES = {
   FETCH_TIMINGS_SUCCESS: '@company/drivers/FETCH_TIMINGS_SUCCESS',
   FETCH_TIMINGS_FAILURE: '@company/drivers/FETCH_TIMINGS_FAILURE',
 
+  FETCH_PACKAGES_REQUEST: '@company/drivers/FETCH_PACKAGES_REQUEST',
+  FETCH_PACKAGES_SUCCESS: '@company/drivers/FETCH_PACKAGES_SUCCESS',
+  FETCH_PACKAGES_FAILURE: '@company/drivers/FETCH_PACKAGES_FAILURE',
+
   FETCH_PENDING_BIDS_REQUEST: '@company/bids/FETCH_PENDING_BIDS_REQUEST',
   FETCH_PENDING_BIDS_SUCCESS: '@company/bids/FETCH_PENDING_BIDS_SUCCESS',
   FETCH_PENDING_BIDS_FAILURE: '@company/bids/FETCH_PENDING_BIDS_FAILURE',
@@ -125,6 +129,12 @@ function fetchDrivers(params) {
     params,
   };
 }
+function fetchPackages(params) {
+  return {
+    type: ACTION_TYPES.FETCH_PACKAGES_REQUEST,
+    params,
+  };
+}
 
 function fetchPendingBids(params) {
   return {
@@ -191,6 +201,7 @@ export const ACTIONS = {
   fetchPastOrdersRefresh,
   fetchOrderDetails,
   fetchDrivers,
+  fetchPackages,
   fetchPendingBids,
   fetchConfirmedBids,
   fetchTimings,

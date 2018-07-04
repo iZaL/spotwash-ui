@@ -77,9 +77,12 @@ class OrderDetailScene extends Component {
 
 
   makeBid = () => {
-    this.props.dispatch(
-      ORDER_ACTIONS.makeBid({order_id: this.props.order.id, amount: this.state.amount}),
-    );
+    // this.props.dispatch(
+    //   ORDER_ACTIONS.makeBid({order_id: this.props.order.id, amount: this.state.amount}),
+    // );
+    this.props.navigation.navigate('MakeBid',{
+      orderID:this.props.order.id
+    });
   };
 
   cancelBid = () => {
@@ -96,22 +99,16 @@ class OrderDetailScene extends Component {
 
   render() {
     let {order, drivers} = this.props;
-
     console.log('order',order);
-
     let {amount} = this.state;
 
     let buttonComponent;
     let showTextInput = false;
 
-    console.log('orderconfirmed',order.bid_open);
-
     if (order.bid_open) {
-
-      console.log('asdasdasd',order.bid_open);
       buttonComponent = (
         <View style={{padding:10,backgroundColor:'white'}}>
-          <FormTextInput field="amount" onValueChange={this.onFieldChange} label={I18n.t('amount')}/>
+          {/*<FormTextInput field="amount" onValueChange={this.onFieldChange} label={I18n.t('amount')}/>*/}
           <Button raised primary title={I18n.t('make_bid')} onPress={this.makeBid} style={{marginVertical: 40}} />
         </View>
       );
@@ -145,27 +142,25 @@ class OrderDetailScene extends Component {
         {/*onDriversListItemPress={this.selectDriver}*/}
         {/*/>*/}
 
+        {/*{*/}
+          {/*showTextInput &&*/}
 
-        {
-          showTextInput &&
+          {/*<FormTextInput*/}
+            {/*onChangeText={value => this.onFieldChange('amount', value)}*/}
+            {/*value={`${amount}`}*/}
+            {/*field='amount'*/}
+            {/*label={I18n.t('bid_price')}*/}
+            {/*maxLength={40}*/}
+            {/*placeholder={I18n.t('bid_price')}*/}
+            {/*keyboardType="numeric"*/}
+            {/*style={{backgroundColor: 'white', marginHorizontal: 5, padding: 10, textAlign: 'right'}}*/}
+          {/*/>*/}
 
-          <FormTextInput
-            onChangeText={value => this.onFieldChange('amount', value)}
-            value={`${amount}`}
-            field='amount'
-            label={I18n.t('bid_price')}
-            maxLength={40}
-            placeholder={I18n.t('bid_price')}
-            keyboardType="numeric"
-            style={{backgroundColor: 'white', marginHorizontal: 5, padding: 10, textAlign: 'right'}}
-          />
-
-        }
+        {/*}*/}
 
         {buttonComponent}
 
         {order.job &&
-        order.job.driver &&
         order.job.driver &&
         order.job.driver.user && (
           <View>

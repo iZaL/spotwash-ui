@@ -17,6 +17,7 @@ import colors from 'assets/theme/colors';
 import TrackDetailScene from 'company/orders/TrackDetailScene';
 import Register from 'guest/Register';
 import TrackOrderScene from 'customer/orders/TrackOrderScene';
+import MakeBidScene from "../orders/MakeBidScene";
 
 const getDrawerIcon = navigation => {
   return {
@@ -81,12 +82,14 @@ const HomeStack = StackNavigator(
         title: I18n.t('track_driver'),
       }),
     },
+    MakeBid: {screen: MakeBidScene},
   },
   {
     // initialRouteName:'TrackDetail',
     navigationOptions: ({navigation}) => ({
       ...navStyle,
     }),
+    initialRouteName:'MakeBid'
   },
 );
 

@@ -35,6 +35,11 @@ function fetchTimings() {
   return request({path});
 }
 
+function fetchPackages() {
+  const path = `company/packages`;
+  return request({path});
+}
+
 function fetchPendingBids() {
   const path = `company/bids/pending`;
   return request({path});
@@ -81,6 +86,7 @@ export const API = {
   fetchPastOrders,
   fetchOrderDetails,
   fetchTimings,
+  fetchPackages,
   fetchDrivers,
   fetchDriver,
   assignDriver,

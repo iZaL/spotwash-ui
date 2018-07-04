@@ -127,6 +127,19 @@ function* fetchTimings(action) {
   }
 }
 
+function* fetchPackages(action) {
+  try {
+    const response = yield call(API.fetchPackages);
+    const normalizedOrders = normalize(response.data, Schema.companies);
+    yield put({
+      type: ACTION_TYPES.FETCH_PACKAGES_SUCCESS,
+      entities: normalizedOrders.entities,
+    });
+  } catch (error) {
+    yield put({type: ACTION_TYPES.FETCH_PACKAGES_FAILURE, error});
+  }
+}
+
 function* fetchUpcomingOrdersMonitor() {
   yield takeLatest(
     ACTION_TYPES.FETCH_UPCOMING_ORDERS_REQUEST,
@@ -153,11 +166,16 @@ function* fetchTimingsMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_TIMINGS_REQUEST, fetchTimings);
 }
 
+function* fetchPackagesMonitor() {
+  yield takeLatest(ACTION_TYPES.FETCH_PACKAGES_REQUEST, fetchPackages);
+}
+
 export const sagas = all([
   fork(fetchUpcomingOrdersMonitor),
   fork(fetchWorkingOrdersMonitor),
   fork(fetchPastOrdersMonitor),
   fork(fetchOrderDetailsMonitor),
   fork(fetchTimingsMonitor),
+  fork(fetchPackagesMonitor),
 
 ]);
