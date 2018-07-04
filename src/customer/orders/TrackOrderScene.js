@@ -53,6 +53,9 @@ class TrackOrderScene extends Component {
   render() {
     const {order, isFetching} = this.props;
 
+    console.log('order',order);
+
+
     let {job, address} = order;
     let destination = {
       latitude: address.latitude,
@@ -66,6 +69,10 @@ class TrackOrderScene extends Component {
       longitude: 47.98511826155676,
       heading: 0,
     };
+
+    if(!job) {
+      job = {}
+    }
 
     return (
       <ScrollView

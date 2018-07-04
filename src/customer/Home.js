@@ -62,6 +62,12 @@ class Home extends Component {
   onProtectionPress = () => {};
 
   onItemTrackPress = (item: Object) => {
+
+    // this.props.navigation.navigate('BidsList', {
+    //   order: item,
+    //   orderID: item.id,
+    // });
+
     this.props.navigation.navigate('TrackOrder', {
       orderID: item.id,
       order: item,

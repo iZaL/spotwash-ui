@@ -68,7 +68,7 @@ const AuthStack = StackNavigator(
 const HomeStack = StackNavigator(
   {
     Home: {
-      screen: Home,
+      screen: TrackScene,
       navigationOptions: ({navigation}) => ({
         // title: I18n.t('customer_home'),
         ...getDrawerIcon(navigation),
@@ -130,7 +130,7 @@ const HomeStack = StackNavigator(
       ...cardStyle
     },
     // initialRouteName:'BidsList'
-    initialRouteName:'Track'
+    // initialRouteName:'Track'
   },
 );
 
