@@ -29,23 +29,24 @@ class Home extends PureComponent {
   };
 
   componentDidMount() {
-    this.fetchData();
-    this.props.dispatch(COMPANY_ACTIONS.fetchBidRequests());
+    this.props.dispatch(COMPANY_ACTIONS.fetchUpcomingOrders({force:true}));
+    this.props.dispatch(COMPANY_ACTIONS.fetchWorkingOrders({force:true}));
+    this.props.dispatch(COMPANY_ACTIONS.fetchPendingBids());
+    this.props.dispatch(COMPANY_ACTIONS.fetchConfirmedBids());
     this.props.dispatch(COMPANY_ACTIONS.fetchDrivers());
-    this.props.dispatch(COMPANY_ACTIONS.fetchTimings());
   }
 
-  fetchData = () => {
-    this.props.dispatch(
-      ORDER_ACTIONS.fetchUpcomingOrders({
-        force: true,
-      }),
-    );
-  };
+  // fetchData = () => {
+  //   this.props.dispatch(
+  //     ORDER_ACTIONS.fetchUpcomingOrders({
+  //       force: true,
+  //     }),
+  //   );
+  // };
 
   _onRefresh = () => {
     // this.setState({refreshing: true});
-    this.fetchData();
+    // this.fetchData();
     // setTimeout(() => {
     //   this.setState({refreshing: false});
     // }, 1000);
@@ -77,8 +78,22 @@ class Home extends PureComponent {
     this.props.navigation.navigate('WorkingOrders');
   };
 
+  loadNewBids = () => {
+    this.props.navigation.navigate('WorkingOrders');
+  };
+
+  loadAcceptedBids = () => {
+    this.props.navigation.navigate('WorkingOrders');
+  };
+
   render() {
-    const {working_orders, upcoming_orders, drivers,bids} = this.props;
+
+    // 1- New Bids
+    // 2- Accepted Bids ===> Assign Driver
+    // 3- Upcoming Orders ===> After Assigning Driver, But Not Started Working
+    // 4- Working Orders ====> Current Working Orders
+
+    const {working_orders, upcoming_orders, drivers,pending_bids,confirmed_bids} = this.props;
 
     return (
       <ScrollView
@@ -91,31 +106,43 @@ class Home extends PureComponent {
         }>
 
         <SectionHeading
-          title={I18n.t('order_requests')}
+          title={I18n.t('bids_new')}
           buttonTitle={I18n.t('view_all')}
-          onButtonPress={this.loadCurrentOrders}
+          onButtonPress={this.loadNewBids}
         />
         <OrdersList
-          items={bids}
+          items={pending_bids}
+          onItemPress={this.onOrdersListItemPress}
+        />
+
+        <SectionHeading
+          title={I18n.t('bids_accepted')}
+          buttonTitle={I18n.t('view_all')}
+          onButtonPress={this.loadAcceptedBids}
+        />
+        <OrdersList
+          items={confirmed_bids}
           onItemPress={this.onOrdersListItemPress}
         />
 
         <SectionHeading
           title={I18n.t('working_orders')}
           buttonTitle={I18n.t('view_all')}
-          onButtonPress={this.loadCurrentOrders}
+          onButtonPress={this.loadUpcomingOrders}
         />
-
         <OrdersList
           items={working_orders}
           onItemPress={this.onOrdersListItemPress}
         />
 
-
         <SectionHeading
           title={I18n.t('upcoming_orders')}
           buttonTitle={I18n.t('view_all')}
           onButtonPress={this.loadUpcomingOrders}
+        />
+        <OrdersList
+          items={upcoming_orders}
+          onItemPress={this.onOrdersListItemPress}
         />
 
         <SectionHeading
@@ -123,17 +150,12 @@ class Home extends PureComponent {
           buttonTitle={I18n.t('driver_add')}
           onButtonPress={this.addDriver}
         />
-
         <DriversList
           items={drivers}
           onItemPress={this.onDriversListItemPress}
         />
 
 
-        <OrdersList
-          items={upcoming_orders}
-          onItemPress={this.onOrdersListItemPress}
-        />
       </ScrollView>
     );
   }
@@ -144,7 +166,8 @@ function mapStateToProps(state) {
     upcoming_orders: ORDER_SELECTORS.getUpcomingOrders(state),
     working_orders: ORDER_SELECTORS.getWorkingOrders(state),
     drivers: DRIVER_SELECTORS.getDrivers(state),
-    bids:ORDER_SELECTORS.getBids(state)
+    pending_bids:ORDER_SELECTORS.getPendingBids(state),
+    confirmed_bids:ORDER_SELECTORS.getConfirmedBids(state)
   };
 }
 

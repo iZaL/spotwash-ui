@@ -4,7 +4,6 @@ import {API} from 'company/common/api';
 import {Schema} from 'utils/schema';
 import {normalize} from 'normalizr';
 import I18n from 'utils/locale';
-import {ACTIONS as APP_ACTIONS} from "../../app/common/actions";
 
 function* fetchUpcomingOrders(action) {
   try {
@@ -128,51 +127,6 @@ function* fetchTimings(action) {
   }
 }
 
-function* fetchBidRequests(action) {
-  try {
-    const response = yield call(API.fetchBidRequests);
-
-    const formattedResponse = {
-      ...response.company,
-      orders: {
-        'bids': response.orders,
-      },
-    };
-
-    const normalizedOrders = normalize(formattedResponse, Schema.companies);
-    yield put({
-      type: ACTION_TYPES.FETCH_BID_REQUESTS_SUCCESS,
-      entities: normalizedOrders.entities,
-    });
-  } catch (error) {
-    yield put({type: ACTION_TYPES.FETCH_BID_REQUESTS_FAILURE, error});
-  }
-}
-
-function* makeBid(action) {
-  try {
-
-    const params = {
-      body: action.params,
-    };
-
-    const response = yield call(API.makeBid, params);
-    const normalized = normalize(response.data, Schema.orders);
-
-    yield put({
-      type: ACTION_TYPES.MAKE_BID_SUCCESS,
-      entities:normalized.entities
-    });
-
-  } catch (error) {
-    yield put({type: ACTION_TYPES.MAKE_BID_FAILURE, error});
-    yield put(APP_ACTIONS.setNotification({
-      message:error,
-      type:'error'
-    }));
-  }
-}
-
 function* fetchUpcomingOrdersMonitor() {
   yield takeLatest(
     ACTION_TYPES.FETCH_UPCOMING_ORDERS_REQUEST,
@@ -195,17 +149,8 @@ function* fetchOrderDetailsMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_ORDER_DETAILS_REQUEST, fetchOrderDetails);
 }
 
-function* fetchBidRequestsMonitor() {
-  yield takeLatest(ACTION_TYPES.FETCH_BID_REQUESTS_REQUEST, fetchBidRequests);
-}
-
 function* fetchTimingsMonitor() {
   yield takeLatest(ACTION_TYPES.FETCH_TIMINGS_REQUEST, fetchTimings);
-}
-
-
-function* makeBidMonitor() {
-  yield takeLatest(ACTION_TYPES.MAKE_BID_REQUEST, makeBid);
 }
 
 export const sagas = all([
@@ -213,8 +158,6 @@ export const sagas = all([
   fork(fetchWorkingOrdersMonitor),
   fork(fetchPastOrdersMonitor),
   fork(fetchOrderDetailsMonitor),
-  fork(fetchBidRequestsMonitor),
   fork(fetchTimingsMonitor),
-  fork(makeBidMonitor),
 
 ]);

@@ -56,8 +56,14 @@ const getTimings = createSelector([timingsEntity], timings => {
 });
 
 
-const getBids = createSelector([PROFILE_SELECTOR.getProfile,schemas], (company,entities) => {
-  let bids = company.orders && company.orders.bids || [];
+const getPendingBids = createSelector([PROFILE_SELECTOR.getProfile,schemas], (company,entities) => {
+  let bids = company.bids && company.bids.pending || [];
+  return bids.map(orderId => denormalize(orderId, Schema.orders, entities)) || []
+});
+
+
+const getConfirmedBids = createSelector([PROFILE_SELECTOR.getProfile,schemas], (company,entities) => {
+  let bids = company.bids && company.bids.confirmed || [];
   return bids.map(orderId => denormalize(orderId, Schema.orders, entities)) || []
 });
 
@@ -67,5 +73,6 @@ export const SELECTORS = {
   getPastOrders,
   getOrderByID,
   getTimings,
-  getBids
+  getPendingBids,
+  getConfirmedBids,
 };

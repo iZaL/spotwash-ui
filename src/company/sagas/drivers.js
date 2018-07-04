@@ -9,12 +9,13 @@ import I18n from 'utils/locale';
 function* fetchDrivers() {
   try {
     const response = yield call(API.fetchDrivers);
-    const normalized = normalize(response.data, [Schema.drivers]);
+    const normalized = normalize(response.data, Schema.companies);
 
     yield put({
       type: ACTION_TYPES.FETCH_DRIVERS_SUCCESS,
       entities: normalized.entities,
     });
+
   } catch (error) {
     yield put({type: ACTION_TYPES.FETCH_DRIVERS_FAILURE, error});
   }

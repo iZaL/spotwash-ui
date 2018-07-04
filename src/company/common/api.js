@@ -35,8 +35,13 @@ function fetchTimings() {
   return request({path});
 }
 
-function fetchBidRequests() {
-  const path = `company/bids`;
+function fetchPendingBids() {
+  const path = `company/bids/pending`;
+  return request({path});
+}
+
+function fetchConfirmedBids() {
+  const path = `company/bids/confirmed`;
   return request({path});
 }
 
@@ -80,7 +85,8 @@ export const API = {
   fetchDriver,
   assignDriver,
   saveDriverAttributes,
-  fetchBidRequests,
+  fetchPendingBids,
+  fetchConfirmedBids,
   makeBid,
 
 };

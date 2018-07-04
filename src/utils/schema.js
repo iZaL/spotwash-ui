@@ -52,9 +52,15 @@ driversSchema.define({
 // });
 
 companiesSchema.define({
+  bids:{
+    pending:[ordersSchema],
+    confirmed:[ordersSchema]
+  },
   orders:{
-    bids:[ordersSchema],
-  }
+    pending:[ordersSchema],
+    confirmed:[ordersSchema]
+  },
+  drivers:[driversSchema]
 });
 
 export const Schema = {

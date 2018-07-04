@@ -185,5 +185,8 @@
   "send_request" : "Send Request",
   "bids": "Bids",
 
-  "order_requests" : "Order Requests"
+  "order_requests" : "Order Requests",
+
+  "bids_new" : "New Bids",
+  "bids_accepted" : "Accepted Bids",
 }
