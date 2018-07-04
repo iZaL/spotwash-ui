@@ -100,6 +100,12 @@ function confirmBid(bidID, params) {
   return request(requestParams);
 }
 
+
+function fetchDrivers() {
+  const path = `customer/drivers`;
+  return request({path});
+}
+
 export const API = {
   fetchCartItems,
   fetchCategories,
@@ -115,5 +121,6 @@ export const API = {
   fetchWorkingOrders,
   fetchOrderDetails,
   fetchBids,
+  fetchDrivers,
   confirmBid,
 };

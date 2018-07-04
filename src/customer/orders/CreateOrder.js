@@ -256,8 +256,6 @@ class CreateOrder extends PureComponent {
             this.showAddressCreateFieldsModal();
           },
         );
-
-        this.hideAddressCreateModal();
       })
       .catch(e => {
         console.log('error', e);
@@ -503,28 +501,28 @@ class CreateOrder extends PureComponent {
           />
         )}
 
-        <SectionTitle
-          title={I18n.t('date')}
-          style={{padding: 10, marginTop: 10}}
-        />
+        {/*<SectionTitle*/}
+          {/*title={I18n.t('date')}*/}
+          {/*style={{padding: 10, marginTop: 10}}*/}
+        {/*/>*/}
 
-        <DatePicker
-          items={dates || []}
-          onItemPress={this.onDatePickerItemPress}
-          activeItem={selectedDate}
-        />
+        {/*<DatePicker*/}
+          {/*items={dates || []}*/}
+          {/*onItemPress={this.onDatePickerItemPress}*/}
+          {/*activeItem={selectedDate}*/}
+        {/*/>*/}
 
-        <SectionTitle
-          title={I18n.t('time')}
-          style={{padding: 10, marginTop: 10}}
-        />
+        {/*<SectionTitle*/}
+          {/*title={I18n.t('time')}*/}
+          {/*style={{padding: 10, marginTop: 10}}*/}
+        {/*/>*/}
 
-        <TimePicker
-          items={timings || []}
-          onItemPress={this.onTimeChange}
-          activeItemID={selectedTimeID}
-          isFetching={isFetchingTimings}
-        />
+        {/*<TimePicker*/}
+          {/*items={timings || []}*/}
+          {/*onItemPress={this.onTimeChange}*/}
+          {/*activeItemID={selectedTimeID}*/}
+          {/*isFetching={isFetchingTimings}*/}
+        {/*/>*/}
 
         <Divider
           style={{
@@ -599,7 +597,6 @@ class CreateOrder extends PureComponent {
         {/*primary: true,*/}
         {/*}}*/}
         {/*/>*/}
-
 
         <AddressTypeSelectionModal
           visible={addressTypeSelectionModalVisible}

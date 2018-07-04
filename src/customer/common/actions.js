@@ -90,6 +90,13 @@ export const ACTION_TYPES = {
   CONFIRM_BID_REQUEST: '@customer/orders/CONFIRM_BID_REQUEST',
   CONFIRM_BID_SUCCESS: '@customer/orders/CONFIRM_BID_SUCCESS',
   CONFIRM_BID_FAILURE: '@customer/orders/CONFIRM_BID_FAILURE',
+
+  SUBSCRIBE_TO_DRIVER_TRACKINGS: '@customer/SUBSCRIBE_TO_DRIVER_TRACKINGS',
+
+  FETCH_DRIVERS_REQUEST: '@customer/FETCH_DRIVERS_REQUEST',
+  FETCH_DRIVERS_SUCCESS: '@customer/FETCH_DRIVERS_SUCCESS',
+  FETCH_DRIVERS_FAILURE: '@customer/FETCH_DRIVERS_FAILURE',
+
 };
 
 function fetchCartItems() {
@@ -264,23 +271,31 @@ function confirmBid(params: object) {
   };
 }
 
+function fetchDrivers(params) {
+  return {
+    type: ACTION_TYPES.FETCH_DRIVERS_REQUEST,
+    params,
+  };
+}
+
+function subscribeToDriverTrackings() {
+  return {
+    type: ACTION_TYPES.SUBSCRIBE_TO_DRIVER_TRACKINGS,
+  };
+}
+
 export const ACTIONS = {
   addToCart,
-  fetchCartItems,
   setCartItem,
+  setCartItems,
   removeCartItem,
   flushCart,
+  fetchCartItems,
   fetchCategories,
   fetchHasFreeWash,
   fetchTimings,
   fetchAddresses,
   fetchAreas,
-  saveAddress,
-  updateAddress,
-  checkout,
-  setCartItems,
-  setCartItem,
-  subscribeToOrderTracking,
   fetchUpcomingOrders,
   fetchUpcomingOrdersRefresh,
   fetchWorkingOrders,
@@ -289,5 +304,11 @@ export const ACTIONS = {
   fetchPastOrdersRefresh,
   fetchOrderDetails,
   fetchBids,
+  fetchDrivers,
+  subscribeToOrderTracking,
+  subscribeToDriverTrackings,
+  saveAddress,
+  updateAddress,
   confirmBid,
+  checkout,
 };

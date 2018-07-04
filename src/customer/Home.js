@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
   AppState, Image,
-  ImageBackground,
   RefreshControl,
   ScrollView,
   Dimensions, View
@@ -18,6 +17,7 @@ import I18n from 'utils/locale';
 import images from "assets/theme/images";
 
 class Home extends Component {
+
   static defaultProps = {
     upcoming_orders: [],
     working_order: {},
@@ -56,7 +56,7 @@ class Home extends Component {
   };
 
   onCreateOrderPress = () => {
-    this.props.navigation.navigate('CreateOrder');
+    this.props.navigation.navigate('Track');
   };
 
   onProtectionPress = () => {};
@@ -105,7 +105,6 @@ class Home extends Component {
 
         <HomeActionButtons
           onCreateOrderPress={this.onCreateOrderPress}
-          onFindNearByCompaniesPress={this.onFindNearByCompaniesPress}
         />
 
         <Divider/>

@@ -17,6 +17,7 @@ const getItemIdProp = (state, itemID) => itemID;
 const getOrderIdProps = ({}, props) => props.orderID;
 const getBidIdProp = ({}, props) => props.bidID;
 const getTrackings = state => state.customer.trackings;
+const driversSchema = state => state.entities.drivers;
 
 const getCategories = createSelector(
   [schemas, categoriesEntity],
@@ -97,7 +98,6 @@ const getUpcomingOrders = createSelector(
 
 const getWorkingOrder = createSelector(
   [schemas, workingOrder],
-  // (entities, orderID) => denormalize(orderID, Schema.orders, entities),
   (entities, orders) => {
     return (
       (orders &&
@@ -126,6 +126,18 @@ const getBidsByID = () => {
   );
 };
 
+const getDriverTrackings = createSelector(
+  [schemas, driversSchema, getTrackings],
+  (entities, drivers, trackings) =>
+    Object.keys(trackings).map(driverID => {
+      let driver = drivers[driverID];
+      return {
+        ...driver,
+        ...trackings[driverID],
+      };
+    }),
+);
+
 export const SELECTORS = {
   getCart,
   getCartItems,
@@ -140,5 +152,5 @@ export const SELECTORS = {
   getPastOrders,
   getAreas,
   getBidsByID,
-
+  getDriverTrackings,
 };

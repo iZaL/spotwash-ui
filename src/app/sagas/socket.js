@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import {all, call, cancel, fork, put, select, take} from 'redux-saga/effects';
+import {all, call, cancel, fork, put, select, take,takeLatest} from 'redux-saga/effects';
 import {SOCKET_SERVER} from 'utils/env';
 import {eventChannel} from 'redux-saga';
 
@@ -9,6 +9,8 @@ import {ACTION_TYPES as COMPANY_ACTIONS} from 'company/common/actions';
 
 import {ACTION_TYPES as AUTH_ACTIONS} from 'guest/common/actions';
 import {SELECTORS as AUTH_SELECTORS} from 'guest/common/selectors';
+
+import {ACTION_TYPES as APP_ACTIONS} from 'app/common/actions';
 
 function connect() {
   const socket = io(SOCKET_SERVER);
@@ -64,6 +66,13 @@ function* subscribeToDriversTracking(socket) {
   }
 }
 
+function* customerSubscribeToDriversTracking(socket) {
+  while (true) {
+    yield take(CUSTOMER_ACTIONS.SUBSCRIBE_TO_DRIVER_TRACKINGS);
+    socket.emit('customer.track.drivers.subscribe');
+  }
+}
+
 function* handleIO(socket) {
   yield fork(read, socket);
   yield fork(syncUserToSocket, socket);
@@ -74,15 +83,24 @@ function* handleIO(socket) {
 function* socketFlowMonitor() {
   while (true) {
     yield take(AUTH_ACTIONS.LOGIN_SUCCESS);
-
     const socket = yield call(connect);
-
     const task = yield fork(handleIO, socket);
-
     yield take(AUTH_ACTIONS.LOGOUT);
     yield cancel(task);
     socket.emit('logout');
   }
 }
 
-export const sagas = all([fork(socketFlowMonitor)]);
+function* bootMonitor() {
+  while (true) {
+    yield take(APP_ACTIONS.BOOT_REQUEST);
+    const socket = yield call(connect);
+    yield fork(read, socket);
+    yield fork(customerSubscribeToDriversTracking, socket);
+  }
+}
+
+export const sagas = all([
+  fork(socketFlowMonitor),
+  fork(bootMonitor),
+]);

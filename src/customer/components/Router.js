@@ -21,7 +21,7 @@ import colors from 'assets/theme/colors';
 import LanguageSelect from 'app/LanguageSelect';
 import BidsListScene from 'customer/bids/BidsListScene';
 import BidsDetailScene from 'customer/bids/BidsDetailScene';
-
+import TrackScene from "customer/orders/TrackScene";
 
 const getDrawerIcon = navigation => {
   return {
@@ -94,6 +94,9 @@ const HomeStack = StackNavigator(
         title: I18n.t('track_order'),
       }),
     },
+    Track:{
+      screen:TrackScene
+    },
     Cart: {
       screen: Cart,
       navigationOptions: ({navigation}) => ({
@@ -127,7 +130,7 @@ const HomeStack = StackNavigator(
       ...cardStyle
     },
     // initialRouteName:'BidsList'
-    // initialRouteName:'Cart'
+    initialRouteName:'Track'
   },
 );
 

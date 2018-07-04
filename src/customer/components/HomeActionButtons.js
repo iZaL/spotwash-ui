@@ -6,43 +6,27 @@ import Touchable from 'react-native-platform-touchable';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import I18n from 'utils/locale';
+import IconFactory from "../../components/IconFactory";
+import {Title, TouchableRipple} from "react-native-paper";
 
 export default class HomeActionButtons extends Component {
   static propTypes = {
     onCreateOrderPress: PropTypes.func.isRequired,
-    // onFindNearByCompaniesPress: PropTypes.func.isRequired,
   };
 
   render() {
-    const {onCreateOrderPress, onFindNearByCompaniesPress} = this.props;
+    const {onCreateOrderPress} = this.props;
 
     return (
       <View style={styles.container}>
-        <Touchable
+        <TouchableRipple
           style={styles.buttonContainer}
-          onPress={() => onCreateOrderPress()}>
+          onPress={onCreateOrderPress}>
           <View style={styles.content}>
-            <Ionicons name="ios-hand" size={40} color={colors.primary} />
-            <Text style={[styles.buttonText]}>{I18n.t('create_order')}</Text>
+            <IconFactory type="Ionicons" name="ios-hand" size={40} color={colors.primary} />
+            <Title>{I18n.t('create_order')}</Title>
           </View>
-        </Touchable>
-
-        <View style={styles.separator} />
-
-        <Touchable
-          style={styles.buttonContainer}
-          onPress={() => onFindNearByCompaniesPress()}>
-          <View style={styles.content}>
-            <MaterialCommunityIcons
-              name="truck-fast"
-              size={40}
-              color={colors.primary}
-            />
-            <Text style={[styles.buttonText]}>
-              {I18n.t('nearby_companies')}
-            </Text>
-          </View>
-        </Touchable>
+        </TouchableRipple>
       </View>
     );
   }
@@ -51,13 +35,13 @@ export default class HomeActionButtons extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   buttonContainer: {
     flex: 1,
-    // backgroundColor: 'yellow',
-    paddingHorizontal: 20,
-    paddingVertical: 30,
+    padding: 10,
+    backgroundColor:'white',
+    borderRadius:10,
+    margin:15,
   },
   content: {
     alignItems: 'center',
@@ -67,7 +51,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     padding: 10,
     height: 40,
-    width: 200,
     alignSelf: 'center',
   },
   buttonText: {

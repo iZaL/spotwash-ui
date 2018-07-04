@@ -1,6 +1,5 @@
 import {all, call, fork, put, takeLatest, select} from 'redux-saga/effects';
 import {ACTION_TYPES} from 'customer/common/actions';
-import {ACTIONS} from 'customer/common/actions';
 import {API} from 'customer/common/api';
 import {Schema} from 'utils/schema';
 import {normalize} from 'normalizr';
@@ -346,6 +345,20 @@ function* confirmBid(action) {
   }
 }
 
+function* fetchDrivers() {
+  try {
+    const response = yield call(API.fetchDrivers);
+    const normalized = normalize(response.data, [Schema.drivers]);
+
+    yield put({
+      type: ACTION_TYPES.FETCH_DRIVERS_SUCCESS,
+      entities: normalized.entities,
+    });
+  } catch (error) {
+    yield put({type: ACTION_TYPES.FETCH_DRIVERS_FAILURE, error});
+  }
+}
+
 
 // Monitoring Sagas
 function* fetchCategoriesMonitor() {
@@ -413,6 +426,10 @@ function* confirmBidMonitor() {
   yield takeLatest(ACTION_TYPES.CONFIRM_BID_REQUEST, confirmBid);
 }
 
+function* fetchDriversMonitor() {
+  yield takeLatest(ACTION_TYPES.FETCH_DRIVERS_REQUEST, fetchDrivers);
+}
+
 export const sagas = all([
   fork(fetchCategoriesMonitor),
   fork(fetchHasFreeWashMonitor),
@@ -421,7 +438,6 @@ export const sagas = all([
   fork(fetchAreasMonitor),
   fork(saveAddressMonitor),
   fork(updateAddressMonitor),
-  // fork(createOrderMonitor),
   fork(checkoutMonitor),
   fork(fetchWorkingOrdersMonitor),
   fork(fetchUpcomingOrdersMonitor),
@@ -429,4 +445,6 @@ export const sagas = all([
   fork(fetchOrderDetailsMonitor),
   fork(fetchBidsMonitor),
   fork(confirmBidMonitor),
+  fork(fetchDriversMonitor),
+
 ]);
