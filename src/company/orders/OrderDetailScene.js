@@ -145,48 +145,32 @@ class OrderDetailScene extends Component {
         {order.total && <OrderTotal total={order.total} />}
 
         {order.user &&
-          order.user.id && (
-            <UserInfo user={order.user} makeCall={this.makeCall} />
-          )}
+        order.user.id && (
+          <UserInfo user={order.user} makeCall={this.makeCall} />
+        )}
 
-        {/*<DriverAssign*/}
-        {/*order={order}*/}
-        {/*drivers={drivers}*/}
-        {/*onDriversListItemPress={this.selectDriver}*/}
-        {/*/>*/}
-
-        {/*{*/}
-        {/*showTextInput &&*/}
-
-        {/*<FormTextInput*/}
-        {/*onChangeText={value => this.onFieldChange('amount', value)}*/}
-        {/*value={`${amount}`}*/}
-        {/*field='amount'*/}
-        {/*label={I18n.t('bid_price')}*/}
-        {/*maxLength={40}*/}
-        {/*placeholder={I18n.t('bid_price')}*/}
-        {/*keyboardType="numeric"*/}
-        {/*style={{backgroundColor: 'white', marginHorizontal: 5, padding: 10, textAlign: 'right'}}*/}
-        {/*/>*/}
-
-        {/*}*/}
+        <DriverAssign
+          order={order}
+          drivers={drivers}
+          onDriversListItemPress={this.selectDriver}
+        />
 
         {buttonComponent}
 
         {order.job &&
-          order.job.driver &&
-          order.job.driver.user && (
-            <View>
-              <DriverInfo driver={order.job.driver} />
-              <Button
-                onPress={this.trackOrder}
-                primary
-                raised
-                dark
-                title={I18n.t('track')}
-              />
-            </View>
-          )}
+        order.job.driver &&
+        order.job.driver.user && (
+          <View>
+            <DriverInfo driver={order.job.driver} />
+            <Button
+              onPress={this.trackOrder}
+              primary
+              raised
+              dark
+              title={I18n.t('track')}
+            />
+          </View>
+        )}
       </ScrollView>
     );
   }

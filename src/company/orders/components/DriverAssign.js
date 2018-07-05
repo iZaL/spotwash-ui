@@ -47,7 +47,7 @@ export default class DriverAssign extends Component {
 
         {order.job && order.job.driver ? (
           <Text onPress={() => this.showModal(true)} style={styles.driver}>
-            {order.job.driver.user.name}
+            {order.job.driver.user ? order.job.driver.user.name : '-'}
           </Text>
         ) : (
           <Text onPress={() => this.showModal(true)}>
