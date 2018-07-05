@@ -17,9 +17,9 @@ export default class CheckedListItem extends Component {
     onPress: PropTypes.func.isRequired,
   };
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.checked !== this.props.checked;
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   return nextProps.checked !== this.props.checked;
+  // }
 
   render() {
     let {title, disabled, onPress, checked, style, description} = this.props;

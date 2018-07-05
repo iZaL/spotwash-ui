@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {Button as PaperButton} from 'react-native-paper';
 
@@ -13,29 +13,42 @@ export default class Button extends Component {
 
   static propTypes = {
     title: PropTypes.string.isRequired,
-    background: PropTypes.string,
+    raised: PropTypes.bool,
+    primary: PropTypes.bool,
   };
 
   static defaultProps = {
-    background: 'primary',
-    underlayColor: 'transparent',
+    raised: true,
+    primary: true,
   };
 
   render() {
-    const {title, titleStyle, disabled, onPress, style, ...rest} = this.props;
+    const {
+      style,
+      title,
+      titleStyle,
+      disabled,
+      raised,
+      primary,
+      ...rest
+    } = this.props;
 
     return (
       <PaperButton
         disabled={disabled}
-        onPress={onPress}
-        style={[styles.container, style]}
+        raised={raised}
+        primary={primary}
+        style={[styles.button, style, disabled && {opacity: 0.4}]}
         {...rest}>
-        <Text style={[titleStyle]}>{title}</Text>
+        <Text style={[styles.buttonText, titleStyle]}>{title}</Text>
       </PaperButton>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  button: {
+    // paddingVertical: 10,
+  },
+  buttonText: {},
 });

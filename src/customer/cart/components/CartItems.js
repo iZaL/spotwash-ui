@@ -15,7 +15,6 @@ export default class CartItems extends Component {
     onItemPress: PropTypes.func.isRequired,
   };
   renderItem = ({item}) => {
-    console.log('item', item);
     const {onItemPress} = this.props;
     const {category, services} = item;
 

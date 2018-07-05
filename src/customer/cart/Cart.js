@@ -165,29 +165,7 @@ class Cart extends PureComponent {
   };
 
   saveAddress = address => {
-    return new Promise((resolve, reject) => {
-      this.props.actions.saveAddress({address, resolve, reject});
-    })
-      .then(address => {
-        console.log('address', address);
-
-        this.setState(
-          {
-            address: {
-              ...address,
-            },
-          },
-          () => {
-            console.log('showCreateAddress');
-            this.showAddressCreateFieldsModal();
-          },
-        );
-
-        this.hideAddressCreateModal();
-      })
-      .catch(e => {
-        console.log('error', e);
-      });
+   ``
   };
 
   updateAddress = address => {
@@ -195,8 +173,6 @@ class Cart extends PureComponent {
       this.props.actions.updateAddress({address, resolve, reject});
     })
       .then(address => {
-        console.log('address', address);
-
         this.setState(
           {
             address: {

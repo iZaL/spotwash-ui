@@ -15,9 +15,9 @@ export default class ListItem extends Component {
     iconProps: PropTypes.object,
   };
 
-  shouldComponentUpdate() {
-    return false;
-  }
+  // shouldComponentUpdate() {
+  //   return false;
+  // }
 
   render() {
     let {

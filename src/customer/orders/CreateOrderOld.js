@@ -132,7 +132,6 @@ class CreateOrder extends PureComponent {
   };
 
   onPackagesListItemPress = (item: object, packages: Array) => {
-    console.log('item', item);
     let activePackages = this.props.cart.activePackageIDs;
     let filteredPackages =
       (activePackages &&
@@ -244,8 +243,6 @@ class CreateOrder extends PureComponent {
       this.props.actions.saveAddress({address, resolve, reject});
     })
       .then(address => {
-        console.log('address', address);
-
         this.setState(
           {
             address: {
@@ -253,7 +250,6 @@ class CreateOrder extends PureComponent {
             },
           },
           () => {
-            console.log('showCreateAddress');
             this.showAddressCreateFieldsModal();
           },
         );
@@ -268,8 +264,6 @@ class CreateOrder extends PureComponent {
       this.props.actions.updateAddress({address, resolve, reject});
     })
       .then(address => {
-        console.log('address', address);
-
         this.setState(
           {
             address: {
@@ -377,7 +371,6 @@ class CreateOrder extends PureComponent {
         this.props.actions.checkout({item, resolve, reject});
       })
         .then(order => {
-          console.log('order', order);
           if (order.status == 'success') {
             this.setState({
               showOrderSuccessModal: true,

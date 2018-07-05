@@ -8,34 +8,36 @@ import Dialog from 'components/Dialog';
 import Button from 'components/Button';
 import I18n from 'utils/locale';
 
-export default class Avatar extends Component {
+export default class ConfirmedButton extends Component {
   static propTypes = {
     onPress: PropTypes.func,
   };
 
   state = {
-    dialogVisible: false,
+    visible: false,
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return (
-  //     nextState.dialogVisible !== this.state.dialogVisible
-  //   );
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      nextState.visible !== this.state.visible ||
+      nextProps.title !== this.props.title
+    );
+  }
 
   static defaultProps = {
-    dialogTitle: I18n.t('confirm'),
+    leftText: I18n.t('cancel'),
+    rightText: I18n.t('yes'),
   };
 
   showModal = () => {
     this.setState({
-      dialogVisible: true,
+      visible: true,
     });
   };
 
   hideImageModal = () => {
     this.setState({
-      dialogVisible: false,
+      visible: false,
     });
   };
 
@@ -45,8 +47,8 @@ export default class Avatar extends Component {
   };
 
   render() {
-    let {dialogVisible} = this.state;
-    let {dialogTitle, ...rest} = this.props;
+    let {visible} = this.state;
+    let {rightText, ...rest} = this.props;
     return (
       <View>
         <Button
@@ -55,11 +57,12 @@ export default class Avatar extends Component {
           onPress={this.showModal}
         />
         <Dialog
-          visible={dialogVisible}
+          {...rest}
+          visible={visible}
           leftPress={this.hideImageModal}
           rightPress={this.onConfirm}
-          leftText={I18n.t('cancel')}
-          title={dialogTitle}
+          rightText={rightText}
+          style={{zIndex: 1000}}
         />
       </View>
     );

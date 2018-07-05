@@ -52,9 +52,6 @@ class TrackOrderScene extends Component {
 
   render() {
     const {order, isFetching} = this.props;
-
-    console.log('order', order);
-
     let {job, address} = order;
     let destination = {
       latitude: address.latitude,

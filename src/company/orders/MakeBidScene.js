@@ -6,12 +6,12 @@ import {connect} from 'react-redux';
 import {ACTIONS as COMPANY_ACTIONS} from 'company/common/actions';
 import {SELECTORS as ORDER_SELECTORS} from 'company/selectors/orders';
 import {SELECTORS as DRIVER_SELECTORS} from 'company/selectors/drivers';
-import {Linking, ScrollView, View} from 'react-native';
+import {Linking, ScrollView, View,Alert} from 'react-native';
 import OrderItems from 'customer/orders/components/OrderItems';
 import PropTypes from 'prop-types';
 import Button from 'components/Button';
 import I18n from 'utils/locale';
-import {Title} from 'react-native-paper';
+import {Subheading, Title} from 'react-native-paper';
 import colors from 'assets/theme/colors';
 import Modal from 'components/Modal';
 import ListModal from '../../components/ListModal';
@@ -19,6 +19,7 @@ import FormTextInput from '../../components/FormTextInput';
 import FormLabel from '../../components/FormLabel';
 import Divider from '../../components/Divider';
 import Listing from '../../components/Listing';
+import ConfirmedButton from "../../components/ConfirmedButton";
 
 class MakeBidScene extends Component {
   static propTypes = {
@@ -33,13 +34,9 @@ class MakeBidScene extends Component {
 
   state = {
     amount: null,
-    packageSelectionModalVisible: true,
-    packages: {
-      // [packageID] : {
-      //   id:1,
-      //   amount:1
-      // }
-    },
+    comment:null,
+    packageSelectionModalVisible: false,
+    packages: {},
     activePackageID: null,
     serviceIDs: [],
   };
@@ -71,6 +68,7 @@ class MakeBidScene extends Component {
   onPackageListItemPress = item => {
     this.setState({
       activePackageID: item.id,
+      amount:item.price
     });
   };
 
@@ -97,11 +95,94 @@ class MakeBidScene extends Component {
     });
   };
 
+  removeBidItem = (packageID) => {
+    // let deletingItem = state.products[action.params.product_id];
+    // return {
+    //   ...state,
+    //   products: Object.keys(state.products)
+    //     .filter(productID => productID != action.params.product_id)
+    //     .reduce((obj, key) => {
+    //       obj[key] = state.products[key];
+    //       return obj;
+    //     }, {}),
+    //   total: state.total - deletingItem.total,
+    // };
+
+    let deletingItem = this.state.packages[packageID];
+
+    this.setState({
+      packages: Object.keys(this.state.packages)
+        .filter(id => id != packageID)
+        .reduce((obj, key) => {
+          obj[key] = this.state.packages[key];
+          return obj;
+        }, {}),
+    });
+  };
+
+  // editBidItem = (packageID) => {
+  //   this.setState({
+  //     activePackageID:packageID,
+  //     amount:this.state.packages[packageID].price,
+  //     packageSelectionModalVisible:true
+  //   });
+  // };
+
+  onPackageBidListItemPress = (item) => {
+    return Alert.alert(
+      `${I18n.t('bid_edit')}`,
+      null,
+      [
+
+        // {
+        //   text: I18n.t('edit'),
+        //   onPress: () => {
+        //     this.editBidItem(item.id);
+        //   },
+        // },
+        {
+          text: I18n.t('cancel'),
+        },
+        {
+          text: I18n.t('remove'),
+          onPress: () => {
+            this.removeBidItem(item.id);
+          },
+        },
+      ],
+    );
+  };
+
+  makeBid = () => {
+
+    let payload = {
+      order_id: this.props.order.id,
+      packages:this.state.packages,
+      comment:this.state.comment
+    };
+
+    return new Promise((resolve, reject) => {
+      this.props.dispatch(
+        COMPANY_ACTIONS.makeBid({payload,resolve,reject}),
+      );
+    })
+      .then(bid => {
+        this.setState({
+          amount: null,
+          comment:null,
+          packageSelectionModalVisible: false,
+          packages: {},
+          activePackageID: null,
+          serviceIDs: [],
+        });
+      })
+      .catch(e => {
+        console.log('error', e);
+      });
+  };
+
   render() {
     let {order, packages} = this.props;
-
-    console.log('order', order);
-    console.log('packages', packages);
 
     if (!order) {
       return null;
@@ -112,12 +193,11 @@ class MakeBidScene extends Component {
         <OrderItems order={order} />
 
         <View style={{padding: 10}}>
-          <Title>{I18n.t('bid')}</Title>
+          <Title>{I18n.t('bid_details')}</Title>
 
           <View
             style={{
               backgroundColor: 'white',
-              marginVertical: 10,
             }}>
 
             <Listing
@@ -129,19 +209,14 @@ class MakeBidScene extends Component {
                     price: packageModel.price,
                   };
                 })}
-              title={item => `${item.name} - ${item.price} KD`}
-              onItemPress={() => {}}
+              title={item => `${item.category.parent.name}`}
+              description={item => `${item.category.name} - ${item.name} - ${item.price} KD`}
+              onItemPress={this.onPackageBidListItemPress}
             />
-          </View>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-            }}>
             <Button
-              primary
-              raised
+              raised={false}
+              primary={false}
               onPress={() =>
                 this.setState({packageSelectionModalVisible: true})
               }
@@ -150,6 +225,9 @@ class MakeBidScene extends Component {
               title={I18n.t('package_add')}
             />
 
+          </View>
+
+          <View>
             <ListModal
               onCancel={this.onPackageListModalClose}
               onSave={this.onPackageListModalSave}
@@ -161,7 +239,8 @@ class MakeBidScene extends Component {
               }
               onSwipe={() => {}}
               header={I18n.t('package_select')}
-              title={item => `${item.name} - ${item.price} KD`}
+              title={item => `${item.category.parent.name}`}
+              description={item => `${item.category.name} - ${item.name} - ${item.price} KD`}
               buttonDisabled={
                 !this.state.amount || !this.state.activePackageID
               }>
@@ -173,11 +252,24 @@ class MakeBidScene extends Component {
                   field="amount"
                   onValueChange={this.onFieldChange}
                   label={I18n.t('amount')}
+                  value={this.state.amount}
                 />
               </View>
             </ListModal>
           </View>
         </View>
+
+        <View style={{padding:5,backgroundColor:'white',margin:10}}>
+          <FormTextInput field="comment" onValueChange={this.onFieldChange} label={I18n.t('comment')}/>
+        </View>
+
+        <ConfirmedButton
+          title={I18n.t('make_bid')}
+          description={I18n.t('confirm_make_bid')}
+          onPress={this.makeBid}
+          style={{marginHorizontal:10}}
+        />
+
       </ScrollView>
     );
   }

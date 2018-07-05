@@ -49,9 +49,14 @@ function* fetchConfirmedBids(action) {
 }
 
 function* makeBid(action) {
+
+  const {payload, resolve, reject} = action.params;
+
   try {
     const params = {
-      body: action.params,
+      body: {
+        ...payload
+      },
     };
 
     const response = yield call(API.makeBid, params);
@@ -61,6 +66,15 @@ function* makeBid(action) {
       type: ACTION_TYPES.MAKE_BID_SUCCESS,
       entities: normalized.entities,
     });
+
+    yield put(
+      APP_ACTIONS.setNotification({
+        message: I18n.t('bid_sent'),
+      }),
+    );
+
+    yield resolve(response.bid);
+
   } catch (error) {
     yield put({type: ACTION_TYPES.MAKE_BID_FAILURE, error});
     yield put(
@@ -69,6 +83,9 @@ function* makeBid(action) {
         type: 'error',
       }),
     );
+
+    yield reject(error);
+
   }
 }
 

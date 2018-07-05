@@ -17,12 +17,12 @@ export default class Listing extends Component {
     description: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   };
 
-  shouldComponentUpdate(nextProps) {
-    return (
-      this.props.activeIDs !== nextProps.activeIDs ||
-      this.props.items !== nextProps.items
-    );
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   return (
+  //     this.props.activeIDs !== nextProps.activeIDs ||
+  //     this.props.items !== nextProps.items
+  //   );
+  // }
 
   static defaultProps = {
     activeIDs: [],
@@ -30,7 +30,6 @@ export default class Listing extends Component {
 
   renderItem = ({item}) => {
     let {onItemPress, activeIDs, title, description} = this.props;
-
     return (
       <CheckedListItem
         onPress={() => onItemPress(item)}

@@ -191,5 +191,12 @@
   "bids_accepted" : "Accepted Bids",
   "package_select" : "Select Package",
   "package_add" : "Add Package",
+  "bid_details" : "Bid Details",
+  "bid_edit" : "Edit Bid",
+  "bid_select" : "Select Bids",
+  "bid_sent" : "Bid Saved",
+  "remove" : "Remove",
+  "edit" : "Edit",
+  "confirm_make_bid" : "Are you sure you want to send the bid ?"
 
 }

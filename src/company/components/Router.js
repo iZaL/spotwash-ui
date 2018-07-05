@@ -89,7 +89,7 @@ const HomeStack = StackNavigator(
     navigationOptions: ({navigation}) => ({
       ...navStyle,
     }),
-    initialRouteName: 'MakeBid',
+    // initialRouteName: 'MakeBid',
   },
 );
 
