@@ -9,10 +9,10 @@ import BidsDetail from 'customer/bids/components/BidsDetail';
 import {ScrollView, View} from 'react-native';
 import I18n from 'utils/locale';
 import Button from 'components/Button';
-import ConfirmedButton from '../../components/ConfirmedButton';
-import OrderBasicInfo from '../orders/components/OrderBasicInfo';
-import OrderItems from '../orders/components/OrderItems';
-import BidItems from "./components/BidItems";
+import ConfirmedButton from 'components/ConfirmedButton';
+import OrderBasicInfo from 'customer/orders/components/OrderBasicInfo';
+import OrderItems from 'customer/orders/components/OrderItems';
+import BidItems from "customer/bids/components/BidItems";
 import {Subheading, Title} from "react-native-paper";
 
 class BidsDetailScene extends PureComponent {
