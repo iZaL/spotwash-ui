@@ -27,10 +27,10 @@ class TrackOrderScene extends Component {
   state = {
     initialized: false,
     tracking_enabled: false,
-    // latitude: 37.78825,
-    // longitude: -122.4324,
-    latitude: 29.3772392006689,
-    longitude: 47.98511826155676,
+    latitude: 37.78825,
+    longitude: -122.4324,
+    // latitude: 29.3772392006689,
+    // longitude: 47.98511826155676,
     heading: 0,
   };
 
@@ -49,7 +49,7 @@ class TrackOrderScene extends Component {
 
     BackgroundGeolocation.configure(
       {
-        distanceFilter: 100,
+        distanceFilter: 10,
         stopOnTerminate: false,
         preventSuspend: false,
         startOnBoot: true,
@@ -104,7 +104,7 @@ class TrackOrderScene extends Component {
   };
 
   onHttp = response => {
-    // console.log('[event] http: ', response);
+    console.log('[event] http: ', response);
   };
 
   startDriving = () => {

@@ -45,6 +45,9 @@ class OrderDetailScene extends Component {
       ),
     );
 
+    BackgroundGeolocation.on('location', this.onLocation);
+    BackgroundGeolocation.on('http', this.onHttp);
+
     BackgroundGeolocation.configure(
       {
         ...GEOLOCATION_CONFIG,
@@ -57,6 +60,19 @@ class OrderDetailScene extends Component {
       },
     );
   }
+
+  onLocation = location => {
+    console.log('location',location);
+    // this.setState({
+    //   latitude: location.coords.latitude,
+    //   longitude: location.coords.longitude,
+    //   heading: location.coords.heading,
+    // });
+  };
+
+  onHttp = response => {
+    console.log('[event] http: ', response);
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.order && nextProps.order.total) {

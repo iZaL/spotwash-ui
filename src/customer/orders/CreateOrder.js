@@ -461,6 +461,7 @@ class CreateOrder extends PureComponent {
       address,
     } = this.state;
 
+    console.log('activePackageIDs',activePackageIDs);
     // let activeCategory = activeCategoryID
     //   ? categories.find(item => item.id === activeCategoryID)
     //   : categories.length
@@ -562,9 +563,7 @@ class CreateOrder extends PureComponent {
 
         <ConfirmedButton
           onPress={this.onRequestSendPress}
-          disabled={!activePackageIDs || !activePackageIDs.length}
-          raised
-          dark
+          // disabled={!activePackageIDs || !activePackageIDs.length}
           style={{
             backgroundColor: colors.primary,
           }}

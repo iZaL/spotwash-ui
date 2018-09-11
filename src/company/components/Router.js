@@ -40,7 +40,7 @@ const HomeStack = StackNavigator(
     Home: {
       screen: Home,
       navigationOptions: ({navigation}) => ({
-        title: I18n.t('admin_home'),
+        title: I18n.t('company_home'),
         ...getDrawerIcon(navigation),
       }),
     },

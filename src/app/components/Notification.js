@@ -48,7 +48,7 @@ export default class Notification extends Component {
         primary
         raised
         style={{
-          backgroundColor: type === 'error' ? colors.error : colors.primary,
+          backgroundColor: type === 'error' ? colors.error : colors.success,
         }}
         action={{
           label: I18n.t('ok'),

@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   mapMarker: {},
   image: {
-    width: 30,
+    width: 15,
     height: 30,
   },
 });

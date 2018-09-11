@@ -6,7 +6,7 @@ if (__DEV__) {
     API_URL: 'spotwash.test/api',
     SOCKET_SERVER: 'http://spotwash.test:3000',
     // API_URL: 'bp.ideasowners.net/api',
-    // SOCKET_SERVER: 'http://bp.ideasowners.net:3000',
+    // SOCKET_SERVER: 'http://spotwash.test:3000',
     GOOGLE_MAPS_KEY: 'AIzaSyCpQX4H0QPxVgKuNMZ0ELG_ymgT8RHcKh4',
     GOOGLE_MAPS_IOS_KEY: 'AIzaSyDPCgdWqrkBe4v3uSuU-MZGJIZ0AQxfbCo',
     GOOGLE_MAPS_ANDROID_KEY: 'AIzaSyCpQX4H0QPxVgKuNMZ0ELG_ymgT8RHcKh4',

@@ -197,6 +197,7 @@
   "bid_sent" : "Bid Saved",
   "remove" : "Remove",
   "edit" : "Edit",
-  "confirm_make_bid" : "Are you sure you want to send the bid ?"
+  "confirm_make_bid" : "Are you sure you want to send the bid ?",
+  "company_home" : "Company Home",
 
 }
