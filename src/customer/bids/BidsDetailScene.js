@@ -12,11 +12,10 @@ import Button from 'components/Button';
 import ConfirmedButton from 'components/ConfirmedButton';
 import OrderBasicInfo from 'customer/orders/components/OrderBasicInfo';
 import OrderItems from 'customer/orders/components/OrderItems';
-import BidItems from "customer/bids/components/BidItems";
-import {Subheading, Title} from "react-native-paper";
+import BidItems from 'customer/bids/components/BidItems';
+import {Subheading, Title} from 'react-native-paper';
 
 class BidsDetailScene extends PureComponent {
-
   componentDidMount() {
     this.props.dispatch(
       ORDER_ACTIONS.fetchBids({
@@ -37,7 +36,7 @@ class BidsDetailScene extends PureComponent {
   render() {
     let {bid, order} = this.props;
 
-    console.log('bid',bid);
+    console.log('bid', bid);
 
     let buttonComponent;
 
@@ -70,21 +69,33 @@ class BidsDetailScene extends PureComponent {
         <OrderBasicInfo item={order} />
         <OrderItems order={order} />
 
-        <View style={{margin:10}}>
+        <View style={{margin: 10}}>
           <Title>{I18n.t('bid_details')}</Title>
 
           <BidItems bid={bid} />
 
-          <View style={{marginVertical:10,padding:10,backgroundColor:'white',flexDirection:'row',alignItems:'center'}}>
+          <View
+            style={{
+              marginVertical: 10,
+              padding: 10,
+              backgroundColor: 'white',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
             <Subheading>Comments: {bid.comment}</Subheading>
           </View>
 
-          <View style={{marginVertical:10,padding:10,backgroundColor:'white',flexDirection:'row',alignItems:'center'}}>
-            <Title style={{flex:1}}>{I18n.t('total')}</Title>
+          <View
+            style={{
+              marginVertical: 10,
+              padding: 10,
+              backgroundColor: 'white',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Title style={{flex: 1}}>{I18n.t('total')}</Title>
             <Title>{bid.amount} KD</Title>
           </View>
-
-
         </View>
 
         {buttonComponent}

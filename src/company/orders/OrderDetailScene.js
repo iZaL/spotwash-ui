@@ -145,9 +145,9 @@ class OrderDetailScene extends Component {
         {order.total && <OrderTotal total={order.total} />}
 
         {order.user &&
-        order.user.id && (
-          <UserInfo user={order.user} makeCall={this.makeCall} />
-        )}
+          order.user.id && (
+            <UserInfo user={order.user} makeCall={this.makeCall} />
+          )}
 
         <DriverAssign
           order={order}
@@ -158,19 +158,19 @@ class OrderDetailScene extends Component {
         {buttonComponent}
 
         {order.job &&
-        order.job.driver &&
-        order.job.driver.user && (
-          <View>
-            <DriverInfo driver={order.job.driver} />
-            <Button
-              onPress={this.trackOrder}
-              primary
-              raised
-              dark
-              title={I18n.t('track')}
-            />
-          </View>
-        )}
+          order.job.driver &&
+          order.job.driver.user && (
+            <View>
+              <DriverInfo driver={order.job.driver} />
+              <Button
+                onPress={this.trackOrder}
+                primary
+                raised
+                dark
+                title={I18n.t('track')}
+              />
+            </View>
+          )}
       </ScrollView>
     );
   }

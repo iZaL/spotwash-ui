@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {ACTIONS as COMPANY_ACTIONS} from 'company/common/actions';
 import {SELECTORS as ORDER_SELECTORS} from 'company/selectors/orders';
 import {SELECTORS as DRIVER_SELECTORS} from 'company/selectors/drivers';
-import {Linking, ScrollView, View,Alert} from 'react-native';
+import {Linking, ScrollView, View, Alert} from 'react-native';
 import OrderItems from 'customer/orders/components/OrderItems';
 import PropTypes from 'prop-types';
 import Button from 'components/Button';
@@ -19,7 +19,7 @@ import FormTextInput from '../../components/FormTextInput';
 import FormLabel from '../../components/FormLabel';
 import Divider from '../../components/Divider';
 import Listing from '../../components/Listing';
-import ConfirmedButton from "../../components/ConfirmedButton";
+import ConfirmedButton from '../../components/ConfirmedButton';
 
 class MakeBidScene extends Component {
   static propTypes = {
@@ -34,7 +34,7 @@ class MakeBidScene extends Component {
 
   state = {
     amount: null,
-    comment:null,
+    comment: null,
     packageSelectionModalVisible: false,
     packages: {},
     activePackageID: null,
@@ -68,7 +68,7 @@ class MakeBidScene extends Component {
   onPackageListItemPress = item => {
     this.setState({
       activePackageID: item.id,
-      amount:item.price
+      amount: item.price,
     });
   };
 
@@ -95,7 +95,7 @@ class MakeBidScene extends Component {
     });
   };
 
-  removeBidItem = (packageID) => {
+  removeBidItem = packageID => {
     // let deletingItem = state.products[action.params.product_id];
     // return {
     //   ...state,
@@ -128,48 +128,40 @@ class MakeBidScene extends Component {
   //   });
   // };
 
-  onPackageBidListItemPress = (item) => {
-    return Alert.alert(
-      `${I18n.t('bid_edit')}`,
-      null,
-      [
-
-        // {
-        //   text: I18n.t('edit'),
-        //   onPress: () => {
-        //     this.editBidItem(item.id);
-        //   },
-        // },
-        {
-          text: I18n.t('cancel'),
+  onPackageBidListItemPress = item => {
+    return Alert.alert(`${I18n.t('bid_edit')}`, null, [
+      // {
+      //   text: I18n.t('edit'),
+      //   onPress: () => {
+      //     this.editBidItem(item.id);
+      //   },
+      // },
+      {
+        text: I18n.t('cancel'),
+      },
+      {
+        text: I18n.t('remove'),
+        onPress: () => {
+          this.removeBidItem(item.id);
         },
-        {
-          text: I18n.t('remove'),
-          onPress: () => {
-            this.removeBidItem(item.id);
-          },
-        },
-      ],
-    );
+      },
+    ]);
   };
 
   makeBid = () => {
-
     let payload = {
       order_id: this.props.order.id,
-      packages:this.state.packages,
-      comment:this.state.comment
+      packages: this.state.packages,
+      comment: this.state.comment,
     };
 
     return new Promise((resolve, reject) => {
-      this.props.dispatch(
-        COMPANY_ACTIONS.makeBid({payload,resolve,reject}),
-      );
+      this.props.dispatch(COMPANY_ACTIONS.makeBid({payload, resolve, reject}));
     })
       .then(bid => {
         this.setState({
           amount: null,
-          comment:null,
+          comment: null,
           packageSelectionModalVisible: false,
           packages: {},
           activePackageID: null,
@@ -199,7 +191,6 @@ class MakeBidScene extends Component {
             style={{
               backgroundColor: 'white',
             }}>
-
             <Listing
               items={Object.keys(this.state.packages)
                 .map(packageID => this.state.packages[packageID])
@@ -210,7 +201,9 @@ class MakeBidScene extends Component {
                   };
                 })}
               title={item => `${item.category.parent.name}`}
-              description={item => `${item.category.name} - ${item.name} - ${item.price} KD`}
+              description={item =>
+                `${item.category.name} - ${item.name} - ${item.price} KD`
+              }
               onItemPress={this.onPackageBidListItemPress}
             />
 
@@ -224,7 +217,6 @@ class MakeBidScene extends Component {
               icon={'add'}
               title={I18n.t('package_add')}
             />
-
           </View>
 
           <View>
@@ -240,7 +232,9 @@ class MakeBidScene extends Component {
               onSwipe={() => {}}
               header={I18n.t('package_select')}
               title={item => `${item.category.parent.name}`}
-              description={item => `${item.category.name} - ${item.name} - ${item.price} KD`}
+              description={item =>
+                `${item.category.name} - ${item.name} - ${item.price} KD`
+              }
               buttonDisabled={
                 !this.state.amount || !this.state.activePackageID
               }>
@@ -259,17 +253,20 @@ class MakeBidScene extends Component {
           </View>
         </View>
 
-        <View style={{padding:5,backgroundColor:'white',margin:10}}>
-          <FormTextInput field="comment" onValueChange={this.onFieldChange} label={I18n.t('comment')}/>
+        <View style={{padding: 5, backgroundColor: 'white', margin: 10}}>
+          <FormTextInput
+            field="comment"
+            onValueChange={this.onFieldChange}
+            label={I18n.t('comment')}
+          />
         </View>
 
         <ConfirmedButton
           title={I18n.t('make_bid')}
           description={I18n.t('confirm_make_bid')}
           onPress={this.makeBid}
-          style={{marginHorizontal:10}}
+          style={{marginHorizontal: 10}}
         />
-
       </ScrollView>
     );
   }

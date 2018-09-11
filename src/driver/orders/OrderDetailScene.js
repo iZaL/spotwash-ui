@@ -62,7 +62,7 @@ class OrderDetailScene extends Component {
   }
 
   onLocation = location => {
-    console.log('location',location);
+    console.log('location', location);
     // this.setState({
     //   latitude: location.coords.latitude,
     //   longitude: location.coords.longitude,

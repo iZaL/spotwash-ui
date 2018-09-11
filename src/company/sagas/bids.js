@@ -49,13 +49,12 @@ function* fetchConfirmedBids(action) {
 }
 
 function* makeBid(action) {
-
   const {payload, resolve, reject} = action.params;
 
   try {
     const params = {
       body: {
-        ...payload
+        ...payload,
       },
     };
 
@@ -74,7 +73,6 @@ function* makeBid(action) {
     );
 
     yield resolve(response.bid);
-
   } catch (error) {
     yield put({type: ACTION_TYPES.MAKE_BID_FAILURE, error});
     yield put(
@@ -85,7 +83,6 @@ function* makeBid(action) {
     );
 
     yield reject(error);
-
   }
 }
 

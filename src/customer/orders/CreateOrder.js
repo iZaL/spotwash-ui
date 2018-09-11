@@ -461,7 +461,7 @@ class CreateOrder extends PureComponent {
       address,
     } = this.state;
 
-    console.log('activePackageIDs',activePackageIDs);
+    console.log('activePackageIDs', activePackageIDs);
     // let activeCategory = activeCategoryID
     //   ? categories.find(item => item.id === activeCategoryID)
     //   : categories.length
