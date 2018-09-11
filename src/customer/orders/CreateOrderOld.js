@@ -7,7 +7,10 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ACTIONS, ACTIONS as CART_ACTIONS} from 'customer/common/actions';
 import {ACTIONS as APP_ACTIONS} from 'app/common/actions';
-import {SELECTORS, SELECTORS as ORDER_SELECTORS} from 'customer/selectors/orders';
+import {
+  SELECTORS,
+  SELECTORS as ORDER_SELECTORS,
+} from 'customer/selectors/orders';
 import CategoriesList from 'customer/orders/components/CategoriesList';
 import I18n from 'utils/locale';
 import NavButton from 'components/NavButton';
