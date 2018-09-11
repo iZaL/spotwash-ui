@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import colors from 'assets/theme/colors';
 import I18n from 'utils/locale';
 import Touchable from 'react-native-platform-touchable';
-import Button from '../../../components/Button';
+import Button from 'components/Button';
 import {Title} from 'react-native-paper';
 
 export default class OrderSuccess extends Component {

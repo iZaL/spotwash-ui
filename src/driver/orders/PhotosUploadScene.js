@@ -16,7 +16,7 @@ import colors from 'assets/theme/colors';
 import Dialog from 'components/Dialog';
 import ImagePicker from 'react-native-image-crop-picker';
 import Button from 'components/Button';
-import FormTextInput from '../../components/FormTextInput';
+import FormTextInput from 'components/FormTextInput';
 
 class PhotosUploadScene extends Component {
   static propTypes = {

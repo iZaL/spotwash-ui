@@ -5,7 +5,7 @@ import colors from 'theme/colors';
 import I18n from 'utils/locale';
 import FormTextInput from 'components/FormTextInput';
 import FormSubmit from 'components/FormSubmit';
-import Button from '../../components/Button';
+import Button from 'components/Button';
 
 export default class ConfirmScene extends Component {
   static propTypes = {

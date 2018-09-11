@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import colors from 'assets/theme/colors';
 import Divider from 'components/Divider';
 import PackagesList from 'customer/orders/components/PackagesList';
-import SectionTitle from '../../../components/SectionTitle';
+import SectionTitle from 'components/SectionTitle';
 
 export default class CategoriesChildrenList extends Component {
   shouldComponentUpdate(nextProps) {

@@ -6,7 +6,7 @@ import Touchable from 'react-native-platform-touchable';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import I18n from 'utils/locale';
-import IconFactory from '../../components/IconFactory';
+import IconFactory from 'components/IconFactory';
 import {Title, TouchableRipple} from 'react-native-paper';
 
 export default class HomeActionButtons extends Component {

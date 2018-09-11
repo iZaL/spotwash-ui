@@ -4,7 +4,7 @@ import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import colors from 'assets/theme/colors';
 import I18n from 'utils/locale';
-import IconFactory from '../../../components/IconFactory';
+import IconFactory from 'components/IconFactory';
 
 export default class CategoriesList extends Component {
   shouldComponentUpdate(nextProps) {

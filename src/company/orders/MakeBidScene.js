@@ -14,12 +14,12 @@ import I18n from 'utils/locale';
 import {Subheading, Title} from 'react-native-paper';
 import colors from 'assets/theme/colors';
 import Modal from 'components/Modal';
-import ListModal from '../../components/ListModal';
-import FormTextInput from '../../components/FormTextInput';
-import FormLabel from '../../components/FormLabel';
-import Divider from '../../components/Divider';
-import Listing from '../../components/Listing';
-import ConfirmedButton from '../../components/ConfirmedButton';
+import ListModal from 'components/ListModal';
+import FormTextInput from 'components/FormTextInput';
+import FormLabel from 'components/FormLabel';
+import Divider from 'components/Divider';
+import Listing from 'components/Listing';
+import ConfirmedButton from 'components/ConfirmedButton';
 
 class MakeBidScene extends Component {
   static propTypes = {

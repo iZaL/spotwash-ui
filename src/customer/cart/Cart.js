@@ -7,10 +7,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ACTIONS, ACTIONS as ORDER_ACTIONS} from 'customer/common/actions';
 import {ACTIONS as USER_ACTIONS} from 'guest/common/actions';
-import {
-  SELECTORS,
-  SELECTORS as ORDER_SELECTORS,
-} from 'customer/selectors/orders';
+import {SELECTORS, SELECTORS as ORDER_SELECTORS,} from 'customer/selectors/orders';
 import {SELECTORS as USER_SELECTORS} from 'guest/common/selectors';
 import Button from 'components/Button';
 import I18n from 'utils/locale';
@@ -20,20 +17,17 @@ import EmptyCart from 'customer/cart/components/EmptyCart';
 import moment from 'moment';
 import Divider from 'components/Divider';
 import colors from 'assets/theme/colors';
-import CartTotal from 'customer/cart/components/CartTotal';
 import PaymentOptions from 'customer/cart/components/PaymentOptions';
 import OrderSuccess from 'customer/cart/components/OrderSuccess';
-import PaymentPage from 'customer/cart/components/PaymentPage';
 import TimePicker from 'customer/cart/components/TimePicker';
-import {ACTIONS as APP_ACTIONS} from 'app/common/actions';
 import SectionTitle from 'components/SectionTitle';
 import CheckoutAlert from 'customer/cart/components/CheckoutAlert';
 import AddressesList from 'customer/cart/components/AddressesList';
 import CreateAddress from 'customer/cart/components/CreateAddress';
 import Modal from 'react-native-modal';
-import AddressTypeSelectionModal from './components/AddressTypeSelectionModal';
+import AddressTypeSelectionModal from 'customer/cart/components/AddressTypeSelectionModal';
 import BackgroundGeolocation from 'react-native-background-geolocation';
-import CreateAddressFields from './components/CreateAddressFields';
+import CreateAddressFields from 'customer/cart/components/CreateAddressFields';
 
 type State = {
   dates: Array,

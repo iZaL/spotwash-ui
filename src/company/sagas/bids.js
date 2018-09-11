@@ -4,7 +4,7 @@ import {API} from 'company/common/api';
 import {Schema} from 'utils/schema';
 import {normalize} from 'normalizr';
 import I18n from 'utils/locale';
-import {ACTIONS as APP_ACTIONS} from '../../app/common/actions';
+import {ACTIONS as APP_ACTIONS} from 'app/common/actions';
 
 function* fetchPendingBids(action) {
   try {

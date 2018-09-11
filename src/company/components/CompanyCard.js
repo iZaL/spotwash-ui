@@ -8,7 +8,7 @@ import colors from 'assets/theme/colors';
 import CompanyImage from 'company/components/CompanyImage';
 import I18n from 'utils/locale';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Avatar from '../../components/Avatar';
+import Avatar from 'components/Avatar';
 
 const CompanyCard = ({company, amount, style, showConfirmed = false}) => {
   return (

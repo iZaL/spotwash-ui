@@ -16,7 +16,7 @@ import UserInfo from 'customer/components/UserInfo';
 import DriverAssign from 'company/orders/components/DriverAssign';
 import Button from 'components/Button';
 import I18n from 'utils/locale';
-import FormTextInput from '../../components/FormTextInput';
+import FormTextInput from 'components/FormTextInput';
 
 class OrderDetailScene extends Component {
   static propTypes = {

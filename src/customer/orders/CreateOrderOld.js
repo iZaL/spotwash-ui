@@ -2,12 +2,12 @@
  * @flow
  */
 import React, {PureComponent} from 'react';
-import {ScrollView, Text, View, Alert} from 'react-native';
+import {Alert, ScrollView, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ACTIONS, ACTIONS as CART_ACTIONS} from 'customer/common/actions';
 import {ACTIONS as APP_ACTIONS} from 'app/common/actions';
-import {SELECTORS} from 'customer/selectors/orders';
+import {SELECTORS, SELECTORS as ORDER_SELECTORS} from 'customer/selectors/orders';
 import CategoriesList from 'customer/orders/components/CategoriesList';
 import I18n from 'utils/locale';
 import NavButton from 'components/NavButton';
@@ -18,11 +18,8 @@ import Modal from 'react-native-modal';
 import CategoriesChildrenList from './components/CategoriesChildrenList';
 import Divider from 'components/Divider';
 import SectionTitle from 'components/SectionTitle';
-import DatePicker from 'customer/cart/components/DatePicker';
-import TimePicker from 'customer/cart/components/TimePicker';
 import AddressesList from 'customer/cart/components/AddressesList';
 import {SELECTORS as USER_SELECTORS} from 'guest/common/selectors';
-import {SELECTORS as ORDER_SELECTORS} from 'customer/selectors/orders';
 import CreateAddress from 'customer/cart/components/CreateAddress';
 import AddressTypeSelectionModal from 'customer/cart/components/AddressTypeSelectionModal';
 import BackgroundGeolocation from 'react-native-background-geolocation';

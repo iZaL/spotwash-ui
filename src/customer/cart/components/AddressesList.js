@@ -5,7 +5,7 @@ import colors from 'assets/theme/colors';
 import I18n from 'utils/locale';
 import Divider from 'components/Divider';
 import CheckedListItem from 'components/CheckedListItem';
-import AddressInfo from '../../../components/AddressInfo';
+import AddressInfo from 'components/AddressInfo';
 import {TouchableRipple} from 'react-native-paper';
 
 export default class AddressesList extends Component {

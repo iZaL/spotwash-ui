@@ -17,7 +17,7 @@ import colors from 'assets/theme/colors';
 import TrackDetailScene from 'company/orders/TrackDetailScene';
 import Register from 'guest/Register';
 import TrackOrderScene from 'customer/orders/TrackOrderScene';
-import MakeBidScene from '../orders/MakeBidScene';
+import MakeBidScene from 'company/orders/MakeBidScene';
 
 const getDrawerIcon = navigation => {
   return {
