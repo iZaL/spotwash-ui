@@ -1,11 +1,9 @@
 //@flow
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import CompanyCard from 'company/components/CompanyCard';
+import {StyleSheet, Text, View} from 'react-native';
 import colors from 'assets/theme/colors';
-import Listing from "../../../components/Listing";
-import Button from "../../../components/Button";
+import Listing from "components/Listing";
 
 export default class BidItems extends Component {
   static propTypes = {
