@@ -37,6 +37,7 @@ class BidsDetailScene extends PureComponent {
     let {bid, order} = this.props;
 
     console.log('bid', bid);
+    console.log('order', order);
 
     let buttonComponent;
 

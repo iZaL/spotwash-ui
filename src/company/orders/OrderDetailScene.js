@@ -97,7 +97,6 @@ class OrderDetailScene extends Component {
   render() {
     let {order, drivers} = this.props;
     console.log('order', order);
-    let {amount} = this.state;
 
     let buttonComponent;
     let showTextInput = false;
@@ -117,16 +116,17 @@ class OrderDetailScene extends Component {
       );
     } else {
       if (order.has_bidded) {
-        buttonComponent = (
-          <Button
-            title={I18n.t('cancel_bid')}
-            onPress={this.cancelBid}
-            style={{marginVertical: 40}}
-            background={'warning'}
-          />
-        );
+        // buttonComponent = (
+        //   <Button
+        //     title={I18n.t('cancel_bid')}
+        //     onPress={this.cancelBid}
+        //     style={{marginVertical: 40}}
+        //     background={'warning'}
+        //   />
+        // );
+
+        buttonComponent = null;
       } else {
-        showTextInput = true;
         buttonComponent = (
           <Button
             title={I18n.t('cannot_bid')}
@@ -145,32 +145,36 @@ class OrderDetailScene extends Component {
         {order.total && <OrderTotal total={order.total} />}
 
         {order.user &&
-          order.user.id && (
-            <UserInfo user={order.user} makeCall={this.makeCall} />
-          )}
+        order.user.id && (
+          <UserInfo user={order.user} makeCall={this.makeCall} />
+        )}
 
-        <DriverAssign
-          order={order}
-          drivers={drivers}
-          onDriversListItemPress={this.selectDriver}
-        />
+
+        {
+          !order.bid_open && order.is_owner &&
+          <DriverAssign
+            order={order}
+            drivers={drivers}
+            onDriversListItemPress={this.selectDriver}
+          />
+        }
 
         {buttonComponent}
 
         {order.job &&
-          order.job.driver &&
-          order.job.driver.user && (
-            <View>
-              <DriverInfo driver={order.job.driver} />
-              <Button
-                onPress={this.trackOrder}
-                primary
-                raised
-                dark
-                title={I18n.t('track')}
-              />
-            </View>
-          )}
+        order.job.driver &&
+        order.job.driver.user && (
+          <View>
+            <DriverInfo driver={order.job.driver} />
+            <Button
+              onPress={this.trackOrder}
+              primary
+              raised
+              dark
+              title={I18n.t('track')}
+            />
+          </View>
+        )}
       </ScrollView>
     );
   }
