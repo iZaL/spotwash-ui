@@ -75,11 +75,11 @@ class TrackScene extends PureComponent {
   };
 
   componentDidUpdate(nextProps) {
-    if (this.props.drivers !== nextProps.drivers) {
-      if (!this.state.pauseTrackingUpdate) {
-        this.onMapLayout();
-      }
-    }
+    // if (this.props.drivers !== nextProps.drivers) {
+    //   if (!this.state.pauseTrackingUpdate) {
+    //     this.onMapLayout();
+    //   }
+    // }
   }
 
   resumeTrackingUpdate = () => {
@@ -131,7 +131,7 @@ class TrackScene extends PureComponent {
   };
 
   render() {
-    let {orders} = this.props;
+    let {orders,drivers} = this.props;
 
     // let origin = {
     //   // latitude: 37.48522,
@@ -144,29 +144,34 @@ class TrackScene extends PureComponent {
     // };
     //
     let origin = {
-      latitude: 29.378586,
-      longitude: 47.990341,
+      latitude: 37.48522,
+      longitude: -122.23635,
+      // latitude: 29.378586,
+      // longitude: 47.990341,
       latitudeDelta: 1,
       longitudeDelta: 1,
     };
 
-    let drivers = [
-      {
-        driver_id: 1,
-        heading: 305.16,
-        job_id: '1',
-        latitude: 29.33285,
-        longitude: 48.05415,
-      },
-      {
-        driver_id: 2,
-        heading: 305.16,
-        job_id: '1',
-        latitude: 29.3195616,
-        longitude: 47.991724,
-      },
-    ];
+    console.log('drivers',drivers);
 
+    // let drivers = [
+    //   {
+    //     driver_id: 1,
+    //     heading: 305.16,
+    //     job_id: '1',
+    //     latitude: 29.33285,
+    //     longitude: 48.05415,
+    //   },
+    //   {
+    //     driver_id: 2,
+    //     heading: 305.16,
+    //     job_id: '1',
+    //     latitude: 29.3195616,
+    //     longitude: 47.991724,
+    //   },
+    // ];
+
+    // return null;
     return (
       <ScrollView
         refreshControl={

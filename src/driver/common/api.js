@@ -36,6 +36,15 @@ function startDriving(id) {
   return request(requestParams);
 }
 
+function joinTrackPool(id) {
+  const path = `driver/track/pool/join`;
+  let requestParams = {
+    path,
+    method: 'POST',
+  };
+  return request(requestParams);
+}
+
 function stopDriving(id) {
   const path = `driver/jobs/${id}/stop/drive`;
   let requestParams = {
@@ -105,6 +114,7 @@ export const API = {
   startWorking,
   stopWorking,
   startDriving,
+  joinTrackPool,
   stopDriving,
   fetchJobPhotos,
   uploadPhotos,

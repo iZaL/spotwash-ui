@@ -11,11 +11,15 @@ import {
 import {ACTIONS as DRIVER_ACTIONS} from 'driver/common/actions';
 import {connect} from 'react-redux';
 import OrdersList from 'driver/orders/components/OrdersList';
-import {SELECTORS as DRIVER_SELECTORS} from 'driver/selectors/orders';
+import {SELECTORS as DRIVER_ORDER_SELECTORS} from 'driver/selectors/orders';
+import {SELECTORS as DRIVER_PROFILE_SELECTORS} from 'driver/selectors/profile';
 import SectionHeading from 'company/components/SectionHeading';
 import I18n from 'utils/locale';
 import colors from 'assets/theme/colors';
 import BackgroundGeolocation from 'react-native-background-geolocation';
+import {API_URL, GEOLOCATION_SOUNDS_ENABLED} from 'utils/env';
+import TRACKING_CONFIG from 'utils/tracking';
+import {SELECTORS as AUTH_SELECTORS} from "guest/common/selectors";
 
 class Home extends Component {
   static propTypes = {
@@ -51,7 +55,41 @@ class Home extends Component {
     this.props.dispatch(DRIVER_ACTIONS.fetchProfile());
     this.props.dispatch(DRIVER_ACTIONS.fetchWorkingOrder());
     this.props.dispatch(DRIVER_ACTIONS.fetchUpcomingOrders());
+
+
+    BackgroundGeolocation.ready(
+      {
+        // desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
+        // distanceFilter: 50,
+      },
+      function(state) {
+        // console.log('state', state);
+        // console.log('- BackgroundGeolocation configured and ready');
+        // if (!state.enabled) {  // <-- current state provided to callback
+        //   BackgroundGeolocation.start();
+        // }
+      },
+    );
+
+    // this.props.dispatch(DRIVER_ACTIONS.joinTrackPool());
+
+    BackgroundGeolocation.on('location', this.onLocation);
+    BackgroundGeolocation.on('http', this.onHttp);
+
+    BackgroundGeolocation.configure({
+      ...TRACKING_CONFIG,
+      url: `http://${API_URL}/driver/track/location/update`,
+      params: {               // <-- Optional HTTP params
+        driver_id : this.props.driver.id
+      }
+    });
+
+    BackgroundGeolocation.start();
+
     AppState.addEventListener('change', this.handleAppStateChange);
+
+
+
     this.props.navigation.setParams({
       handleRightButtonPress: this.activateDriver,
       online: this.state.online,
@@ -61,6 +99,14 @@ class Home extends Component {
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
   }
+
+  onLocation = (val) => {
+    console.log('val',val);
+  };
+
+  onHttp = (location) => {
+    console.log('loc',location);
+  };
 
   activateDriver = () => {
     this.setState({
@@ -145,8 +191,9 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    orders: DRIVER_SELECTORS.getUpcomingOrders(state),
-    order: DRIVER_SELECTORS.getWorkingOrder(state) || {},
+    orders: DRIVER_ORDER_SELECTORS.getUpcomingOrders(state),
+    order: DRIVER_ORDER_SELECTORS.getWorkingOrder(state) || {},
+    driver: DRIVER_PROFILE_SELECTORS.getProfile(state),
   };
 }
 

@@ -64,6 +64,26 @@ function* startDriving(action) {
   }
 }
 
+function* joinTrackPool(action) {
+  try {
+    // const params = {
+    //   body: action.params,
+    // };
+
+    const response = yield call(API.joinTrackPool);
+
+    const normalized = normalize(response.data, Schema.orders);
+
+    // yield put({
+    //   type: ACTION_TYPES.JOIN_TRACK_POOL_SUCCESS,
+    //   entities: normalized.entities,
+    //   result: normalized.result,
+    // });
+  } catch (error) {
+    yield put({type: ACTION_TYPES.JOIN_TRACK_POOL_FAILURE, error});
+  }
+}
+
 function* stopDriving(action) {
   try {
     const params = {
@@ -162,6 +182,10 @@ function* startDrivingMonitor() {
   yield takeLatest(ACTION_TYPES.START_DRIVING_REQUEST, startDriving);
 }
 
+function* joinTrackPoolMonitor() {
+  yield takeLatest(ACTION_TYPES.JOIN_TRACK_POOL_REQUEST, joinTrackPool);
+}
+
 function* stopDrivingMonitor() {
   yield takeLatest(ACTION_TYPES.STOP_DRIVING_REQUEST, stopDriving);
 }
@@ -182,6 +206,7 @@ export const sagas = all([
   fork(stopWorkingMonitor),
   fork(startDrivingMonitor),
   fork(stopDrivingMonitor),
+  fork(joinTrackPoolMonitor),
   fork(fetchJobPhotosMonitor),
   fork(uploadPhotosMonitor),
   fork(approvePhotosMonitor),

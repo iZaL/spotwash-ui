@@ -68,6 +68,13 @@ function* subscribeToJobTrack(socket) {
   }
 }
 
+// function* subscribeToTrackPool(socket) {
+//   while (true) {
+//     const threadParams = yield take(DRIVER_ACTIONS.JOIN_TRACK_POOL_REQUEST);
+//     socket.emit('track.join', threadParams.params.driver_id);
+//   }
+// }
+
 function* subscribeToDriversTracking(socket) {
   while (true) {
     yield take(COMPANY_ACTIONS.SUBSCRIBE_TO_DRIVER_TRACKINGS);
@@ -87,6 +94,7 @@ function* handleIO(socket) {
   yield fork(syncUserToSocket, socket);
   yield fork(subscribeToJobTrack, socket);
   yield fork(subscribeToDriversTracking, socket);
+  // yield fork(subscribeToTrackPool, socket);
 }
 
 function* socketFlowMonitor() {

@@ -60,6 +60,10 @@ export const ACTION_TYPES = {
   APPROVE_PHOTOS_SUCCESS: '@driver/APPROVE_PHOTOS_SUCCESS',
   APPROVE_PHOTOS_FAILURE: '@driver/APPROVE_PHOTOS_FAILURE',
 
+  JOIN_TRACK_POOL_REQUEST: '@driver/JOIN_TRACK_POOL_REQUEST',
+  JOIN_TRACK_POOL_SUCCESS: '@driver/JOIN_TRACK_POOL_SUCCESS',
+  JOIN_TRACK_POOL_FAILURE: '@driver/JOIN_TRACK_POOL_FAILURE',
+
   DRIVER_LOCATION_UPDATED: '@driver/DRIVER_LOCATION_UPDATED',
 };
 
@@ -173,6 +177,13 @@ function approveImages(params) {
   };
 }
 
+function joinTrackPool(params) {
+  return {
+    type: ACTION_TYPES.JOIN_TRACK_POOL_REQUEST,
+    params,
+  };
+}
+
 export const ACTIONS = {
   saveProfile,
   fetchProfile,
@@ -189,4 +200,5 @@ export const ACTIONS = {
   fetchJobPhotos,
   uploadImages,
   approveImages,
+  joinTrackPool
 };
