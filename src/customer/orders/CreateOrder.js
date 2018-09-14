@@ -2,7 +2,7 @@
  * @flow
  */
 import React, {PureComponent} from 'react';
-import {Alert, ScrollView, Text, View} from 'react-native';
+import {Alert, ScrollView, Text, View, Dimensions, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ACTIONS, ACTIONS as CART_ACTIONS} from 'customer/common/actions';
@@ -30,6 +30,14 @@ import CreateAddressFields from 'customer/cart/components/CreateAddressFields';
 import OrderSuccess from 'customer/cart/components/OrderSuccess';
 import ConfirmedButton from 'components/ConfirmedButton';
 import moment from 'moment';
+import MapView from "react-native-maps";
+const DEFAULT_PADDING = {top: 100, right: 100, bottom: 100, left: 100};
+
+const {width, height} = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = 0.3;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+import images from 'assets/theme/images';
 
 class CreateOrder extends PureComponent {
   state = {
@@ -115,6 +123,32 @@ class CreateOrder extends PureComponent {
       }
     }
   }
+
+  onMapLayout = () => {
+    // this.map.fitToElements(true);
+    // let drivers = [
+    //   {
+    //     driver_id: 1,
+    //     heading: 305.16,
+    //     job_id: '1',
+    //     latitude: 29.33285,
+    //     longitude: 48.05415,
+    //   },
+    //   {
+    //     driver_id: 2,
+    //     heading: 305.16,
+    //     job_id: '1',
+    //     latitude: 29.3195616,
+    //     longitude: 47.991724
+    //   },
+    // ];
+    //
+    this.map.fitToCoordinates(this.props.drivers, {
+      edgePadding: DEFAULT_PADDING,
+      animated: true,
+    });
+  };
+
 
   setCartItemsCount = () => {
     return this.props.navigation.setParams({
@@ -436,6 +470,7 @@ class CreateOrder extends PureComponent {
       timings,
       isFetchingTimings,
       categories,
+      drivers
     } = this.props;
 
     let {
@@ -470,6 +505,16 @@ class CreateOrder extends PureComponent {
     //         id: undefined,
     //         packages: [],
     //       };
+
+
+    let origin = {
+      latitude: 37.48522,
+      longitude: -122.23635,
+      // latitude: 29.378586,
+      // longitude: 47.990341,
+      latitudeDelta: 1,
+      longitudeDelta: 1,
+    };
 
     return (
       <ScrollView
@@ -637,6 +682,52 @@ class CreateOrder extends PureComponent {
           useNativeDriver={true}
           hideModalContentWhileAnimating={true}
           style={{margin: 0, padding: 0, backgroundColor: 'white'}}>
+
+          <View style={{height: 350}}>
+            <MapView
+              // provider={PROVIDER_GOOGLE}
+              ref={ref => {
+                this.map = ref;
+              }}
+              style={{flex: 1}}
+              region={origin}
+              onMapReady={this.onMapLayout}
+              maxZoomLevel={12}
+              showsUserLocation={true}
+              showsMyLocationButton={true}
+              // onLongPress={this.pauseTrackingUpdate}
+              // onPress={this.pauseTrackingUpdate}
+            >
+              {drivers.map((driver, index) => {
+                const {heading} = driver;
+                const rotate =
+                  typeof heading === 'number' && heading >= 0
+                    ? `${heading}deg`
+                    : undefined;
+
+                return (
+                  <MapView.Marker
+                    key={`${index}`}
+                    anchor={{x: 0.5, y: 0.5, position: 'relative'}}
+                    coordinate={{...driver}}
+                    identifier="MarkerOrigin"
+                    mapPadding={5}>
+                    <Image
+                      source={images.car}
+                      style={[
+                        {
+                          width: 20,
+                          height: 40,
+                        },
+                        rotate && {transform: [{rotate}]},
+                      ]}
+                    />
+                  </MapView.Marker>
+                );
+              })}
+            </MapView>
+          </View>
+
           <OrderSuccess
             onPress={this.onSuccessButtonPress}
             visible={showOrderSuccessModal}
@@ -670,6 +761,8 @@ function mapStateToProps(state) {
     isFetchingTimings: state.customer.timings.isFetching,
     isAuthenticated: USER_SELECTORS.isAuthenticated(state),
     checkout: state.customer.checkout,
+    drivers: SELECTORS.getDriverTrackings(state),
+
   };
 }
 
