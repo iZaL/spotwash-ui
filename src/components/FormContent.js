@@ -13,9 +13,8 @@ export default class FormContent extends Component {
       <View
         style={[
           {
-            // marginTop: 40,
-            marginHorizontal: 10,
-            paddingHorizontal: 20,
+            margin: 10,
+            padding: 10,
             borderRadius: 5,
             backgroundColor: 'white',
           },

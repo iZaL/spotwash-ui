@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import PropTypes from 'prop-types';
-import {Button as PaperButton} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 
-export default class Button extends Component {
+export default class extends Component {
   shouldComponentUpdate(nextProps) {
     return (
       nextProps.disabled !== this.props.disabled ||
@@ -34,21 +34,22 @@ export default class Button extends Component {
     } = this.props;
 
     return (
-      <PaperButton
+      <Button
         disabled={disabled}
-        raised={raised}
-        primary={primary}
-        style={[styles.button, style, disabled && {opacity: 0.4}]}
+        mode="contained"
+        compact
+        style={[ styles.button,style,disabled && {opacity: 0.4}]}
         {...rest}>
         <Text style={[styles.buttonText, titleStyle]}>{title}</Text>
-      </PaperButton>
+      </Button>
     );
   }
 }
 
 const styles = StyleSheet.create({
   button: {
-    // paddingVertical: 10,
+    marginHorizontal: 5,
+    marginVertical:5,
   },
   buttonText: {},
 });
