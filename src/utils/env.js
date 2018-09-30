@@ -5,6 +5,7 @@ if (__DEV__) {
     ...defaults,
     API_URL: 'spotwash.test/api',
     SOCKET_SERVER: 'http://spotwash.test:3000',
+    PAYMENT_ENDPOINT: 'http://spotwash.test/payment',
     // API_URL: 'bp.ideasowners.net/api',
     // SOCKET_SERVER: 'http://spotwash.test:3000',
     GOOGLE_MAPS_KEY: 'AIzaSyCpQX4H0QPxVgKuNMZ0ELG_ymgT8RHcKh4',

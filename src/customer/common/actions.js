@@ -95,6 +95,10 @@ export const ACTION_TYPES = {
   FETCH_DRIVERS_REQUEST: '@customer/FETCH_DRIVERS_REQUEST',
   FETCH_DRIVERS_SUCCESS: '@customer/FETCH_DRIVERS_SUCCESS',
   FETCH_DRIVERS_FAILURE: '@customer/FETCH_DRIVERS_FAILURE',
+
+  SET_PAYMENT_SUCCESS_REQUEST: '@customer/SET_PAYMENT_SUCCESS_REQUEST',
+  SET_PAYMENT_SUCCESS_FAILURE: '@customer/SET_PAYMENT_SUCCESS_FAILURE',
+  SET_PAYMENT_SUCCESS_SUCCESS: '@customer/SET_PAYMENT_SUCCESS_SUCCESS',
 };
 
 function fetchCartItems() {
@@ -281,6 +285,14 @@ function subscribeToDriverTrackings() {
   };
 }
 
+
+function paymentSuccess(params) {
+  return {
+    type: ACTION_TYPES.SET_PAYMENT_SUCCESS_REQUEST,
+    params,
+  };
+}
+
 export const ACTIONS = {
   addToCart,
   setCartItem,
@@ -308,4 +320,6 @@ export const ACTIONS = {
   updateAddress,
   confirmBid,
   checkout,
+  paymentSuccess,
+
 };

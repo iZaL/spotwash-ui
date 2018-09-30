@@ -463,12 +463,8 @@ class CreateOrder extends PureComponent {
   render() {
     let {
       cart,
-      cartItems,
       user,
       cartTotal,
-      checkout,
-      timings,
-      isFetchingTimings,
       categories,
       drivers
     } = this.props;
@@ -476,36 +472,16 @@ class CreateOrder extends PureComponent {
     let {
       activeCategoryID,
       activePackageIDs,
-      selectedDate,
       selectedAddressID,
-      selectedTimeID,
-      isFreeWash,
     } = cart;
 
-    const {showCartSuccessModal, showFreewashModal} = this.state;
-
     let {
-      dates,
-      showPaymentModal,
       showOrderSuccessModal,
       addressCreateModalVisible,
       addressCreateFieldsModalVisible,
-      paymentMode,
-      showCheckoutConfirmDialog,
       addressTypeSelectionModalVisible,
       address,
     } = this.state;
-
-    console.log('activePackageIDs', activePackageIDs);
-    // let activeCategory = activeCategoryID
-    //   ? categories.find(item => item.id === activeCategoryID)
-    //   : categories.length
-    //     ? categories[0]
-    //     : {
-    //         id: undefined,
-    //         packages: [],
-    //       };
-
 
     let origin = {
       latitude: 37.48522,
@@ -546,29 +522,6 @@ class CreateOrder extends PureComponent {
             activePackageIDs={activePackageIDs}
           />
         )}
-
-        {/*<SectionTitle*/}
-        {/*title={I18n.t('date')}*/}
-        {/*style={{padding: 10, marginTop: 10}}*/}
-        {/*/>*/}
-
-        {/*<DatePicker*/}
-        {/*items={dates || []}*/}
-        {/*onItemPress={this.onDatePickerItemPress}*/}
-        {/*activeItem={selectedDate}*/}
-        {/*/>*/}
-
-        {/*<SectionTitle*/}
-        {/*title={I18n.t('time')}*/}
-        {/*style={{padding: 10, marginTop: 10}}*/}
-        {/*/>*/}
-
-        {/*<TimePicker*/}
-        {/*items={timings || []}*/}
-        {/*onItemPress={this.onTimeChange}*/}
-        {/*activeItemID={selectedTimeID}*/}
-        {/*isFetching={isFetchingTimings}*/}
-        {/*/>*/}
 
         <Divider
           style={{
@@ -614,30 +567,6 @@ class CreateOrder extends PureComponent {
           }}
           title={I18n.t('send_request')}
         />
-
-        {/*<Dialog*/}
-        {/*title={I18n.t('success')}*/}
-        {/*description={*/}
-        {/*<View style={{flexDirection: 'row', alignItems: 'center'}}>*/}
-        {/*<IconFactory*/}
-        {/*type="MaterialIcons"*/}
-        {/*name="check"*/}
-        {/*color={colors.primary}*/}
-        {/*/>*/}
-        {/*<Text style={{paddingHorizontal: 10}}>*/}
-        {/*{I18n.t('cart_item_added')}*/}
-        {/*</Text>*/}
-        {/*</View>*/}
-        {/*}*/}
-        {/*leftPress={this.onAddNewItemPress}*/}
-        {/*rightPress={this.onCheckoutPress}*/}
-        {/*visible={showCartSuccessModal}*/}
-        {/*rightText={I18n.t('checkout').toUpperCase()}*/}
-        {/*leftText={I18n.t('add_item').toUpperCase()}*/}
-        {/*rightButtonStyle={{*/}
-        {/*primary: true,*/}
-        {/*}}*/}
-        {/*/>*/}
 
         <AddressTypeSelectionModal
           visible={addressTypeSelectionModalVisible}

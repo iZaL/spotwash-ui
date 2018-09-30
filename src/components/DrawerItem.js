@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import IconFactory from 'components/IconFactory';
-import {DrawerItem as PaperDrawerItem} from 'react-native-paper';
+import {Drawer as PaperDrawerItem} from 'react-native-paper';
 import colors from 'assets/theme/colors';
 
 export default class DrawerItem extends Component {
@@ -27,7 +27,7 @@ export default class DrawerItem extends Component {
   render() {
     const {onItemPress, routeName, iconProps, ...rest} = this.props;
     return (
-      <PaperDrawerItem
+      <PaperDrawerItem.Item
         {...rest}
         onPress={() => onItemPress(routeName)}
         icon={

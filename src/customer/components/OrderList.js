@@ -43,8 +43,8 @@ export default class OrderList extends Component {
           onPress={() => onItemTrackPress(item)}
           style={styles.bidContainer}>
           <View style={styles.bidInnerContainer}>
-            <View style={styles.bidRowContainer}>
-              <Text style={styles.bidText}>5</Text>
+            <View style={[styles.bidRowContainer,!item.bid_open && {backgroundColor:colors.success}]}>
+              <Text style={styles.bidText}>{item.bid_count}</Text>
             </View>
           </View>
         </Touchable>

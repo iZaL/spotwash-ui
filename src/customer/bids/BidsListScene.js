@@ -15,7 +15,7 @@ class BidsListScene extends PureComponent {
   componentDidMount() {
     this.props.dispatch(
       ORDER_ACTIONS.fetchBids({
-        order_id: this.props.navigation.getParam('orderID', 7),
+        order_id: this.props.navigation.getParam('orderID'),
       }),
     );
   }

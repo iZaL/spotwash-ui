@@ -33,7 +33,7 @@ class OrderDetailScene extends Component {
 
   componentDidMount() {
     this.props.actions.fetchOrderDetails(
-      this.props.navigation.getParam('orderID', 7),
+      this.props.navigation.getParam('orderID'),
     );
   }
 

@@ -105,6 +105,17 @@ function fetchDrivers() {
   return request({path});
 }
 
+
+function setPaymentSuccess(params) {
+  const path = `customer/orders/payment/success`;
+  let requestParams = {
+    path,
+    params,
+    method: 'POST',
+  };
+  return request(requestParams);
+}
+
 export const API = {
   fetchCartItems,
   fetchCategories,
@@ -122,4 +133,6 @@ export const API = {
   fetchBids,
   fetchDrivers,
   confirmBid,
+  setPaymentSuccess,
+
 };

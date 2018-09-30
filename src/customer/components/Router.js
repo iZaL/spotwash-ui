@@ -22,6 +22,7 @@ import LanguageSelect from 'app/LanguageSelect';
 import BidsListScene from 'customer/bids/BidsListScene';
 import BidsDetailScene from 'customer/bids/BidsDetailScene';
 import TrackScene from 'customer/orders/TrackScene';
+import Payment from "customer/cart/Payment";
 
 const getDrawerIcon = navigation => {
   return {
@@ -119,6 +120,9 @@ const HomeStack = StackNavigator(
     },
     LanguageSelect: {
       screen: LanguageSelect,
+    },
+    Payment: {
+      screen: Payment,
     },
   },
   {

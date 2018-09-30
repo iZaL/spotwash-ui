@@ -6,9 +6,6 @@ import {
   Subheading,
   Button,
   Dialog,
-  DialogTitle,
-  DialogActions,
-  DialogScrollArea,
   RadioButton,
   TouchableRipple,
 } from 'react-native-paper';
@@ -31,8 +28,8 @@ export default class AddressTypeSelectionModal extends Component {
     const {visible, close, onPress} = this.props;
     return (
       <Dialog onDismiss={close} visible={visible}>
-        <DialogTitle>{I18n.t('select_location_type')}</DialogTitle>
-        <DialogScrollArea style={{maxHeight: 170, paddingHorizontal: 0}}>
+        <Dialog.Title>{I18n.t('select_location_type')}</Dialog.Title>
+        <Dialog.ScrollArea style={{maxHeight: 170, paddingHorizontal: 0}}>
           <ScrollView>
             <View>
               <TouchableRipple
@@ -76,15 +73,15 @@ export default class AddressTypeSelectionModal extends Component {
               </TouchableRipple>
             </View>
           </ScrollView>
-        </DialogScrollArea>
-        <DialogActions>
+        </Dialog.ScrollArea>
+        <Dialog.Actions>
           <Button primary onPress={close}>
             {I18n.t('cancel')}
           </Button>
           <Button primary onPress={() => onPress(type)}>
             {I18n.t('next')}
           </Button>
-        </DialogActions>
+        </Dialog.Actions>
       </Dialog>
     );
   }

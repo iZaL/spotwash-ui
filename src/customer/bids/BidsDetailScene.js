@@ -16,6 +16,13 @@ import BidItems from 'customer/bids/components/BidItems';
 import {Subheading, Title} from 'react-native-paper';
 
 class BidsDetailScene extends PureComponent {
+
+  /**
+   * @props
+   * orderID
+   * bidID
+   */
+
   componentDidMount() {
     this.props.dispatch(
       ORDER_ACTIONS.fetchBids({
@@ -30,7 +37,15 @@ class BidsDetailScene extends PureComponent {
       bid_id: this.props.bid.id,
       company_id: this.props.bid.company.id,
     };
-    this.props.dispatch(ORDER_ACTIONS.confirmBid(params));
+    // this.props.dispatch(ORDER_ACTIONS.confirmBid(params));
+
+    return this.props.navigation.navigate('Payment', {
+      orderID: params.order_id,
+      bidID:params.bid_id,
+      companyID:params.company_id
+    });
+
+    //@todo : payment scene :
   };
 
   render() {

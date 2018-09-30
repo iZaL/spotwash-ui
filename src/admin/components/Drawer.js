@@ -4,10 +4,10 @@
 import React, {Component} from 'react';
 import I18n from 'utils/locale';
 import DrawerItem from 'components/DrawerItem';
-import {DrawerSection} from 'react-native-paper';
+import {Drawer} from 'react-native-paper';
 import DrawerHeader from 'components/DrawerHeader';
 
-export default class Drawer extends Component {
+export default class extends Component {
   state = {
     activeRoute: 'HomeStack',
   };
@@ -32,7 +32,7 @@ export default class Drawer extends Component {
     let {activeRoute} = this.state;
 
     return (
-      <DrawerSection>
+      <Drawer.Section>
         <DrawerHeader user={user} />
 
         <DrawerItem
@@ -99,7 +99,7 @@ export default class Drawer extends Component {
           iconProps={{name: 'logout', type: 'MaterialCommunityIcons'}}
           active={activeRoute === 'Logout'}
         />
-      </DrawerSection>
+      </Drawer.Section>
     );
   }
 }

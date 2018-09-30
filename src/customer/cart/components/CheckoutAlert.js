@@ -11,9 +11,6 @@ import {
   Caption,
   Colors,
   Dialog,
-  DialogActions,
-  DialogScrollArea,
-  DialogTitle,
 } from 'react-native-paper';
 import I18n from 'utils/locale';
 import AddressInfo from 'components/AddressInfo';
@@ -42,8 +39,8 @@ export default class CheckoutAlert extends Component {
         dismissable={false}
         // style={disabled && {opacity: 0.4}}
       >
-        <DialogTitle>{I18n.t('order_details')}</DialogTitle>
-        <DialogScrollArea style={[{maxHeight: 220, paddingHorizontal: 0}]}>
+        <Dialog.Title>{I18n.t('order_details')}</Dialog.Title>
+        <Dialog.ScrollArea style={[{maxHeight: 220, paddingHorizontal: 0}]}>
           <ScrollView contentContainerStyle={{paddingHorizontal: 24}}>
             {date && (
               <View style={styles.rowContainer}>
@@ -87,9 +84,9 @@ export default class CheckoutAlert extends Component {
               <Text style={styles.value}>{total} KD</Text>
             </View>
           </ScrollView>
-        </DialogScrollArea>
+        </Dialog.ScrollArea>
 
-        <DialogActions>
+        <Dialog.Actions>
           <Button
             primary
             onPress={close}
@@ -113,7 +110,7 @@ export default class CheckoutAlert extends Component {
               color={Colors.teal500}
             />
           )}
-        </DialogActions>
+        </Dialog.Actions>
       </Dialog>
     );
   }
