@@ -22,7 +22,7 @@
     "react-native-i18n": "^2.0.12",
     "react-native-image-crop-picker": "^0.20.3",
     "react-native-image-zoom-viewer": "^2.2.5",
-    "react-native-maps": "git+ssh://git@github.com:react-community/react-native-maps.git",
+    "react-native-maps": "^0.22.1",
     "react-native-modal": "^6.1.0",
     "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-paper": "^2.0.1",
