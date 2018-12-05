@@ -37,6 +37,8 @@
 	<string>Location Always Usage Description</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app is using location service to pin point your delivery address </string>
+	<key>NSMainNibFile</key>
+	<string>LaunchScreen</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to your microphone (for videos)</string>
 	<key>NSMotionUsageDescription</key>
@@ -61,7 +63,6 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>audio</string>
 		<string>fetch</string>
 		<string>location</string>
 		<string>remote-notification</string>
