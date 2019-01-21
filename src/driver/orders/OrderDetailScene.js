@@ -18,7 +18,8 @@ import Button from 'components/Button';
 import MapButtons from 'driver/orders/components/MapButtons';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import GEOLOCATION_CONFIG from 'utils/background-geolocation';
-import {API_URL} from 'utils/env';
+import {API_URL, NETWORK_PROTOCOL} from 'utils/env';
+import {SELECTORS as AUTH_SELECTORS} from "guest/common/selectors";
 
 class OrderDetailScene extends Component {
   static propTypes = {
@@ -36,7 +37,7 @@ class OrderDetailScene extends Component {
   };
 
   componentDidMount() {
-    let {order} = this.props;
+    let {order,profile} = this.props;
     let {job} = order;
 
     this.props.dispatch(
@@ -48,26 +49,44 @@ class OrderDetailScene extends Component {
     BackgroundGeolocation.on('location', this.onLocation);
     BackgroundGeolocation.on('http', this.onHttp);
 
-    BackgroundGeolocation.configure(
+    // BackgroundGeolocation.configure(
+    //   {
+    //     ...GEOLOCATION_CONFIG,
+    //     url: `http://${API_URL}/jobs/${job.id}/update/location`,
+    //   },
+    //   state => {
+    //     return {
+    //       enabled: this.props.order.trackeable,
+    //     };
+    //   },
+    // );
+
+    BackgroundGeolocation.ready(
       {
         ...GEOLOCATION_CONFIG,
-        url: `http://${API_URL}/jobs/${job.id}/update/location`,
+        reset: true,
+        locationAuthorizationRequest: 'Always',
+        url: `${NETWORK_PROTOCOL}${API_URL}/jobs/${job.id}/update/location`,
+        params: {
+          driver_id: profile.id,
+        },
       },
+
       state => {
+        if (!state.enabled && order.trackeable) {
+          BackgroundGeolocation.start();
+        }
+
         return {
-          enabled: this.props.order.trackeable,
+          enabled: job.status === 'driving',
         };
       },
     );
+
   }
 
   onLocation = location => {
     console.log('location', location);
-    // this.setState({
-    //   latitude: location.coords.latitude,
-    //   longitude: location.coords.longitude,
-    //   heading: location.coords.heading,
-    // });
   };
 
   onHttp = response => {
@@ -92,13 +111,28 @@ class OrderDetailScene extends Component {
   startDriving = () => {
     let {job} = this.props.order;
     BackgroundGeolocation.start();
-    this.props.dispatch(DRIVER_ACTIONS.startDriving(job.id));
+    BackgroundGeolocation.getCurrentPosition().then(location => {
+      let {latitude, longitude} = location.coords;
+      this.props.dispatch(
+        DRIVER_ACTIONS.startDriving(job.id, {
+          latitude: latitude,
+          longitude: longitude,
+        }),
+      );
+    });
   };
 
   stopDriving = () => {
     let {job} = this.props.order;
     BackgroundGeolocation.stop();
-    this.props.dispatch(DRIVER_ACTIONS.stopDriving(job.id));
+    BackgroundGeolocation.getCurrentPosition().then(location => {
+      let {latitude, longitude} = location.coords;
+      this.props.dispatch(DRIVER_ACTIONS.stopDriving(job.id, {
+          latitude: latitude,
+          longitude: longitude,
+        })
+      );
+    });
   };
 
   startWorking = () => {
@@ -112,10 +146,8 @@ class OrderDetailScene extends Component {
   };
 
   render() {
-    let {order} = this.props;
-
+    let {order,profile} = this.props;
     let {address, job} = order;
-
     return (
       <ScrollView
         style={{flex: 1}}
@@ -170,6 +202,7 @@ const makeMapStateToProps = () => {
     return {
       order: getOrderByID(state, props.navigation.state.params.orderID),
       orders: ORDER_SELECTORS.getUpcomingOrders(state),
+      profile: AUTH_SELECTORS.getAuthUserProfile(state),
     };
   };
   return mapStateToProps;

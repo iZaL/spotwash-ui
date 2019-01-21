@@ -16,10 +16,6 @@ export default class ListItem extends Component {
     iconProps: PropTypes.object,
   };
 
-  // shouldComponentUpdate() {
-  //   return false;
-  // }
-
   render() {
     let {
       onItemPress,
@@ -30,7 +26,6 @@ export default class ListItem extends Component {
       style,
       ...rest
     } = this.props;
-    return <View />;
     return (
       <PaperListItem.Item
         onPress={name ? () => onItemPress(name) : onItemPress}

@@ -3,6 +3,7 @@ const defaults = {};
 if (__DEV__) {
   module.exports = {
     ...defaults,
+    NETWORK_PROTOCOL: 'http://',
     API_URL: 'spotwash.test/api',
     SOCKET_SERVER: 'http://spotwash.test:3000',
     PAYMENT_ENDPOINT: 'http://spotwash.test/payment',

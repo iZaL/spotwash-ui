@@ -22,8 +22,7 @@ export default class OrderItems extends Component {
       <View style={styles.container}>
         <SectionTitle title={I18n.t('order_details')} />
 
-        {packages &&
-          packages.map((packageModel, index) => (
+        {packages.map((packageModel, index) => (
             <View style={styles.itemContainer} key={packageModel.id}>
               <Text style={styles.categoryTitle}>
                 {packageModel.category.parent
@@ -34,7 +33,7 @@ export default class OrderItems extends Component {
 
               <View style={styles.packageItemContainer}>
                 <Text style={styles.packageTitle}>{packageModel.name}</Text>
-                {packageModel.price && (
+                {!!packageModel.price && (
                   <Text style={styles.packagePrice}>
                     {packageModel.price} KD
                   </Text>

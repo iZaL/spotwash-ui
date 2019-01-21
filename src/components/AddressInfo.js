@@ -23,38 +23,26 @@ export default class AddressInfo extends Component {
     const {area, block, street, avenue, building} = this.props.address;
 
     return (
-      <View
-        style={[
-          styles.container,
-          border && {
-            margin: 5,
-            padding: 10,
-            borderRadius: 5,
-            borderColor: colors.mediumGrey,
-            borderWidth: 1,
-          },
-          style,
-        ]}>
-        <Text style={[styles.text, textStyle]}>
-          {area && <Text>{area.name + ', '}</Text>}
-          <Text>
-            {I18n.t('block')} {block},{' '}
-          </Text>
-          <Text>
-            {I18n.t('street')} {street},{' '}
-          </Text>
-          {avenue && (
-            <Text>
-              {I18n.t('avenue')} {avenue},{' '}
-            </Text>
-          )}
-          {building && (
-            <Text>
-              {I18n.t('building')} {building}
-            </Text>
-          )}
+      <Text style={[styles.value, style]}>
+        {area && <Text style={{textAlign: 'left'}}>{area.name + ', '}</Text>}
+
+        <Text>
+          {I18n.t('block')} {block},{' '}
         </Text>
-      </View>
+        <Text>
+          {I18n.t('street')} {street},{' '}
+        </Text>
+        {avenue && (
+          <Text>
+            {I18n.t('avenue')} {avenue},{' '}
+          </Text>
+        )}
+        {building && (
+          <Text>
+            {I18n.t('building')} {building}
+          </Text>
+        )}
+      </Text>
     );
   }
 }
