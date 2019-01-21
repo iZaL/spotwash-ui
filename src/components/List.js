@@ -39,7 +39,10 @@ export default class List extends Component {
       <Touchable onPress={() => onConfirm(item)}>
         <View style={styles.itemRowContainer}>
           <Text style={styles.itemTitle}>{item.name}</Text>
-          <Checkbox.Android status={activeIDs.includes(item.id) ? 'checked' : 'unchecked'} color="black"/>
+          <Checkbox.Android
+            status={activeIDs.includes(item.id) ? 'checked' : 'unchecked'}
+            color="black"
+          />
         </View>
       </Touchable>
     );

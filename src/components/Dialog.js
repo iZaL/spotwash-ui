@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {
-  Dialog,
-  Button,
-  Paragraph,
-  Colors,
-  Portal
-} from 'react-native-paper';
+import {Dialog, Button, Paragraph, Colors, Portal} from 'react-native-paper';
 import I18n from 'utils/locale';
 import {View} from 'react-native';
 

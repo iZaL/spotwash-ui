@@ -9,8 +9,9 @@ const pastOrders = state => state.driver.past_orders.ids;
 const getItemIdProp = (state, itemID) => itemID;
 
 const getOrderByID = () => {
-  return createSelector([schemas, getItemIdProp], (entities, itemID) =>
-    denormalize(itemID, Schema.orders, entities),
+  return createSelector(
+    [schemas, getItemIdProp],
+    (entities, itemID) => denormalize(itemID, Schema.orders, entities),
   );
 };
 

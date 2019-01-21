@@ -48,7 +48,8 @@ class TrackOrderScene extends Component {
     BackgroundGeolocation.on('location', this.onLocation);
     BackgroundGeolocation.on('http', this.onHttp);
 
-    BackgroundGeolocation.configure({
+    BackgroundGeolocation.configure(
+      {
         ...TRACKING_CONFIG,
         url: `http://${API_URL}/jobs/${job.id}/update/location`,
       },

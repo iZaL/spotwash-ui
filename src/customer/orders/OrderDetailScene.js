@@ -70,21 +70,19 @@ class OrderDetailScene extends Component {
               title={I18n.t('view_bids')}
             />
 
-            {order.job &&
-              order.job.driver &&
-              order.job.driver.user && (
-                <View>
-                  <SectionHeading title={I18n.t('driver_info')} />
-                  <DriverInfo driver={order.job.driver} />
-                  <Button
-                    onPress={this.trackOrder}
-                    primary
-                    raised
-                    dark
-                    title={I18n.t('track')}
-                  />
-                </View>
-              )}
+            {order.job && order.job.driver && order.job.driver.user && (
+              <View>
+                <SectionHeading title={I18n.t('driver_info')} />
+                <DriverInfo driver={order.job.driver} />
+                <Button
+                  onPress={this.trackOrder}
+                  primary
+                  raised
+                  dark
+                  title={I18n.t('track')}
+                />
+              </View>
+            )}
           </ScrollView>
         )}
       </View>
@@ -108,6 +106,7 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export default connect(makeMapStateToProps, mapDispatchToProps)(
-  OrderDetailScene,
-);
+export default connect(
+  makeMapStateToProps,
+  mapDispatchToProps,
+)(OrderDetailScene);

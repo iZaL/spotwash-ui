@@ -7,11 +7,7 @@ import {
   View,
   Platform,
 } from 'react-native';
-import {
-  Caption,
-  Colors,
-  Dialog,
-} from 'react-native-paper';
+import {Caption, Colors, Dialog} from 'react-native-paper';
 import I18n from 'utils/locale';
 import AddressInfo from 'components/AddressInfo';
 import colors from 'assets/theme/colors';

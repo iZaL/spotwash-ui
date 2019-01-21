@@ -200,5 +200,5 @@ export const ACTIONS = {
   fetchJobPhotos,
   uploadImages,
   approveImages,
-  joinTrackPool
+  joinTrackPool,
 };

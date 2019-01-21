@@ -385,7 +385,6 @@ function* setPaymentSuccess(action) {
   }
 }
 
-
 // Monitoring Sagas
 function* fetchCategoriesMonitor() {
   yield takeLatest(ACTION_TYPES.CATEGORY_REQUEST, fetchCategories);
@@ -459,7 +458,6 @@ function* setPaymentSuccessMonitor() {
   yield takeLatest(ACTION_TYPES.SET_PAYMENT_SUCCESS_REQUEST, setPaymentSuccess);
 }
 
-
 export const sagas = all([
   fork(fetchCategoriesMonitor),
   fork(fetchHasFreeWashMonitor),
@@ -477,5 +475,4 @@ export const sagas = all([
   fork(confirmBidMonitor),
   fork(fetchDriversMonitor),
   fork(setPaymentSuccessMonitor),
-
 ]);

@@ -169,32 +169,32 @@ class DriverDetailScene extends PureComponent {
         />
 
         {!!driver.working_order && (
-            <View>
-              <SectionHeading
-                title={I18n.t('working_order')}
-                onButtonPress={this.loadCurrentOrders}
-              />
+          <View>
+            <SectionHeading
+              title={I18n.t('working_order')}
+              onButtonPress={this.loadCurrentOrders}
+            />
 
-              <OrdersList
-                items={[driver.working_order]}
-                onItemPress={this.onOrdersListItemPress}
-              />
-            </View>
-          )}
+            <OrdersList
+              items={[driver.working_order]}
+              onItemPress={this.onOrdersListItemPress}
+            />
+          </View>
+        )}
 
         {!!driver.upcoming_orders && (
-            <View>
-              <SectionHeading
-                title={I18n.t('upcoming_orders')}
-                onButtonPress={this.loadCurrentOrders}
-              />
+          <View>
+            <SectionHeading
+              title={I18n.t('upcoming_orders')}
+              onButtonPress={this.loadCurrentOrders}
+            />
 
-              <OrdersList
-                items={driver.upcoming_orders}
-                onItemPress={this.onOrdersListItemPress}
-              />
-            </View>
-          )}
+            <OrdersList
+              items={driver.upcoming_orders}
+              onItemPress={this.onOrdersListItemPress}
+            />
+          </View>
+        )}
 
         <Modal
           isVisible={this.state.showStartEndTimeModal}

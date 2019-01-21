@@ -19,7 +19,7 @@ import colors from 'assets/theme/colors';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import {API_URL, GEOLOCATION_SOUNDS_ENABLED} from 'utils/env';
 import TRACKING_CONFIG from 'utils/tracking';
-import {SELECTORS as AUTH_SELECTORS} from "guest/common/selectors";
+import {SELECTORS as AUTH_SELECTORS} from 'guest/common/selectors';
 
 class Home extends Component {
   static propTypes = {
@@ -56,7 +56,6 @@ class Home extends Component {
     this.props.dispatch(DRIVER_ACTIONS.fetchWorkingOrder());
     this.props.dispatch(DRIVER_ACTIONS.fetchUpcomingOrders());
 
-
     BackgroundGeolocation.ready(
       {
         // desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
@@ -79,16 +78,15 @@ class Home extends Component {
     BackgroundGeolocation.configure({
       ...TRACKING_CONFIG,
       url: `http://${API_URL}/driver/track/location/update`,
-      params: {               // <-- Optional HTTP params
-        driver_id : this.props.driver.id
-      }
+      params: {
+        // <-- Optional HTTP params
+        driver_id: this.props.driver.id,
+      },
     });
 
     BackgroundGeolocation.start();
 
     AppState.addEventListener('change', this.handleAppStateChange);
-
-
 
     this.props.navigation.setParams({
       handleRightButtonPress: this.activateDriver,
@@ -100,12 +98,12 @@ class Home extends Component {
     AppState.removeEventListener('change', this.handleAppStateChange);
   }
 
-  onLocation = (val) => {
-    console.log('val',val);
+  onLocation = val => {
+    console.log('val', val);
   };
 
-  onHttp = (location) => {
-    console.log('loc',location);
+  onHttp = location => {
+    console.log('loc', location);
   };
 
   activateDriver = () => {

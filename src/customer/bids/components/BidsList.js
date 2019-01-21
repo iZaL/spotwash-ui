@@ -16,11 +16,11 @@ export default class BidsList extends Component {
 
   renderItem = ({item}) => {
     const {onItemPress} = this.props;
-    console.log('item',item);
+    console.log('item', item);
     return (
       <Touchable onPress={() => onItemPress(item)} key={item.id}>
         <CompanyCard
-          company={item.company || {user:{}}}
+          company={item.company || {user: {}}}
           amount={item.amount}
           showConfirmed={item.accepted}
         />

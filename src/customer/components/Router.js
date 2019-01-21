@@ -22,13 +22,11 @@ import LanguageSelect from 'app/LanguageSelect';
 import BidsListScene from 'customer/bids/BidsListScene';
 import BidsDetailScene from 'customer/bids/BidsDetailScene';
 import TrackScene from 'customer/orders/TrackScene';
-import Payment from "customer/cart/Payment";
+import Payment from 'customer/cart/Payment';
 
 const getDrawerIcon = navigation => {
   return {
-    headerLeft: (
-      <DrawerIcon onPress={() => navigation.toggleDrawer()} />
-    ),
+    headerLeft: <DrawerIcon onPress={() => navigation.toggleDrawer()} />,
   };
 };
 

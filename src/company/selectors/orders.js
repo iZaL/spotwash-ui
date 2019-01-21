@@ -11,8 +11,9 @@ const getItemIdProp = (state, itemID) => itemID;
 const timingsEntity = state => state.entities.timings;
 
 const getOrderByID = () => {
-  return createSelector([schemas, getItemIdProp], (entities, itemID) =>
-    denormalize(itemID, Schema.orders, entities),
+  return createSelector(
+    [schemas, getItemIdProp],
+    (entities, itemID) => denormalize(itemID, Schema.orders, entities),
   );
 };
 
@@ -51,9 +52,12 @@ const getPastOrders = createSelector(
   },
 );
 
-const getTimings = createSelector([timingsEntity], timings => {
-  return Object.keys(timings).map(timing => timings[timing]);
-});
+const getTimings = createSelector(
+  [timingsEntity],
+  timings => {
+    return Object.keys(timings).map(timing => timings[timing]);
+  },
+);
 
 const getPendingBids = createSelector(
   [PROFILE_SELECTOR.getProfile, schemas],

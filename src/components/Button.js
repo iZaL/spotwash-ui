@@ -38,7 +38,7 @@ export default class extends Component {
         disabled={disabled}
         mode="contained"
         compact
-        style={[ styles.button,style,disabled && {opacity: 0.4}]}
+        style={[styles.button, style, disabled && {opacity: 0.4}]}
         {...rest}>
         <Text style={[styles.buttonText, titleStyle]}>{title}</Text>
       </Button>
@@ -49,7 +49,7 @@ export default class extends Component {
 const styles = StyleSheet.create({
   button: {
     marginHorizontal: 5,
-    marginVertical:5,
+    marginVertical: 5,
   },
   buttonText: {},
 });

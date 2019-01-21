@@ -105,7 +105,6 @@ function fetchDrivers() {
   return request({path});
 }
 
-
 function setPaymentSuccess(params) {
   const path = `customer/orders/payment/success`;
   let requestParams = {
@@ -134,5 +133,4 @@ export const API = {
   fetchDrivers,
   confirmBid,
   setPaymentSuccess,
-
 };

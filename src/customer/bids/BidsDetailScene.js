@@ -16,7 +16,6 @@ import BidItems from 'customer/bids/components/BidItems';
 import {Subheading, Title} from 'react-native-paper';
 
 class BidsDetailScene extends PureComponent {
-
   /**
    * @props
    * orderID
@@ -41,8 +40,8 @@ class BidsDetailScene extends PureComponent {
 
     return this.props.navigation.navigate('Payment', {
       orderID: params.order_id,
-      bidID:params.bid_id,
-      companyID:params.company_id
+      bidID: params.bid_id,
+      companyID: params.company_id,
     });
 
     //@todo : payment scene :

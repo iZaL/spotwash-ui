@@ -9,9 +9,7 @@ const HomeStack = createStackNavigator({
   Home: {
     screen: Home,
     navigationOptions: ({navigation}) => ({
-      headerLeft: (
-        <DrawerIcon onPress={() => navigation.toggleDrawer()} />
-      ),
+      headerLeft: <DrawerIcon onPress={() => navigation.toggleDrawer()} />,
     }),
   },
 });

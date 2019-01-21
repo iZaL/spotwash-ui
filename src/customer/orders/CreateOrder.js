@@ -30,7 +30,7 @@ import CreateAddressFields from 'customer/cart/components/CreateAddressFields';
 import OrderSuccess from 'customer/cart/components/OrderSuccess';
 import ConfirmedButton from 'components/ConfirmedButton';
 import moment from 'moment';
-import MapView from "react-native-maps";
+import MapView from 'react-native-maps';
 const DEFAULT_PADDING = {top: 100, right: 100, bottom: 100, left: 100};
 
 const {width, height} = Dimensions.get('window');
@@ -149,7 +149,6 @@ class CreateOrder extends PureComponent {
       animated: true,
     });
   };
-
 
   setCartItemsCount = () => {
     return this.props.navigation.setParams({
@@ -492,20 +491,9 @@ class CreateOrder extends PureComponent {
   };
 
   render() {
-    let {
-      cart,
-      user,
-      cartTotal,
-      categories,
-      drivers,
-      areas
-    } = this.props;
+    let {cart, user, cartTotal, categories, drivers, areas} = this.props;
 
-    let {
-      activeCategoryID,
-      activePackageIDs,
-      selectedAddressID,
-    } = cart;
+    let {activeCategoryID, activePackageIDs, selectedAddressID} = cart;
 
     let {
       showOrderSuccessModal,
@@ -513,7 +501,7 @@ class CreateOrder extends PureComponent {
       addressCreateFieldsModalVisible,
       addressTypeSelectionModalVisible,
       address,
-      savingAddress
+      savingAddress,
     } = this.state;
 
     let origin = {
@@ -646,7 +634,6 @@ class CreateOrder extends PureComponent {
           useNativeDriver={true}
           hideModalContentWhileAnimating={true}
           style={{margin: 0, padding: 0, backgroundColor: 'white'}}>
-
           <View style={{height: 350}}>
             <MapView
               // provider={PROVIDER_GOOGLE}
@@ -730,4 +717,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateOrder);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CreateOrder);

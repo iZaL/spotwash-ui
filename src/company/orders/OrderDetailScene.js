@@ -144,26 +144,21 @@ class OrderDetailScene extends Component {
 
         {order.total && <OrderTotal total={order.total} />}
 
-        {order.user &&
-        order.user.id && (
+        {order.user && order.user.id && (
           <UserInfo user={order.user} makeCall={this.makeCall} />
         )}
 
-
-        {
-          !order.bid_open && order.is_owner &&
+        {!order.bid_open && order.is_owner && (
           <DriverAssign
             order={order}
             drivers={drivers}
             onDriversListItemPress={this.selectDriver}
           />
-        }
+        )}
 
         {buttonComponent}
 
-        {order.job &&
-        order.job.driver &&
-        order.job.driver.user && (
+        {order.job && order.job.driver && order.job.driver.user && (
           <View>
             <DriverInfo driver={order.job.driver} />
             <Button

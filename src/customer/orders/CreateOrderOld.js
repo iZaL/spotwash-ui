@@ -674,4 +674,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateOrder);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CreateOrder);

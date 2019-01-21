@@ -11,8 +11,9 @@ const getTrackings = state => state.company.trackings;
 const getItemIdProp = (state, itemID) => itemID;
 
 const getDriverByID = () => {
-  return createSelector([schemas, getItemIdProp], (entities, itemID) =>
-    denormalize(itemID, Schema.drivers, entities),
+  return createSelector(
+    [schemas, getItemIdProp],
+    (entities, itemID) => denormalize(itemID, Schema.drivers, entities),
   );
 };
 

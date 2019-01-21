@@ -131,7 +131,7 @@ class TrackScene extends PureComponent {
   };
 
   render() {
-    let {orders,drivers} = this.props;
+    let {orders, drivers} = this.props;
 
     // let origin = {
     //   // latitude: 37.48522,
@@ -152,7 +152,7 @@ class TrackScene extends PureComponent {
       longitudeDelta: 1,
     };
 
-    console.log('drivers',drivers);
+    console.log('drivers', drivers);
 
     // let drivers = [
     //   {

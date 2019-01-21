@@ -346,7 +346,6 @@ class Cart extends PureComponent {
     //   this.showAddressCreateModal();
     // }
 
-
     if (type === 'current_location') {
       navigator.geolocation.getCurrentPosition(
         position => {
@@ -372,7 +371,6 @@ class Cart extends PureComponent {
     } else {
       this.showAddressCreateModal();
     }
-
   };
 
   render() {
@@ -386,7 +384,7 @@ class Cart extends PureComponent {
       isFetchingTimings,
     } = this.props;
 
-    console.log('this.state',this.state);
+    console.log('this.state', this.state);
 
     let {selectedDate, selectedAddressID, selectedTimeID, isFreeWash} = cart;
 
@@ -619,4 +617,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Cart);

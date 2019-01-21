@@ -28,25 +28,37 @@ const getCategories = createSelector(
   },
 );
 
-const getParentCategories = createSelector([getCategories], categories => {
-  if (categories.length) {
-    return categories.filter(category => category.parent_id === null);
-  }
-  return [];
-});
+const getParentCategories = createSelector(
+  [getCategories],
+  categories => {
+    if (categories.length) {
+      return categories.filter(category => category.parent_id === null);
+    }
+    return [];
+  },
+);
 
-const getTimings = createSelector([timingsEntity], timings => {
-  return Object.keys(timings).map(timing => timings[timing]);
-});
+const getTimings = createSelector(
+  [timingsEntity],
+  timings => {
+    return Object.keys(timings).map(timing => timings[timing]);
+  },
+);
 
-const getAreas = createSelector([areasEntity], timings => {
-  return Object.keys(timings).map(timing => timings[timing]);
-});
+const getAreas = createSelector(
+  [areasEntity],
+  timings => {
+    return Object.keys(timings).map(timing => timings[timing]);
+  },
+);
 
 const getOrderByID = () => {
-  return createSelector([schemas, getItemIdProp], (entities, itemID) => {
-    return denormalize(itemID, Schema.orders, entities);
-  });
+  return createSelector(
+    [schemas, getItemIdProp],
+    (entities, itemID) => {
+      return denormalize(itemID, Schema.orders, entities);
+    },
+  );
 };
 
 const getCartItems = createSelector(
@@ -68,11 +80,14 @@ const getCartItems = createSelector(
   },
 );
 
-const getCartTotal = createSelector([cartItems], items => {
-  return Object.keys(items)
-    .map(item => items[item].total)
-    .reduce((total, amount) => total + amount, 0);
-});
+const getCartTotal = createSelector(
+  [cartItems],
+  items => {
+    return Object.keys(items)
+      .map(item => items[item].total)
+      .reduce((total, amount) => total + amount, 0);
+  },
+);
 
 const getLocationUpdatesForJob = () => {
   return createSelector(

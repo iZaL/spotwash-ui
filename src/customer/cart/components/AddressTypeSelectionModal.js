@@ -14,7 +14,6 @@ import IconFactory from 'components/IconFactory';
 import colors from 'assets/theme/colors';
 
 export default class AddressTypeSelectionModal extends Component {
-
   state = {
     type: this.props.active,
   };
@@ -36,10 +35,11 @@ export default class AddressTypeSelectionModal extends Component {
               <TouchableRipple
                 onPress={() => this.setState({type: 'current_location'})}>
                 <View style={styles.row}>
-
                   <RadioButton
                     value="first"
-                    checked={type === 'current_location' ? 'checked' : 'unchecked'}
+                    checked={
+                      type === 'current_location' ? 'checked' : 'unchecked'
+                    }
                     color="black"
                   />
                   <IconFactory
@@ -50,7 +50,6 @@ export default class AddressTypeSelectionModal extends Component {
                   <Subheading style={styles.text}>
                     {I18n.t('current_location')}
                   </Subheading>
-
                 </View>
               </TouchableRipple>
               <TouchableRipple

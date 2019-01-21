@@ -285,7 +285,6 @@ function subscribeToDriverTrackings() {
   };
 }
 
-
 function paymentSuccess(params) {
   return {
     type: ACTION_TYPES.SET_PAYMENT_SUCCESS_REQUEST,
@@ -321,5 +320,4 @@ export const ACTIONS = {
   confirmBid,
   checkout,
   paymentSuccess,
-
 };

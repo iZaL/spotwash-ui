@@ -38,7 +38,7 @@ export default class BidItems extends Component {
           items={bid.packages}
           title={item => `${item.category.parent.name}`}
           description={item => this.renderDescription(item)}
-          onItemPress={()=>{}}
+          onItemPress={() => {}}
           // onItemPress={this.onPackageBidListItemPress}
         />
       </View>

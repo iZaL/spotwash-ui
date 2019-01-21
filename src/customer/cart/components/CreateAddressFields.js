@@ -6,7 +6,7 @@ import AddressFormFields from 'customer/cart/components/AddressFormFields';
 import Divider from 'components/Divider';
 import MapButtons from 'customer/cart/components/MapButtons';
 import {Title} from 'react-native-paper';
-import MapView,{PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 const {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;

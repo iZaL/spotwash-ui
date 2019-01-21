@@ -193,26 +193,24 @@ class PhotosUploadScene extends Component {
           onItemDeletePress={this.onPhotoListItemDeletePress}
         />
 
-        {order.job &&
-          order.job.photos &&
-          order.job.photos.length && (
-            <View>
-              <View style={{padding: 10, backgroundColor: 'white'}}>
-                <FormTextInput
-                  field="comment"
-                  onValueChange={this.onFieldChange}
-                  label={I18n.t('comment')}
-                />
-              </View>
-              <Button
-                title={I18n.t('approve_images')}
-                onPress={this.showImageApprovalDialog}
-                raised
-                // disabled={order.job.photos_approved}
-                style={{margin: 20, marginBottom: 50}}
+        {order.job && order.job.photos && order.job.photos.length && (
+          <View>
+            <View style={{padding: 10, backgroundColor: 'white'}}>
+              <FormTextInput
+                field="comment"
+                onValueChange={this.onFieldChange}
+                label={I18n.t('comment')}
               />
             </View>
-          )}
+            <Button
+              title={I18n.t('approve_images')}
+              onPress={this.showImageApprovalDialog}
+              raised
+              // disabled={order.job.photos_approved}
+              style={{margin: 20, marginBottom: 50}}
+            />
+          </View>
+        )}
 
         <View
           style={{

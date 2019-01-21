@@ -13,14 +13,12 @@ import Dialog from 'components/Dialog';
 import I18n from 'utils/locale';
 
 class Payment extends Component {
-
   /**
    * @props
    * orderID
    * bidID
    * companyID
    */
-
 
   static propTypes = {
     navigation: PropTypes.shape({
@@ -57,7 +55,6 @@ class Payment extends Component {
         scene: 'success',
       });
 
-
       let params = {
         order_id: this.props.navigation.getParam('orderID'),
         bid_id: this.props.navigation.getParam('bidID'),
@@ -65,7 +62,6 @@ class Payment extends Component {
       };
 
       this.props.dispatch(ACTIONS.confirmBid(params));
-
 
       this.props.dispatch(
         ACTIONS.paymentSuccess({
@@ -103,7 +99,7 @@ class Payment extends Component {
         order.payment_token
       }&bid_id=${this.props.navigation.getParam('bidID')}`;
 
-      console.log('url',url);
+      console.log('url', url);
 
       switch (scene) {
         case 'payment':

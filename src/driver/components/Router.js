@@ -14,9 +14,7 @@ import PhotosUploadScene from 'driver/orders/PhotosUploadScene';
 
 const getDrawerIcon = navigation => {
   return {
-    headerLeft: (
-      <DrawerIcon onPress={() => navigation.toggleDrawer()} />
-    ),
+    headerLeft: <DrawerIcon onPress={() => navigation.toggleDrawer()} />,
   };
 };
 

@@ -50,7 +50,7 @@ export default class ConfirmedButton extends Component {
     let {visible} = this.state;
     let {rightText, ...rest} = this.props;
     return (
-      <View style={{flex:1}}>
+      <View style={{flex: 1}}>
         <Button
           underlayColor="transparent"
           {...rest}
