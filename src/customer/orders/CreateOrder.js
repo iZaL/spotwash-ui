@@ -55,6 +55,7 @@ class CreateOrder extends PureComponent {
       latitude: 29.3759,
       longitude: 47.9774,
     },
+    savingAddress: false,
   };
 
   static navigationOptions = ({navigation}) => {
@@ -273,6 +274,10 @@ class CreateOrder extends PureComponent {
   };
 
   saveAddress = address => {
+    this.setState({
+      savingAddress: true,
+    });
+
     return new Promise((resolve, reject) => {
       this.props.actions.saveAddress({address, resolve, reject});
     })
@@ -282,16 +287,42 @@ class CreateOrder extends PureComponent {
             address: {
               ...address,
             },
+            savingAddress: false,
           },
           () => {
             this.showAddressCreateFieldsModal();
           },
         );
+        this.hideAddressCreateModal();
       })
       .catch(e => {
-        console.log('error', e);
+        this.hideAddressCreateModal();
+        this.setState({
+          savingAddress: false,
+        });
       });
   };
+
+  // saveAddress = address => {
+  //   return new Promise((resolve, reject) => {
+  //     this.props.actions.saveAddress({address, resolve, reject});
+  //   })
+  //     .then(address => {
+  //       this.setState(
+  //         {
+  //           address: {
+  //             ...address,
+  //           },
+  //         },
+  //         () => {
+  //           this.showAddressCreateFieldsModal();
+  //         },
+  //       );
+  //     })
+  //     .catch(e => {
+  //       console.log('error', e);
+  //     });
+  // };
 
   updateAddress = address => {
     return new Promise((resolve, reject) => {
@@ -466,7 +497,8 @@ class CreateOrder extends PureComponent {
       user,
       cartTotal,
       categories,
-      drivers
+      drivers,
+      areas
     } = this.props;
 
     let {
@@ -481,6 +513,7 @@ class CreateOrder extends PureComponent {
       addressCreateFieldsModalVisible,
       addressTypeSelectionModalVisible,
       address,
+      savingAddress
     } = this.state;
 
     let origin = {
@@ -585,6 +618,8 @@ class CreateOrder extends PureComponent {
             onCancel={this.hideAddressCreateModal}
             onSave={this.saveAddress}
             address={address}
+            areas={areas}
+            savingAddress={savingAddress}
           />
         </Modal>
 
@@ -691,7 +726,7 @@ function mapStateToProps(state) {
     isAuthenticated: USER_SELECTORS.isAuthenticated(state),
     checkout: state.customer.checkout,
     drivers: SELECTORS.getDriverTrackings(state),
-
+    areas: SELECTORS.getAreas(state),
   };
 }
 

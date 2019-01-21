@@ -1,17 +1,12 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View, Dimensions, ScrollView} from 'react-native';
-import I18n from 'utils/locale';
-import MapPicker from 'customer/cart/components/MapPicker';
+import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
 import colors from 'assets/theme/colors';
 import AddressFormFields from 'customer/cart/components/AddressFormFields';
-import BackgroundGeolocation from 'react-native-background-geolocation';
 import Divider from 'components/Divider';
-import SelectArea from 'customer/cart/components/SelectArea';
 import MapButtons from 'customer/cart/components/MapButtons';
 import {Title} from 'react-native-paper';
-import Map from 'components/Map';
-import MapView from 'react-native-maps';
+import MapView,{PROVIDER_GOOGLE} from 'react-native-maps';
 
 const {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -75,6 +70,7 @@ export default class extends PureComponent {
         <View style={styles.map}>
           {initialized && (
             <MapView
+              provider={PROVIDER_GOOGLE}
               ref={ref => (this.map = ref)}
               style={{
                 height: 250,

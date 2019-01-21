@@ -1,13 +1,9 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View, Alert} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import I18n from 'utils/locale';
 import MapPicker from 'customer/cart/components/MapPicker';
 import colors from 'assets/theme/colors';
-import AddressFormFields from 'customer/cart/components/AddressFormFields';
-import BackgroundGeolocation from 'react-native-background-geolocation';
-import Divider from 'components/Divider';
-import SelectArea from 'customer/cart/components/SelectArea';
 import MapButtons from 'customer/cart/components/MapButtons';
 
 export default class extends PureComponent {
@@ -21,38 +17,11 @@ export default class extends PureComponent {
     this.state = {
       label: null,
       mapPickerVisibility: false,
-      block: null,
-      street: null,
-      avenue: null,
-      building: null,
       country: 'KW',
-      latitude: 29.3759,
-      longitude: 47.9774,
+      latitude: this.props.address.latitude || 29.3759,
+      longitude: this.props.address.longitude || 47.9774,
       area_id: null,
     };
-  }
-
-  // shouldComponentUpdate(nextProps, prevState) {
-  //   return nextProps.items !== this.props.items || prevState !== this.state;
-  // }
-
-  componentDidMount() {
-    BackgroundGeolocation.getCurrentPosition(
-      location => {
-        let {latitude, longitude} = location.coords;
-        this.setState({
-          latitude: latitude,
-          longitude: longitude,
-          initialized: true,
-        });
-      },
-      error => {},
-      {
-        persist: true,
-        samples: 1,
-        maximumAge: 5000,
-      },
-    );
   }
 
   hideScreen = () => {
@@ -75,53 +44,15 @@ export default class extends PureComponent {
     );
   };
 
-  updateFormFields = (key, value) => {
-    this.setState({
-      [key]: value,
-    });
-  };
-
   updateAddressFields = (address: object) => {
     this.setState(address);
   };
 
-  setArea = area => {
-    let {latitude, longitude} = area;
-    let params = {
-      latitude: latitude,
-      longitude: longitude,
-      area_id: area.id,
-    };
-    this.updateAddressFields(params);
-  };
-
   render() {
-    const {areas} = this.props;
-
-    const {
-      latitude,
-      longitude,
-      block,
-      street,
-      avenue,
-      building,
-      area_id,
-    } = this.state;
+    const {latitude, longitude, area_id} = this.state;
 
     return (
       <View style={styles.container}>
-        <View style={styles.searchInputWrapper}>
-          <SelectArea setArea={this.setArea} items={areas} area_id={area_id} />
-          <Divider />
-          <AddressFormFields
-            block={block}
-            avenue={avenue}
-            street={street}
-            building={building}
-            updateFields={this.updateFormFields}
-          />
-        </View>
-
         <MapPicker
           updateAddress={this.updateAddressFields}
           address={{
@@ -130,8 +61,15 @@ export default class extends PureComponent {
             area_id: area_id,
           }}
         />
-
-        <MapButtons save={this.saveAddress} close={this.hideScreen} />
+        <MapButtons
+          save={this.saveAddress}
+          close={this.hideScreen}
+          style={{
+            zIndex: 5000,
+            position: 'absolute',
+            bottom: 20,
+          }}
+        />
       </View>
     );
   }
@@ -143,17 +81,5 @@ const styles = StyleSheet.create({
     margin: 0,
     opacity: 1,
     backgroundColor: colors.fadedWhite,
-  },
-  searchInputWrapper: {
-    zIndex: 5000,
-    top: 20,
-    margin: 10,
-    marginTop: 40,
-    backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.primary,
-  },
-  searchInputContainer: {
-    flexDirection: 'row',
   },
 });

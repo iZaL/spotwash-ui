@@ -311,39 +311,68 @@ class Cart extends PureComponent {
   };
 
   onAddressTypeSelection = (type: string) => {
+    alert(type);
     this.setState({
       addressType: type,
     });
 
     this.hideAddressTypeSelectionModal();
 
+    // if (type === 'current_location') {
+    //   BackgroundGeolocation.getCurrentPosition(
+    //     location => {
+    //       let {latitude, longitude} = location.coords;
+    //       this.setState(
+    //         {
+    //           address: {
+    //             latitude: latitude,
+    //             longitude: longitude,
+    //           },
+    //         },
+    //         () => {},
+    //       );
+    //     },
+    //     error => {
+    //       console.log('error');
+    //     },
+    //     {
+    //       persist: true,
+    //       samples: 1,
+    //       maximumAge: 5000,
+    //     },
+    //   );
+    //   this.saveAddress(this.state.address);
+    // } else {
+    //   this.showAddressCreateModal();
+    // }
+
+
     if (type === 'current_location') {
-      BackgroundGeolocation.getCurrentPosition(
-        location => {
-          let {latitude, longitude} = location.coords;
+      navigator.geolocation.getCurrentPosition(
+        position => {
           this.setState(
             {
               address: {
-                latitude: latitude,
-                longitude: longitude,
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
               },
             },
-            () => {},
+            () => {
+              this.showAddressCreateModal();
+            },
           );
         },
-        error => {
-          console.log('error');
-        },
+        error => {},
         {
-          persist: true,
-          samples: 1,
-          maximumAge: 5000,
+          enableHighAccuracy: true,
+          timeout: 20000,
+          maximumAge: 1000,
         },
       );
-      this.saveAddress(this.state.address);
     } else {
       this.showAddressCreateModal();
     }
+
   };
 
   render() {
@@ -356,6 +385,8 @@ class Cart extends PureComponent {
       timings,
       isFetchingTimings,
     } = this.props;
+
+    console.log('this.state',this.state);
 
     let {selectedDate, selectedAddressID, selectedTimeID, isFreeWash} = cart;
 
