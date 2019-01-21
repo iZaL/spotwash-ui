@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {List as PaperListItem} from 'react-native-paper';
 import I18n from 'utils/locale';
 import IconFactory from 'components/IconFactory';
+import {View} from "react-native";
 
 export default class ListItem extends Component {
   static propTypes = {
@@ -29,6 +30,7 @@ export default class ListItem extends Component {
       style,
       ...rest
     } = this.props;
+    return (<View/>);
     return (
       <PaperListItem.Item
         onPress={name ? () => onItemPress(name) : onItemPress}

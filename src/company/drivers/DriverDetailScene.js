@@ -168,8 +168,7 @@ class DriverDetailScene extends PureComponent {
           driver={driver}
         />
 
-        {driver.working_order &&
-          driver.working_order.id && (
+        {!!driver.working_order && (
             <View>
               <SectionHeading
                 title={I18n.t('working_order')}
@@ -183,8 +182,7 @@ class DriverDetailScene extends PureComponent {
             </View>
           )}
 
-        {driver.upcoming_orders &&
-          driver.upcoming_orders.length && (
+        {!!driver.upcoming_orders && (
             <View>
               <SectionHeading
                 title={I18n.t('upcoming_orders')}

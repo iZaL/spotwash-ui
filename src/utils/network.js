@@ -35,14 +35,15 @@ export async function request({
 
   if (__DEV__) {
     if (console.group) {
-      console.groupCollapsed('action', 'NETWORK_REQUEST');
+      // console.groupCollapsed('action', 'NETWORK_REQUEST');
+      console.log('action', 'NETWORK_REQUEST');
       console.log({
         path: fullUrl,
         method: method,
         params: params,
         api_token: apiToken,
       });
-      console.groupEnd();
+      // console.groupEnd();
     }
   }
 
@@ -79,9 +80,10 @@ export async function request({
       // .then(({json}) => {
       if (__DEV__) {
         if (console.group) {
-          console.groupCollapsed('action', 'NETWORK_RESPONSE');
+          // console.groupCollapsed('action', 'NETWORK_RESPONSE');
+          console.log('action', 'NETWORK_RESPONSE');
           console.log('payload', json);
-          console.groupEnd();
+          // console.groupEnd();
         }
       }
 

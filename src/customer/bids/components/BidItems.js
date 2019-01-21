@@ -13,15 +13,15 @@ export default class BidItems extends Component {
   renderDescription = item => {
     return (
       <View style={styles.descriptionContainer}>
-        <Text>
+        <View>
           <Text style={{marginHorizontal: 10}}>{`${item.category.name} - ${
             item.name
           }    `}</Text>
-          {item.has_deducted && (
+          {!!item.has_deducted && (
             <Text style={styles.textLine}>{item.actual_price} KD</Text>
           )}
           <Text style={{paddingHorizontal: 10}}> {item.price} KD</Text>
-        </Text>
+        </View>
       </View>
     );
   };
@@ -38,6 +38,7 @@ export default class BidItems extends Component {
           items={bid.packages}
           title={item => `${item.category.parent.name}`}
           description={item => this.renderDescription(item)}
+          onItemPress={()=>{}}
           // onItemPress={this.onPackageBidListItemPress}
         />
       </View>

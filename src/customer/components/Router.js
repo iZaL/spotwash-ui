@@ -27,7 +27,7 @@ import Payment from "customer/cart/Payment";
 const getDrawerIcon = navigation => {
   return {
     headerLeft: (
-      <DrawerIcon onPress={() => navigation.navigate('DrawerToggle')} />
+      <DrawerIcon onPress={() => navigation.toggleDrawer()} />
     ),
   };
 };
@@ -198,9 +198,7 @@ const SettingsStack = createStackNavigator(
 );
 
 const DrawerRoutes = {
-  HomeStack: {
-    screen: HomeStack,
-  },
+  HomeStack: {screen: HomeStack},
   SettingsStack: {screen: SettingsStack},
   PastOrdersStack: {screen: PastOrdersStack},
   UpcomingOrdersStack: {screen: UpcomingOrdersStack},

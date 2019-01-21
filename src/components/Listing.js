@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import Divider from 'components/Divider';
 import colors from 'assets/theme/colors';
 import CheckedListItem from 'components/CheckedListItem';

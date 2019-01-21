@@ -17,9 +17,9 @@ export default class DrawerHeader extends Component {
     }).isRequired,
   };
 
-  shouldComponentUpdate() {
-    return false;
-  }
+  // shouldComponentUpdate() {
+  //   return false;
+  // }
 
   render() {
     let {user} = this.props;

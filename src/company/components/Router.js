@@ -22,7 +22,7 @@ import MakeBidScene from 'company/orders/MakeBidScene';
 const getDrawerIcon = navigation => {
   return {
     headerLeft: (
-      <DrawerIcon onPress={() => navigation.navigate('DrawerToggle')} />
+      <DrawerIcon onPress={() => navigation.toggleDrawer()} />
     ),
   };
 };
