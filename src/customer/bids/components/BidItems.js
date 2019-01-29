@@ -12,8 +12,8 @@ export default class BidItems extends Component {
 
   renderDescription = item => {
     return (
-      <View style={styles.descriptionContainer}>
-        <View>
+      <Text style={styles.descriptionContainer}>
+        <Text>
           <Text style={{marginHorizontal: 10}}>{`${item.category.name} - ${
             item.name
           }    `}</Text>
@@ -21,8 +21,8 @@ export default class BidItems extends Component {
             <Text style={styles.textLine}>{item.actual_price} KD</Text>
           )}
           <Text style={{paddingHorizontal: 10}}> {item.price} KD</Text>
-        </View>
-      </View>
+        </Text>
+      </Text>
     );
   };
 
