@@ -26,6 +26,7 @@ export default class AddressTypeSelectionModal extends Component {
   render() {
     let {type} = this.state;
     const {visible, close, onPress} = this.props;
+
     return (
       <Dialog onDismiss={close} visible={visible}>
         <Dialog.Title>{I18n.t('select_location_type')}</Dialog.Title>
@@ -35,13 +36,14 @@ export default class AddressTypeSelectionModal extends Component {
               <TouchableRipple
                 onPress={() => this.setState({type: 'current_location'})}>
                 <View style={styles.row}>
-                  <RadioButton
-                    value="first"
-                    checked={
-                      type === 'current_location' ? 'checked' : 'unchecked'
-                    }
-                    color="black"
-                  />
+                  <View pointerEvents="none">
+                    <RadioButton
+                      value="current_location"
+                      status={
+                        type === 'current_location' ? 'checked' : 'unchecked'
+                      }
+                    />
+                  </View>
                   <IconFactory
                     type="MaterialIcons"
                     name="my-location"
@@ -57,8 +59,8 @@ export default class AddressTypeSelectionModal extends Component {
                 <View style={styles.row}>
                   <View pointerEvents="none">
                     <RadioButton
-                      value="normal"
-                      checked={type === 'elsewhere' ? 'checked' : 'unchecked'}
+                      value="elsewhere"
+                      status={type === 'elsewhere' ? 'checked' : 'unchecked'}
                     />
                   </View>
                   <IconFactory
