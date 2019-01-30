@@ -33,6 +33,7 @@ class App extends Component {
 
   onLanguageSelect = name => {
     this.props.dispatch(ACTIONS.setLanguage(name));
+    this.props.dispatch(ACTIONS.setInstalled(true));
   };
 
   dismissNotification = () => {
@@ -98,14 +99,14 @@ class App extends Component {
     if (!app.booted) return null;
 
     if (!app.installed) {
-      if (app.has_set_language) {
-        return (
-          <SplashScreen
-            onEndReached={this.loadApp}
-            onLanguageSelect={this.onLanguageSelect}
-          />
-        );
-      }
+      // if (app.has_set_language) {
+      //   return (
+      //     <SplashScreen
+      //       onEndReached={this.loadApp}
+      //       onLanguageSelect={this.onLanguageSelect}
+      //     />
+      //   );
+      // }
       return <LanguageSelectScene onItemPress={this.onLanguageSelect} />;
     }
 

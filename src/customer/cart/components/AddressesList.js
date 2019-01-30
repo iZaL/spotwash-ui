@@ -22,7 +22,7 @@ export default class AddressesList extends Component {
     return (
       <TouchableRipple onPress={() => onItemPress(item)}>
         <AddressInfo
-          style={activeItemID === item.id && {backgroundColor: colors.primary}}
+          style={[styles.itemContainer,activeItemID === item.id && {backgroundColor: colors.primary}]}
           textStyle={activeItemID === item.id && {color: colors.white}}
           address={item}
         />
