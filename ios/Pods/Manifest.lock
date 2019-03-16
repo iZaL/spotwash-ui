@@ -3,7 +3,7 @@ PODS:
   - CocoaLumberjack (3.5.2):
     - CocoaLumberjack/Core (= 3.5.2)
   - CocoaLumberjack/Core (3.5.2)
-  - CodePush (5.5.2):
+  - CodePush (5.5.3):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.7)
     - React
@@ -73,15 +73,15 @@ PODS:
   - RNBackgroundGeolocation (2.14.2):
     - CocoaLumberjack (~> 3.0)
     - React
-  - RNDeviceInfo (0.21.5):
+  - RNDeviceInfo (1.0.0):
     - React
   - RNI18n (2.0.15):
     - React
-  - RNImageCropPicker (0.22.0):
+  - RNImageCropPicker (0.23.0):
     - QBImagePickerController
     - React/Core
     - RSKImageCropper
-  - RNVectorIcons (6.1.0):
+  - RNVectorIcons (6.4.1):
     - React
   - RSKImageCropper (2.2.1)
   - SSZipArchive (2.1.4)
@@ -148,7 +148,7 @@ SPEC CHECKSUMS:
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
   RNBackgroundFetch: 8c4f77f83c398c659bce82af2f0a885079417b9e
   RNBackgroundGeolocation: c9bbf69b9aa277f0b46754cc5f853bd26051a18f
-  RNDeviceInfo: 568c5641057313b4912d08a7742ff0b2f753ed5c
+  RNDeviceInfo: 8a21b2687c7c829362ca0ccc3a8b5380a42dd59f
   RNI18n: 46b8694063fbd699f2c06a4dc8e835b3176763b1
   RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
