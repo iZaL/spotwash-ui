@@ -462,32 +462,57 @@ class CreateOrder extends PureComponent {
     this.hideAddressTypeSelectionModal();
 
     if (type === 'current_location') {
-      BackgroundGeolocation.getCurrentPosition(
-        location => {
-          let {latitude, longitude} = location.coords;
+      navigator.geolocation.getCurrentPosition(
+        position => {
           this.setState(
             {
               address: {
-                latitude: latitude,
-                longitude: longitude,
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
               },
             },
-            () => {},
+            () => {
+              this.showAddressCreateModal();
+            },
           );
         },
-        error => {
-          console.log('error');
-        },
+        error => {},
         {
-          persist: true,
-          samples: 1,
-          maximumAge: 5000,
+          enableHighAccuracy: true,
+          timeout: 20000,
+          maximumAge: 1000,
         },
       );
-      this.saveAddress(this.state.address);
     } else {
       this.showAddressCreateModal();
     }
+    // if (type === 'current_location') {
+    //   BackgroundGeolocation.getCurrentPosition(
+    //     location => {
+    //       let {latitude, longitude} = location.coords;
+    //       this.setState(
+    //         {
+    //           address: {
+    //             latitude: latitude,
+    //             longitude: longitude,
+    //           },
+    //         },
+    //         () => {},
+    //       );
+    //     },
+    //     error => {
+    //       console.log('error');
+    //     },
+    //     {
+    //       persist: true,
+    //       samples: 1,
+    //       maximumAge: 5000,
+    //     },
+    //   );
+    //   this.saveAddress(this.state.address);
+    // } else {
+    //   this.showAddressCreateModal();
+    // }
   };
 
   render() {
@@ -606,7 +631,6 @@ class CreateOrder extends PureComponent {
             onCancel={this.hideAddressCreateModal}
             onSave={this.saveAddress}
             address={address}
-            areas={areas}
             savingAddress={savingAddress}
           />
         </Modal>
@@ -625,68 +649,6 @@ class CreateOrder extends PureComponent {
           />
         </Modal>
 
-        <Modal
-          isVisible={showOrderSuccessModal}
-          animationType="slide"
-          backdropOpacity={0.8}
-          transparent={true}
-          backdropColor="rgba(0,0,0,0.5)"
-          useNativeDriver={true}
-          hideModalContentWhileAnimating={true}
-          style={{margin: 0, padding: 0, backgroundColor: 'white'}}>
-          <View style={{height: 350}}>
-            <MapView
-              // provider={PROVIDER_GOOGLE}
-              ref={ref => {
-                this.map = ref;
-              }}
-              style={{flex: 1}}
-              region={origin}
-              onMapReady={this.onMapLayout}
-              maxZoomLevel={12}
-              showsUserLocation={true}
-              showsMyLocationButton={true}
-              // onLongPress={this.pauseTrackingUpdate}
-              // onPress={this.pauseTrackingUpdate}
-            >
-              {drivers.map((driver, index) => {
-                const {heading} = driver;
-                const rotate =
-                  typeof heading === 'number' && heading >= 0
-                    ? `${heading}deg`
-                    : undefined;
-
-                return (
-                  <MapView.Marker
-                    key={`${index}`}
-                    anchor={{x: 0.5, y: 0.5, position: 'relative'}}
-                    coordinate={{...driver}}
-                    identifier="MarkerOrigin"
-                    mapPadding={5}>
-                    <Image
-                      source={images.car}
-                      style={[
-                        {
-                          width: 20,
-                          height: 40,
-                        },
-                        rotate && {transform: [{rotate}]},
-                      ]}
-                    />
-                  </MapView.Marker>
-                );
-              })}
-            </MapView>
-          </View>
-
-          <OrderSuccess
-            onPress={this.onSuccessButtonPress}
-            visible={showOrderSuccessModal}
-            onHide={this.hideSuccessModal}
-            cart={cart}
-            total={cartTotal}
-          />
-        </Modal>
       </ScrollView>
     );
   }
