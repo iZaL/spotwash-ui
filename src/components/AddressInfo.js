@@ -23,7 +23,7 @@ export default class AddressInfo extends Component {
     const {area, block, street, avenue, building} = this.props.address;
 
     return (
-      <Text style={[styles.value, style]}>
+      <Text style={[styles.text, style]}>
         {area && <Text style={{textAlign: 'left'}}>{area.name + ', '}</Text>}
 
         <Text>
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   text: {
-    color: colors.primary,
+    // color: colors.white,
   },
 });

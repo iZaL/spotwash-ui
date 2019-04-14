@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ACTIONS} from 'customer/common/actions';
-import MapView from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {
   Dimensions,
   Image,
@@ -133,27 +133,25 @@ class TrackScene extends PureComponent {
   render() {
     let {orders, drivers} = this.props;
 
-    // let origin = {
-    //   // latitude: 37.48522,
-    //   // longitude: -122.23635,
-    //   latitude: 29.3772392006689,
-    //   longitude: 47.98511826155676,
-    //   heading: 0,
-    //   latitudeDelta: LATITUDE_DELTA,
-    //   longitudeDelta: LONGITUDE_DELTA,
-    // };
-    //
     let origin = {
-      latitude: 37.48522,
-      longitude: -122.23635,
-      // latitude: 29.378586,
-      // longitude: 47.990341,
-      latitudeDelta: 1,
-      longitudeDelta: 1,
+      // latitude: 37.48522,
+      // longitude: -122.23635,
+      latitude: 29.3772392006689,
+      longitude: 47.98511826155676,
+      heading: 0,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
     };
-
+    //
+    // let origin = {
+    //   latitude: 37.48522,
+    //   longitude: -122.23635,
+    //   // latitude: 29.378586,
+    //   // longitude: 47.990341,
+    //   latitudeDelta: 1,
+    //   longitudeDelta: 1,
+    // };
     console.log('drivers', drivers);
-
     // let drivers = [
     //   {
     //     driver_id: 1,
@@ -193,7 +191,7 @@ class TrackScene extends PureComponent {
 
         <View style={{height: 350}}>
           <MapView
-            // provider={PROVIDER_GOOGLE}
+            provider={PROVIDER_GOOGLE}
             ref={ref => {
               this.map = ref;
             }}

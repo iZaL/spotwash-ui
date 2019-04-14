@@ -58,38 +58,38 @@ class CreateOrder extends PureComponent {
     savingAddress: false,
   };
 
-  static navigationOptions = ({navigation}) => {
-    return {
-      headerRight: (
-        <View>
-          <Text
-            style={{
-              position: 'absolute',
-              left: 8,
-              top: 3,
-              fontWeight: '700',
-              color: colors.maroon,
-              fontSize: 15,
-            }}>
-            {navigation.state.params && navigation.state.params.cartItemsCount}
-          </Text>
-          <NavButton
-            icon={
-              <MaterialCommunityIcons
-                name="cart-outline"
-                size={30}
-                color={colors.white}
-              />
-            }
-            onPress={() =>
-              navigation.state.params &&
-              navigation.state.params.handleRightButtonPress()
-            }
-          />
-        </View>
-      ),
-    };
-  };
+  // static navigationOptions = ({navigation}) => {
+  //   return {
+  //     headerRight: (
+  //       <View>
+  //         <Text
+  //           style={{
+  //             position: 'absolute',
+  //             left: 8,
+  //             top: 3,
+  //             fontWeight: '700',
+  //             color: colors.maroon,
+  //             fontSize: 15,
+  //           }}>
+  //           {navigation.state.params && navigation.state.params.cartItemsCount}
+  //         </Text>
+  //         <NavButton
+  //           icon={
+  //             <MaterialCommunityIcons
+  //               name="cart-outline"
+  //               size={30}
+  //               color={colors.white}
+  //             />
+  //           }
+  //           onPress={() =>
+  //             navigation.state.params &&
+  //             navigation.state.params.handleRightButtonPress()
+  //           }
+  //         />
+  //       </View>
+  //     ),
+  //   };
+  // };
 
   componentDidMount() {
     this.props.actions.fetchCategories();
@@ -435,6 +435,9 @@ class CreateOrder extends PureComponent {
         this.props.actions.checkout({item, resolve, reject});
       })
         .then(order => {
+
+          console.log('order',order);
+
           if (order.status == 'success') {
             this.setState({
               showOrderSuccessModal: true,

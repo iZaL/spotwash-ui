@@ -168,9 +168,9 @@
   "slider_4" : "Get Started",
 
   "comment" : "Comment",
-  "elsewhere" : "Elsewhere",
+  "elsewhere" : "Another Location",
   "current_location" : "My Current Location",
-  "select_location_type" : "Select Location",
+  "select_location_type" : "Choose Address",
   "next" : "Next",
   "label" : "Label",
   "get_free_wash" : "Get Free Wash",
@@ -182,7 +182,7 @@
 
   "bidding_closed" : "Bid for this order has been closed",
   "ok" : "OK",
-  "send_request" : "Send Request",
+  "send_request" : "Create Order",
   "bids": "Bids",
 
   "order_requests" : "Order Requests",

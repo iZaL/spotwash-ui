@@ -44,11 +44,11 @@ export default class AddressTypeSelectionModal extends Component {
                       }
                     />
                   </View>
-                  <IconFactory
-                    type="MaterialIcons"
-                    name="my-location"
-                    color={colors.error}
-                  />
+                  {/*<IconFactory*/}
+                  {/*  type="MaterialIcons"*/}
+                  {/*  name="my-location"*/}
+                  {/*  color={colors.error}*/}
+                  {/*/>*/}
                   <Subheading style={styles.text}>
                     {I18n.t('current_location')}
                   </Subheading>
@@ -63,11 +63,11 @@ export default class AddressTypeSelectionModal extends Component {
                       status={type === 'elsewhere' ? 'checked' : 'unchecked'}
                     />
                   </View>
-                  <IconFactory
-                    type="MaterialIcons"
-                    name="location-on"
-                    color={colors.error}
-                  />
+                  {/*<IconFactory*/}
+                  {/*  type="MaterialIcons"*/}
+                  {/*  name="location-on"*/}
+                  {/*  color={colors.error}*/}
+                  {/*/>*/}
 
                   <Subheading style={styles.text}>
                     {I18n.t('elsewhere')}

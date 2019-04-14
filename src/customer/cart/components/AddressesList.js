@@ -22,7 +22,7 @@ export default class AddressesList extends Component {
     return (
       <TouchableRipple onPress={() => onItemPress(item)}>
         <AddressInfo
-          style={[styles.itemContainer,activeItemID === item.id && {backgroundColor: colors.primary}]}
+          style={[styles.itemContainer,activeItemID === item.id && styles.addressFieldActive]}
           textStyle={activeItemID === item.id && {color: colors.white}}
           address={item}
         />
@@ -55,20 +55,19 @@ const styles = StyleSheet.create({
   listContainer: {},
   itemContainer: {
     flexDirection: 'row',
-    padding: 5,
+    padding: 10,
     marginHorizontal: 5,
     backgroundColor: colors.lightGrey,
     borderRadius: 5,
     marginVertical: 5,
+    color:colors.primary
   },
   addressField: {
     color: colors.darkGrey,
     fontWeight: '500',
   },
-  itemContainerActive: {
-    backgroundColor: colors.primary,
-  },
   addressFieldActive: {
     color: colors.white,
+    backgroundColor: colors.primary,
   },
 });

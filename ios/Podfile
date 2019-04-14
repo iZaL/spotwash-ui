@@ -29,6 +29,8 @@ target 'spotwash' do
    pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
    pod 'CodePush', :path => '../node_modules/react-native-code-push'
    pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+   pod 'react-native-async-storage', :path => '../node_modules/@react-native-community/async-storage'
+
 end
 
 post_install do |installer|

@@ -1,4 +1,4 @@
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const setStorageItem = (key, value) => AsyncStorage.setItem(key, value);
 export const getStorageItem = key => AsyncStorage.getItem(key);

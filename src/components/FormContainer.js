@@ -13,7 +13,7 @@ export default class FormContainer extends Component {
     return (
       <View
         style={[
-          {flex: 1, backgroundColor: colors.primary, padding: 10},
+          {flex: 1, backgroundColor: colors.white, padding: 10},
           style,
         ]}>
         {children}
