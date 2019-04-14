@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import {PAYMENT_ENDPOINT} from 'utils/env';
 import Dialog from 'components/Dialog';
 import I18n from 'utils/locale';
-
 class Payment extends Component {
   /**
    * @props
