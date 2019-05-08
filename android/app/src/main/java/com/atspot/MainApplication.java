@@ -1,4 +1,4 @@
-package com.spotwash;
+package com.atspot;
 
 import android.app.Application;
 

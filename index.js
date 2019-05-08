@@ -30,4 +30,4 @@ const Root = () => {
 };
 
 
-AppRegistry.registerComponent('spotwash', () => Root);
+AppRegistry.registerComponent('atspot', () => Root);
