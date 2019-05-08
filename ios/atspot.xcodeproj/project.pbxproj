@@ -193,6 +193,13 @@
 			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
 			remoteInfo = "RCTPushNotification-tvOS";
 		};
+		35685BCB2282F66500B3ED2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FF60E77246EE4782A9862593 /* RNGestureHandler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
+			remoteInfo = "RNGestureHandler-tvOS";
+		};
 		35A53ED5223CF77A00637DD2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -597,6 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				35C5E93F21B7B75D00E5E711 /* libRNGestureHandler.a */,
+				35685BCC2282F66500B3ED2B /* libRNGestureHandler-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1009,6 +1017,13 @@
 			fileType = archive.ar;
 			path = "libRCTPushNotification-tvOS.a";
 			remoteRef = 35271DB020BD75EB00E14535 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		35685BCC2282F66500B3ED2B /* libRNGestureHandler-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNGestureHandler-tvOS.a";
+			remoteRef = 35685BCB2282F66500B3ED2B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		35A53ED6223CF77A00637DD2 /* libjsi.a */ = {
@@ -1437,7 +1452,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.atspot.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ideasowners.atspot;
 				PRODUCT_NAME = atspot;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1464,7 +1479,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.atspot.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ideasowners.atspot;
 				PRODUCT_NAME = atspot;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
