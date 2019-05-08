@@ -15,7 +15,6 @@ export default class OrderList extends Component {
     items: PropTypes.array.isRequired,
     onItemPress: PropTypes.func.isRequired,
     onItemTrackPress: PropTypes.func.isRequired,
-    onCreateOrderPress: PropTypes.func.isRequired,
   };
 
   renderItem = ({item}) => {

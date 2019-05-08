@@ -2,20 +2,15 @@
  * @flow
  */
 import React, {PureComponent} from 'react';
-import {Alert, ScrollView, Text, View, Dimensions, Image} from 'react-native';
+import {Alert, ScrollView, View} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ACTIONS, ACTIONS as CART_ACTIONS} from 'customer/common/actions';
 import {ACTIONS as APP_ACTIONS} from 'app/common/actions';
-import {
-  SELECTORS,
-  SELECTORS as ORDER_SELECTORS,
-} from 'customer/selectors/orders';
+import {SELECTORS, SELECTORS as ORDER_SELECTORS,} from 'customer/selectors/orders';
 import CategoriesList from 'customer/orders/components/CategoriesList';
 import I18n from 'utils/locale';
-import NavButton from 'components/NavButton';
 import colors from 'assets/theme/colors';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Button from 'components/Button';
 import Modal from 'react-native-modal';
 import CategoriesChildrenList from './components/CategoriesChildrenList';
@@ -25,25 +20,17 @@ import AddressesList from 'customer/cart/components/AddressesList';
 import {SELECTORS as USER_SELECTORS} from 'guest/common/selectors';
 import CreateAddress from 'customer/cart/components/CreateAddress';
 import AddressTypeSelectionModal from 'customer/cart/components/AddressTypeSelectionModal';
-import BackgroundGeolocation from 'react-native-background-geolocation';
 import CreateAddressFields from 'customer/cart/components/CreateAddressFields';
-import OrderSuccess from 'customer/cart/components/OrderSuccess';
 import ConfirmedButton from 'components/ConfirmedButton';
 import moment from 'moment';
-import MapView from 'react-native-maps';
-const DEFAULT_PADDING = {top: 100, right: 100, bottom: 100, left: 100};
+import OrderSuccess from "../cart/components/OrderSuccess";
 
-const {width, height} = Dimensions.get('window');
-const ASPECT_RATIO = width / height;
-const LATITUDE_DELTA = 0.3;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-import images from 'assets/theme/images';
+const DEFAULT_PADDING = {top: 100, right: 100, bottom: 100, left: 100};
 
 class CreateOrder extends PureComponent {
   state = {
     dates: [],
-    showCartSuccessModal: false,
-    showFreewashModal: false,
+    // showCartSuccessModal: false,
     addressCreateModalVisible: false,
     addressCreateFieldsModalVisible: false,
     showCheckoutConfirmDialog: false,
@@ -56,40 +43,8 @@ class CreateOrder extends PureComponent {
       longitude: 47.9774,
     },
     savingAddress: false,
+    showOrderSuccessModal:false
   };
-
-  // static navigationOptions = ({navigation}) => {
-  //   return {
-  //     headerRight: (
-  //       <View>
-  //         <Text
-  //           style={{
-  //             position: 'absolute',
-  //             left: 8,
-  //             top: 3,
-  //             fontWeight: '700',
-  //             color: colors.maroon,
-  //             fontSize: 15,
-  //           }}>
-  //           {navigation.state.params && navigation.state.params.cartItemsCount}
-  //         </Text>
-  //         <NavButton
-  //           icon={
-  //             <MaterialCommunityIcons
-  //               name="cart-outline"
-  //               size={30}
-  //               color={colors.white}
-  //             />
-  //           }
-  //           onPress={() =>
-  //             navigation.state.params &&
-  //             navigation.state.params.handleRightButtonPress()
-  //           }
-  //         />
-  //       </View>
-  //     ),
-  //   };
-  // };
 
   componentDidMount() {
     this.props.actions.fetchCategories();
@@ -126,24 +81,6 @@ class CreateOrder extends PureComponent {
   }
 
   onMapLayout = () => {
-    // this.map.fitToElements(true);
-    // let drivers = [
-    //   {
-    //     driver_id: 1,
-    //     heading: 305.16,
-    //     job_id: '1',
-    //     latitude: 29.33285,
-    //     longitude: 48.05415,
-    //   },
-    //   {
-    //     driver_id: 2,
-    //     heading: 305.16,
-    //     job_id: '1',
-    //     latitude: 29.3195616,
-    //     longitude: 47.991724
-    //   },
-    // ];
-    //
     this.map.fitToCoordinates(this.props.drivers, {
       edgePadding: DEFAULT_PADDING,
       animated: true,
@@ -208,12 +145,12 @@ class CreateOrder extends PureComponent {
     this.performCheckout();
 
     // dispatch order success
-    this.setState(
-      {
-        showCartSuccessModal: true,
-      },
-      () => this.setCartItemsCount(),
-    );
+    // this.setState(
+    //   {
+    //     showCartSuccessModal: true,
+    //   },
+    //   () => this.setCartItemsCount(),
+    // );
   };
 
   checkout = () => {
@@ -614,7 +551,8 @@ class CreateOrder extends PureComponent {
           style={{
             backgroundColor: colors.primary,
           }}
-          title={I18n.t('send_request')}
+          title={I18n.t('you_sure')}
+          description={I18n.t('send_request')}
         />
 
         <AddressTypeSelectionModal
@@ -649,6 +587,24 @@ class CreateOrder extends PureComponent {
             onCancel={this.hideAddressCreateFieldsModal}
             onSave={this.updateAddress}
             address={{...address}}
+          />
+        </Modal>
+
+        <Modal
+            isVisible={showOrderSuccessModal}
+            animationType="slide"
+            backdropOpacity={0.8}
+            transparent={true}
+            backdropColor="rgba(0,0,0,0.5)"
+            useNativeDriver={true}
+            hideModalContentWhileAnimating={true}
+            style={{margin: 0, padding: 0, backgroundColor: 'white'}}>
+          <OrderSuccess
+              onPress={this.onSuccessButtonPress}
+              visible={showOrderSuccessModal}
+              onHide={this.onSuccessButtonPress}
+              cart={cart}
+              total={cartTotal}
           />
         </Modal>
 
