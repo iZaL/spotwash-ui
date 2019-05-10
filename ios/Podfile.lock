@@ -1,8 +1,8 @@
 PODS:
   - Base64 (1.1.2)
-  - CocoaLumberjack (3.5.2):
-    - CocoaLumberjack/Core (= 3.5.2)
-  - CocoaLumberjack/Core (3.5.2)
+  - CocoaLumberjack (3.5.3):
+    - CocoaLumberjack/Core (= 3.5.3)
+  - CocoaLumberjack/Core (3.5.3)
   - CodePush (5.6.0):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.7)
@@ -86,7 +86,7 @@ PODS:
   - RNVectorIcons (6.4.2):
     - React
   - RSKImageCropper (2.2.1)
-  - SSZipArchive (2.1.5)
+  - SSZipArchive (2.2.1)
   - yoga (0.59.4.React)
 
 DEPENDENCIES:
@@ -153,7 +153,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
-  CocoaLumberjack: 118bf4a820efc641f79fa487b75ed928dccfae23
+  CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
   CodePush: 300e90b3481fa82569090406165b83745de3613a
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
@@ -170,9 +170,9 @@ SPEC CHECKSUMS:
   RNImageCropPicker: a4c8db5757926bda8b04ba6796cc2a21cc6fd783
   RNVectorIcons: 6607bd3a30291d0edb56f9bbe7ae411ee2b928b0
   RSKImageCropper: 98296ad26b41753f796b6898d015509598f13d97
-  SSZipArchive: cefe1364104a0231268a5deb8495bdf2861f52f0
+  SSZipArchive: 8e859da2520142e09166bc9161967db296e9d02f
   yoga: 596e61c9b57751d08a22b07aba310dbd3e65ab75
 
-PODFILE CHECKSUM: c1328d826acee509019572126aff594115fb7f3a
+PODFILE CHECKSUM: ce3eacc2cc60df0f2c536cfa3c4703848a3d7145
 
 COCOAPODS: 1.6.1
