@@ -29,6 +29,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+    <key>CodePushDeploymentKey</key>
+    <string>00-7t-lfnezsXQMK26rD-2aooQe7687af85f-1654-43d6-b735-3ff7e4bf4cd7</string>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your camera</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>

@@ -19,6 +19,7 @@ target 'atspot' do
      'RCTVibration',
      'RCTWebSocket'
    ]
+
    pod 'react-native-maps', path: rn_maps_path
    pod 'GoogleMaps'  # Remove this line if you don't want to support Google Maps on iOS
    pod 'react-native-google-maps', path: rn_maps_path  # Remove this line if you don't want to support Google Maps on iOS
@@ -29,7 +30,7 @@ target 'atspot' do
    pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
    pod 'CodePush', :path => '../node_modules/react-native-code-push'
    pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-   pod 'react-native-async-storage', :path => '../node_modules/@react-native-community/async-storage'
+   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
 end
 
